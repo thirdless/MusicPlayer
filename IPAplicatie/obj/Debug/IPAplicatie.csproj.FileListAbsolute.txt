@@ -1,0 +1,10 @@
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\bin\Debug\IPAplicatie.exe.config
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\bin\Debug\IPAplicatie.exe
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\bin\Debug\IPAplicatie.pdb
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.csprojAssemblyReference.cache
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.Properties.Resources.resources
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.csproj.GenerateResource.cache
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.exe
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.pdb
+C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.MainForm.resources
