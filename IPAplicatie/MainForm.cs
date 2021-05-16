@@ -17,6 +17,8 @@ namespace IPAplicatie
 
         PlaylistsListView _playlistsListView;
 
+        SQLManager _sqlManager;
+
         public MainForm()
         {
             InitializeComponent();
@@ -31,7 +33,31 @@ namespace IPAplicatie
                 { "playlist", panelPlaylist }
             };
 
+            _sqlManager = new SQLManager();
+
             _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
+        }
+
+        public string SetLabelSong
+        {
+            set
+            {
+                labelSongName.Text = value;
+            }
+        }
+
+        public string SetLabelArtist
+        {
+            set
+            {
+                labelArtistName.Text = value;
+            }
+        }
+
+        public void DisplayPlayList(string playList)
+        {
+            SetView(panelPlaylist);
+            _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
         }
 
         private void SetView(Panel panel = null)
@@ -42,7 +68,24 @@ namespace IPAplicatie
             }
 
             if (panel != null)
+            {
+                if (panel != panelPlaylistsList)
+                {
+                    _playlistsListView.SetPanel = panel;
+                }
                 panel.Visible = true;
+            }
+        }
+
+        public string CheckView()
+        {
+            foreach (KeyValuePair<string, Panel> item in _views)
+            {
+                if (item.Value.Visible)
+                    return item.Key;
+            }
+
+            return "";
         }
 
         private void SetSongName(string name)
@@ -68,7 +111,7 @@ namespace IPAplicatie
         private void buttonPlaylisturi_Click(object sender, EventArgs e)
         {
             SetView(panelPlaylistsList);
-            _playlistsListView.CreatePlaylists();
+            _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
         }
 
         private void buttonCautare_Click(object sender, EventArgs e)

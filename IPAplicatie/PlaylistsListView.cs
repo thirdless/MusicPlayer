@@ -23,22 +23,30 @@ namespace IPAplicatie
             _panel = panel;
         }
 
-        public void CreatePlaylists()
+        public void CreatePlaylists(Dictionary<string, string> playLists)
         {
-            _items = new ListItem[_itemsNo];
+            _items = new ListItem[playLists.Keys.Count];
 
-            for (int i = 0; i < _itemsNo; i++)
+            for (int i = 0; i < playLists.Keys.Count; ++i)
             {
-                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, "Playlist #" + (i + 1), "cateva melodii • 120 de minute", new EventHandler(ClickEvent), null);
+                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), new EventHandler(ClickEvent), null);
                 _panel.Controls.Add(_items[i].Panel);
             }
 
             _panel.Height = _height * _itemsNo;
         }
-
+        
         public void Dispose()
         {
             _panel.Dispose();
+        }
+
+        public Panel SetPanel
+        {
+            set
+            {
+                _panel = value;
+            }
         }
 
         private void ClickEvent(object sender, EventArgs e)
@@ -63,9 +71,16 @@ namespace IPAplicatie
 
             if (parent != null)
             {
-                string id = parent.Name.Substring("panelItem".Length),
-                    name = parent.Controls.Find("labelItemName" + id, false)[0].Text,
-                    secondary = parent.Controls.Find("labelItemSecondary" + id, false)[0].Text;
+                if (_mainForm.CheckView() == "playlistsList")
+                {
+                    _mainForm.DisplayPlayList(parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text);
+                }
+                else 
+                if (_mainForm.CheckView() == "playlist")
+                {
+                    _mainForm.SetLabelSong = parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text;
+                    _mainForm.SetLabelArtist = parent.Controls.Find("labelItemSecondary" + parent.Name.Substring("panelItem".Length), false)[0].Text;
+                }
             }
         }
 

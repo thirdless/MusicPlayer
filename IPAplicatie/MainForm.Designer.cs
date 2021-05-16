@@ -64,9 +64,6 @@ namespace IPAplicatie
             this.panelAcasa = new System.Windows.Forms.Panel();
             this.panelPlaylist = new System.Windows.Forms.Panel();
             this.panelPlaylistSongs = new System.Windows.Forms.Panel();
-            this.labelPlaylistDetails = new System.Windows.Forms.Label();
-            this.labelPlaylistName = new System.Windows.Forms.Label();
-            this.pictureBoxPlaylist = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altcevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +102,6 @@ namespace IPAplicatie
             this.panelSearch.SuspendLayout();
             this.panelYoutube.SuspendLayout();
             this.panelPlaylist.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlaylist)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.panelEqualizer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
@@ -506,9 +502,6 @@ namespace IPAplicatie
             // panelPlaylist
             // 
             this.panelPlaylist.Controls.Add(this.panelPlaylistSongs);
-            this.panelPlaylist.Controls.Add(this.labelPlaylistDetails);
-            this.panelPlaylist.Controls.Add(this.labelPlaylistName);
-            this.panelPlaylist.Controls.Add(this.pictureBoxPlaylist);
             this.panelPlaylist.Location = new System.Drawing.Point(1, 62);
             this.panelPlaylist.Name = "panelPlaylist";
             this.panelPlaylist.Size = new System.Drawing.Size(1010, 459);
@@ -521,39 +514,6 @@ namespace IPAplicatie
             this.panelPlaylistSongs.Name = "panelPlaylistSongs";
             this.panelPlaylistSongs.Size = new System.Drawing.Size(977, 300);
             this.panelPlaylistSongs.TabIndex = 10;
-            // 
-            // labelPlaylistDetails
-            // 
-            this.labelPlaylistDetails.AutoSize = true;
-            this.labelPlaylistDetails.Font = new System.Drawing.Font("Microsoft PhagsPa", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaylistDetails.ForeColor = System.Drawing.Color.White;
-            this.labelPlaylistDetails.Location = new System.Drawing.Point(190, 89);
-            this.labelPlaylistDetails.Name = "labelPlaylistDetails";
-            this.labelPlaylistDetails.Size = new System.Drawing.Size(276, 26);
-            this.labelPlaylistDetails.TabIndex = 9;
-            this.labelPlaylistDetails.Text = "50 de melodii • 120 de minute";
-            // 
-            // labelPlaylistName
-            // 
-            this.labelPlaylistName.AutoSize = true;
-            this.labelPlaylistName.Font = new System.Drawing.Font("Microsoft PhagsPa", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlaylistName.ForeColor = System.Drawing.Color.White;
-            this.labelPlaylistName.Location = new System.Drawing.Point(188, 40);
-            this.labelPlaylistName.Name = "labelPlaylistName";
-            this.labelPlaylistName.Size = new System.Drawing.Size(152, 37);
-            this.labelPlaylistName.TabIndex = 8;
-            this.labelPlaylistName.Text = "Playlist #1";
-            // 
-            // pictureBoxPlaylist
-            // 
-            this.pictureBoxPlaylist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.pictureBoxPlaylist.Image = global::IPAplicatie.Properties.Resources.music;
-            this.pictureBoxPlaylist.Location = new System.Drawing.Point(53, 18);
-            this.pictureBoxPlaylist.Name = "pictureBoxPlaylist";
-            this.pictureBoxPlaylist.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxPlaylist.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxPlaylist.TabIndex = 7;
-            this.pictureBoxPlaylist.TabStop = false;
             // 
             // contextMenuStrip1
             // 
@@ -885,7 +845,6 @@ namespace IPAplicatie
             this.panelYoutube.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
             this.panelPlaylist.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPlaylist)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelEqualizer.ResumeLayout(false);
             this.panelEqualizer.PerformLayout();
@@ -937,9 +896,6 @@ namespace IPAplicatie
         private System.Windows.Forms.Button buttonYoutubeAdd;
         private System.Windows.Forms.Panel panelAcasa;
         private System.Windows.Forms.Panel panelPlaylist;
-        private System.Windows.Forms.Label labelPlaylistDetails;
-        private System.Windows.Forms.Label labelPlaylistName;
-        private System.Windows.Forms.PictureBox pictureBoxPlaylist;
         private System.Windows.Forms.Panel panelPlaylistSongs;
         private System.Windows.Forms.Button buttonPlaylistsListCreate;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

@@ -8,3 +8,22 @@ C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.csproj.Core
 C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.exe
 C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.pdb
 C:\Users\third\Desktop\IPAplicatie\IPAplicatie\obj\Debug\IPAplicatie.MainForm.resources
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.exe.config
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.exe
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.MainForm.resources
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.Properties.Resources.resources
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.GenerateResource.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.exe
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.SqlServer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.EF6.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.Linq.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.SqlServer.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
