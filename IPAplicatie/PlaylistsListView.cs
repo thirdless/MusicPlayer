@@ -25,6 +25,10 @@ namespace IPAplicatie
 
         public void CreatePlaylists(Dictionary<string, string> playLists)
         {
+            if (_items != null &&_items.Length > 0)
+                foreach (ListItem item in _items)
+                    item.Dispose();
+
             _items = new ListItem[playLists.Keys.Count];
 
             for (int i = 0; i < playLists.Keys.Count; ++i)
@@ -36,11 +40,6 @@ namespace IPAplicatie
             _panel.Height = _height * _itemsNo;
         }
         
-        public void Dispose()
-        {
-            _panel.Dispose();
-        }
-
         public Panel SetPanel
         {
             set

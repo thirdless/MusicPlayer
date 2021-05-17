@@ -23,11 +23,11 @@ namespace IPAplicatie
             }
             else if (style == 1)
             {
-                
+
             }
             else
-            { 
-                
+            {
+
             }
             //
             // Panel
@@ -92,6 +92,23 @@ namespace IPAplicatie
             _panel.Controls.Add(_secondary);
         }
 
+        public void Dispose()
+        {
+            for (int i = 0; i < _panel.Controls.Count; ++i)
+            {
+                try
+                {
+                    _panel.Controls[i].Dispose();
+                }
+                catch (Exception ex)
+                {
+                    _panel.Controls.RemoveAt(i);
+                }
+            }
+
+            _panel.Dispose();
+        }
+    
         public Label ItemName
         {
             get { return _name; }

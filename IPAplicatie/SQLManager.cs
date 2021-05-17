@@ -168,6 +168,28 @@ namespace IPAplicatie
             return rez;
         }
 
+        public Dictionary<string, string> SearchSongsByName(string wildcard)
+        {
+            Dictionary<string, string> rez = new Dictionary<string, string>();
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT Nume_Melodie FROM Melodie WHERE Nume_Melodie LIKE \'%" + wildcard + "%\'";
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string temp = reader.GetString(0);
+
+                rez[temp] = GetSongStats(temp);
+            }
+
+            return rez;
+        }
+
         public List<string> GetListSongs(int listID)
         {
             List<string> songs = new List<string>();

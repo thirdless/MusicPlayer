@@ -52,6 +52,7 @@ namespace IPAplicatie
             this.buttonPlaylistsListCreate = new System.Windows.Forms.Button();
             this.panelPlaylistsListResult = new System.Windows.Forms.Panel();
             this.labelPlaylistsListPanelTitle = new System.Windows.Forms.Label();
+            this.labelPlaylistSongsTitle = new System.Windows.Forms.Label();
             this.panelSearch = new System.Windows.Forms.Panel();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
@@ -70,27 +71,27 @@ namespace IPAplicatie
             this.altcevaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonEqualizer = new System.Windows.Forms.Button();
             this.panelEqualizer = new System.Windows.Forms.Panel();
-            this.trackBarEq1 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq2 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq3 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq4 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq5 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq6 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq7 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq8 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq9 = new System.Windows.Forms.TrackBar();
-            this.trackBarEq10 = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.buttonEqualizerSave = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.trackBarEq10 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq9 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq8 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq7 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq6 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq5 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq4 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq3 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq2 = new System.Windows.Forms.TrackBar();
+            this.trackBarEq1 = new System.Windows.Forms.TrackBar();
             this.panelMedia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).BeginInit();
@@ -104,16 +105,16 @@ namespace IPAplicatie
             this.panelPlaylist.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelEqualizer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAcasa
@@ -391,6 +392,18 @@ namespace IPAplicatie
             this.labelPlaylistsListPanelTitle.TabIndex = 0;
             this.labelPlaylistsListPanelTitle.Text = "Toate playlisturile";
             // 
+            // labelPlaylistSongsTitle
+            // 
+            this.labelPlaylistSongsTitle.AutoSize = true;
+            this.labelPlaylistSongsTitle.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlaylistSongsTitle.Font = new System.Drawing.Font("Microsoft PhagsPa", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlaylistSongsTitle.ForeColor = System.Drawing.Color.White;
+            this.labelPlaylistSongsTitle.Location = new System.Drawing.Point(23, 24);
+            this.labelPlaylistSongsTitle.Name = "labelPlaylistSongsTitle";
+            this.labelPlaylistSongsTitle.Size = new System.Drawing.Size(296, 43);
+            this.labelPlaylistSongsTitle.TabIndex = 0;
+            this.labelPlaylistSongsTitle.Text = "Toate playlisturile";
+            // 
             // panelSearch
             // 
             this.panelSearch.Controls.Add(this.buttonSearch);
@@ -416,6 +429,7 @@ namespace IPAplicatie
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Text = "Căutare";
             this.buttonSearch.UseVisualStyleBackColor = false;
+            this.buttonSearch.Click += new System.EventHandler(buttonSearch_Click);
             // 
             // textBoxSearch
             // 
@@ -502,6 +516,7 @@ namespace IPAplicatie
             // panelPlaylist
             // 
             this.panelPlaylist.Controls.Add(this.panelPlaylistSongs);
+            this.panelPlaylist.Controls.Add(this.labelPlaylistSongsTitle);
             this.panelPlaylist.Location = new System.Drawing.Point(1, 62);
             this.panelPlaylist.Name = "panelPlaylist";
             this.panelPlaylist.Size = new System.Drawing.Size(1010, 459);
@@ -591,206 +606,6 @@ namespace IPAplicatie
             this.panelEqualizer.TabIndex = 0;
             this.panelEqualizer.Visible = false;
             // 
-            // trackBarEq1
-            // 
-            this.trackBarEq1.Location = new System.Drawing.Point(67, 40);
-            this.trackBarEq1.Name = "trackBarEq1";
-            this.trackBarEq1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq1.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq1.TabIndex = 0;
-            this.trackBarEq1.Value = 5;
-            // 
-            // trackBarEq2
-            // 
-            this.trackBarEq2.Location = new System.Drawing.Point(161, 40);
-            this.trackBarEq2.Name = "trackBarEq2";
-            this.trackBarEq2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq2.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq2.TabIndex = 1;
-            this.trackBarEq2.Value = 5;
-            // 
-            // trackBarEq3
-            // 
-            this.trackBarEq3.Location = new System.Drawing.Point(244, 40);
-            this.trackBarEq3.Name = "trackBarEq3";
-            this.trackBarEq3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq3.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq3.TabIndex = 2;
-            this.trackBarEq3.Value = 5;
-            // 
-            // trackBarEq4
-            // 
-            this.trackBarEq4.Location = new System.Drawing.Point(326, 40);
-            this.trackBarEq4.Name = "trackBarEq4";
-            this.trackBarEq4.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq4.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq4.TabIndex = 3;
-            this.trackBarEq4.Value = 5;
-            // 
-            // trackBarEq5
-            // 
-            this.trackBarEq5.Location = new System.Drawing.Point(411, 40);
-            this.trackBarEq5.Name = "trackBarEq5";
-            this.trackBarEq5.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq5.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq5.TabIndex = 4;
-            this.trackBarEq5.Value = 5;
-            // 
-            // trackBarEq6
-            // 
-            this.trackBarEq6.Location = new System.Drawing.Point(511, 40);
-            this.trackBarEq6.Name = "trackBarEq6";
-            this.trackBarEq6.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq6.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq6.TabIndex = 5;
-            this.trackBarEq6.Value = 5;
-            // 
-            // trackBarEq7
-            // 
-            this.trackBarEq7.Location = new System.Drawing.Point(597, 40);
-            this.trackBarEq7.Name = "trackBarEq7";
-            this.trackBarEq7.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq7.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq7.TabIndex = 6;
-            this.trackBarEq7.Value = 5;
-            // 
-            // trackBarEq8
-            // 
-            this.trackBarEq8.Location = new System.Drawing.Point(693, 40);
-            this.trackBarEq8.Name = "trackBarEq8";
-            this.trackBarEq8.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq8.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq8.TabIndex = 7;
-            this.trackBarEq8.Value = 5;
-            // 
-            // trackBarEq9
-            // 
-            this.trackBarEq9.Location = new System.Drawing.Point(782, 40);
-            this.trackBarEq9.Name = "trackBarEq9";
-            this.trackBarEq9.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq9.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq9.TabIndex = 8;
-            this.trackBarEq9.Value = 5;
-            // 
-            // trackBarEq10
-            // 
-            this.trackBarEq10.Location = new System.Drawing.Point(871, 40);
-            this.trackBarEq10.Name = "trackBarEq10";
-            this.trackBarEq10.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBarEq10.Size = new System.Drawing.Size(56, 303);
-            this.trackBarEq10.TabIndex = 9;
-            this.trackBarEq10.Value = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(50, 361);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 20);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "-40kHz";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(146, 361);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 20);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "-40kHz";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(231, 361);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 20);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "-40kHz";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(313, 361);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 20);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "-40kHz";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(394, 361);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 20);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "-40kHz";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(490, 361);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 20);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "-40kHz";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(582, 361);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 20);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "-40kHz";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(676, 361);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 20);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "-40kHz";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(766, 361);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 20);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "-40kHz";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(855, 361);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(59, 20);
-            this.label11.TabIndex = 19;
-            this.label11.Text = "-40kHz";
-            // 
             // buttonEqualizerSave
             // 
             this.buttonEqualizerSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -805,6 +620,206 @@ namespace IPAplicatie
             this.buttonEqualizerSave.Text = "Salvează";
             this.buttonEqualizerSave.UseVisualStyleBackColor = false;
             this.buttonEqualizerSave.Click += new System.EventHandler(this.buttonEqualizerSave_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(855, 361);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(59, 20);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "-40kHz";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(766, 361);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 20);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "-40kHz";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(676, 361);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 20);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "-40kHz";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(582, 361);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(59, 20);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "-40kHz";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(490, 361);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 20);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "-40kHz";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(394, 361);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 20);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "-40kHz";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(313, 361);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(59, 20);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "-40kHz";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(231, 361);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "-40kHz";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(146, 361);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 20);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "-40kHz";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(50, 361);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 20);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "-40kHz";
+            // 
+            // trackBarEq10
+            // 
+            this.trackBarEq10.Location = new System.Drawing.Point(871, 40);
+            this.trackBarEq10.Name = "trackBarEq10";
+            this.trackBarEq10.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq10.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq10.TabIndex = 9;
+            this.trackBarEq10.Value = 5;
+            // 
+            // trackBarEq9
+            // 
+            this.trackBarEq9.Location = new System.Drawing.Point(782, 40);
+            this.trackBarEq9.Name = "trackBarEq9";
+            this.trackBarEq9.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq9.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq9.TabIndex = 8;
+            this.trackBarEq9.Value = 5;
+            // 
+            // trackBarEq8
+            // 
+            this.trackBarEq8.Location = new System.Drawing.Point(693, 40);
+            this.trackBarEq8.Name = "trackBarEq8";
+            this.trackBarEq8.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq8.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq8.TabIndex = 7;
+            this.trackBarEq8.Value = 5;
+            // 
+            // trackBarEq7
+            // 
+            this.trackBarEq7.Location = new System.Drawing.Point(597, 40);
+            this.trackBarEq7.Name = "trackBarEq7";
+            this.trackBarEq7.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq7.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq7.TabIndex = 6;
+            this.trackBarEq7.Value = 5;
+            // 
+            // trackBarEq6
+            // 
+            this.trackBarEq6.Location = new System.Drawing.Point(511, 40);
+            this.trackBarEq6.Name = "trackBarEq6";
+            this.trackBarEq6.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq6.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq6.TabIndex = 5;
+            this.trackBarEq6.Value = 5;
+            // 
+            // trackBarEq5
+            // 
+            this.trackBarEq5.Location = new System.Drawing.Point(411, 40);
+            this.trackBarEq5.Name = "trackBarEq5";
+            this.trackBarEq5.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq5.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq5.TabIndex = 4;
+            this.trackBarEq5.Value = 5;
+            // 
+            // trackBarEq4
+            // 
+            this.trackBarEq4.Location = new System.Drawing.Point(326, 40);
+            this.trackBarEq4.Name = "trackBarEq4";
+            this.trackBarEq4.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq4.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq4.TabIndex = 3;
+            this.trackBarEq4.Value = 5;
+            // 
+            // trackBarEq3
+            // 
+            this.trackBarEq3.Location = new System.Drawing.Point(244, 40);
+            this.trackBarEq3.Name = "trackBarEq3";
+            this.trackBarEq3.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq3.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq3.TabIndex = 2;
+            this.trackBarEq3.Value = 5;
+            // 
+            // trackBarEq2
+            // 
+            this.trackBarEq2.Location = new System.Drawing.Point(161, 40);
+            this.trackBarEq2.Name = "trackBarEq2";
+            this.trackBarEq2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq2.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq2.TabIndex = 1;
+            this.trackBarEq2.Value = 5;
+            // 
+            // trackBarEq1
+            // 
+            this.trackBarEq1.Location = new System.Drawing.Point(67, 40);
+            this.trackBarEq1.Name = "trackBarEq1";
+            this.trackBarEq1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBarEq1.Size = new System.Drawing.Size(56, 303);
+            this.trackBarEq1.TabIndex = 0;
+            this.trackBarEq1.Value = 5;
             // 
             // MainForm
             // 
@@ -844,20 +859,19 @@ namespace IPAplicatie
             this.panelYoutube.ResumeLayout(false);
             this.panelYoutube.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
-            this.panelPlaylist.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelEqualizer.ResumeLayout(false);
             this.panelEqualizer.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -884,6 +898,7 @@ namespace IPAplicatie
         private System.Windows.Forms.TrackBar trackMediaProgress;
         private System.Windows.Forms.Panel panelPlaylistsList;
         private System.Windows.Forms.Label labelPlaylistsListPanelTitle;
+        private System.Windows.Forms.Label labelPlaylistSongsTitle;
         private System.Windows.Forms.Panel panelSearch;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;

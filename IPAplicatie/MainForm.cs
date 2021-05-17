@@ -57,6 +57,11 @@ namespace IPAplicatie
         public void DisplayPlayList(string playList)
         {
             SetView(panelPlaylist);
+            if (playList != "" && playList != "Toate melodiile")
+                labelPlaylistSongsTitle.Text = playList;
+            else
+                labelPlaylistSongsTitle.Text = "Toate melodiile";
+            _playlistsListView.SetPanel = panelPlaylistSongs;
             _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
         }
 
@@ -106,17 +111,27 @@ namespace IPAplicatie
         private void buttonAcasa_Click(object sender, EventArgs e)
         {
             SetView(panelPlaylist);
+            labelPlaylistSongsTitle.Text = "Cele mai recente";
+            //_playlistsListView.CreatePlaylists();
+
         }
 
         private void buttonPlaylisturi_Click(object sender, EventArgs e)
         {
             SetView(panelPlaylistsList);
+            _playlistsListView.SetPanel = panelPlaylistsListResult;
             _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
         }
 
         private void buttonCautare_Click(object sender, EventArgs e)
         {
             SetView(panelSearch);
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            _playlistsListView.SetPanel = panelSearchResults;
+            _playlistsListView.CreatePlaylists(_sqlManager.SearchSongsByName(textBoxSearch.Text));
         }
 
         private void buttonYoutube_Click(object sender, EventArgs e)
@@ -173,6 +188,7 @@ namespace IPAplicatie
             Form popup = new Form();
             TextBox nameBox = new TextBox();
             Button buttonOK = new Button();
+            Button buttonCancel = new Button();
             popup.Width = 350;
             popup.Height = 120;
             popup.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -185,11 +201,25 @@ namespace IPAplicatie
             nameBox.Top = 20;
             nameBox.Left = 30;
             buttonOK.Text = "OK";
-            buttonOK.Left = 130;
+            buttonOK.Left = 50;
             buttonOK.Top = 50;
-            buttonOK.Click += new EventHandler((object s, EventArgs ev) => { popup.DialogResult = DialogResult.OK; popup.Close(); });
+            buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
+                if (nameBox.Text != "")
+                {
+                    _sqlManager.AddPlaylist(nameBox.Text);
+                    SetView(panelPlaylistsList);
+                    _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
+                }
+                popup.DialogResult =  DialogResult.OK;
+                popup.Close(); 
+            });
+            buttonCancel.Text = "Cancel";
+            buttonCancel.Left = 220;
+            buttonCancel.Top = 50;
+            buttonCancel.Click += new EventHandler((object s, EventArgs ev) => { popup.DialogResult = DialogResult.Abort; popup.Close(); });
             popup.Controls.Add(nameBox);
             popup.Controls.Add(buttonOK);
+            popup.Controls.Add(buttonCancel);
             DialogResult show = popup.ShowDialog(this);
             string result = nameBox.Text;
 
