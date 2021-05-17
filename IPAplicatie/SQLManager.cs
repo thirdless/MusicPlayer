@@ -30,6 +30,8 @@ namespace IPAplicatie
             }
 
             CreateTables();
+
+            AddPlaylist("Toate melodiile");
         }
 
         public void DisposeDatabase()
@@ -91,11 +93,9 @@ namespace IPAplicatie
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
-            cmd.CommandText = "SELECT count(melodieID) FROM Melodie WHERE Sursa_Video = " + url;
+            cmd.CommandText = "SELECT melodieID FROM Melodie WHERE Sursa_Video=\'" + url + "\'";
 
-            int rez = Convert.ToInt32(cmd.ExecuteScalar());
-
-            return rez > 0;
+            return cmd.ExecuteReader().Read();
         }
 
         public bool CheckPlaylist(string name)
@@ -163,7 +163,10 @@ namespace IPAplicatie
 
             reader = cmd.ExecuteReader();
 
-            string rez = reader.GetString(0);
+            string rez = "";
+            
+            if (reader.Read())
+                rez = reader.GetString(0);
 
             return rez;
         }
@@ -324,39 +327,96 @@ namespace IPAplicatie
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
 
-            List<string> songList = new List<string>();
-
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
-            cmd.CommandText = "SELECT Nume_Melodie, Sursa_Video FROM Melodie";
+            cmd.CommandText = "SELECT Nume_Melodie FROM Melodie";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
+            
+            string song;
 
             while (reader.Read())
             {
-                songList.Add(reader.GetString(0) + " " + reader.GetString(1));
-            }
-
-            foreach (string song in songList)
-            {
+                song = reader.GetString(0);
                 rez[song] = GetSongStats(song);
             }
 
             return rez;
         }
 
+        public string GetPrevSong(string playlist, string song)
+        {
+            Dictionary<string, string> list;
+
+            if (playlist != "" && playlist != "Toate melodiile")
+            {
+                list = GetSongsFromPlayList(playlist);
+            }
+            else
+            {
+                list = GetSongs();
+            }
+
+            if (list.Keys.ElementAt(0) == song)
+                return "";
+
+            for (int i = 0; i < list.Keys.Count - 1; ++i)
+            {
+                if (list.Keys.ElementAt(i + 1) == song)
+                    return list.Keys.ElementAt(i);
+            }
+
+            return "";
+        }
+
+        public string GetNextSong(string playlist, string song)
+        {
+            Dictionary<string, string> list;
+
+            if (playlist != "" && playlist != "Toate melodiile")
+            {
+                list = GetSongsFromPlayList(playlist);
+            }
+            else
+            {
+                list = GetSongs();
+            }
+
+            int length = list.Keys.Count;
+
+            if (list.Keys.ElementAt(length - 1) == song)
+                return "";
+
+            for (int i = length - 1; i > 0; ++i)
+            {
+                if (list.Keys.ElementAt(i - 1) == song)
+                    return list.Keys.ElementAt(i);
+            }
+            
+            return "";
+        }
+
         public string GetSongStats(string song)
         {
+            string rez = "";
+
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
             cmd.CommandText = "SELECT Duration FROM Melodie WHERE Nume_Melodie=\'" + song + "\'";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
 
+
             if (reader.Read())
-                return "Duration: " + reader.GetInt32(0);
+            {
+                int duration = reader.GetInt32(0);
+                if (duration % 60 > 9)
+                    rez = "Duration: " + duration / 60 + ":" + duration % 60;
+                else
+                    rez = "Duration: " + duration / 60 + ":0" + duration % 60; 
+            }
             
-            return "";
+            return rez;
         }
 
         public void AddPlaylist(string newList)

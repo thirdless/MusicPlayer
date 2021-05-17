@@ -15,7 +15,7 @@ namespace IPAplicatie
         Label _secondary;
         static private string _fontName = "Microsoft PhagsPa";
 
-        public ListItem(int x, int y, int width, int height, int id, string name, string secondary, EventHandler click, EventHandler doubleClick, int style = 0)
+        public ListItem(int x, int y, int width, int height, int id, string name, string secondary, EventHandler click, int style = 0)
         {
             if (style == 0)
             {
@@ -38,8 +38,7 @@ namespace IPAplicatie
             _panel.Top = y;
             _panel.Width = width;
             _panel.Height = height;
-            _panel.Click += click;
-            _panel.DoubleClick += doubleClick;
+            _panel.DoubleClick += click;
             _panel.Cursor = Cursors.Hand;
 
             //
@@ -54,8 +53,7 @@ namespace IPAplicatie
             _thumbnail.Width = (int)(height * 0.8);
             _thumbnail.Height = (int)(height * 0.8);
             _thumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            _thumbnail.Click += click;
-            _thumbnail.DoubleClick += doubleClick;
+            _thumbnail.DoubleClick += click;
 
             //
             // Name
@@ -69,8 +67,7 @@ namespace IPAplicatie
             _name.BackColor = System.Drawing.Color.Transparent;
             _name.Font = new System.Drawing.Font(_fontName, 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             _name.ForeColor = System.Drawing.Color.White;
-            _name.Click += click;
-            _name.DoubleClick += doubleClick;
+            _name.DoubleClick += click;
 
             //
             // Secondary
@@ -84,8 +81,7 @@ namespace IPAplicatie
             _secondary.BackColor = System.Drawing.Color.Transparent;
             _secondary.Font = new System.Drawing.Font(_fontName, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             _secondary.ForeColor = System.Drawing.Color.White;
-            _secondary.Click += click;
-            _secondary.DoubleClick += doubleClick;
+            _secondary.DoubleClick += click;
 
             _panel.Controls.Add(_thumbnail);
             _panel.Controls.Add(_name);

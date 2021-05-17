@@ -33,7 +33,7 @@ namespace IPAplicatie
 
             for (int i = 0; i < playLists.Keys.Count; ++i)
             {
-                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), new EventHandler(ClickEvent), null);
+                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), new EventHandler(DoubleClickEvent));
                 _panel.Controls.Add(_items[i].Panel);
             }
 
@@ -48,8 +48,9 @@ namespace IPAplicatie
             }
         }
 
-        private void ClickEvent(object sender, EventArgs e)
+        private void DoubleClickEvent(object sender, EventArgs args)
         {
+
             Panel parent = null;
 
             try
@@ -74,18 +75,16 @@ namespace IPAplicatie
                 {
                     _mainForm.DisplayPlayList(parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text);
                 }
-                else 
-                if (_mainForm.CheckView() == "playlist")
+                else
+                if (_mainForm.CheckView() == "playlist" || _mainForm.CheckView() == "search")
                 {
-                    _mainForm.SetLabelSong = parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text;
-                    _mainForm.SetLabelArtist = parent.Controls.Find("labelItemSecondary" + parent.Name.Substring("panelItem".Length), false)[0].Text;
+                    _mainForm.SetMedia(parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text);
+                    if (_mainForm.CheckView() == "playlist")
+                        _mainForm.SetCurrentPlaylist = _mainForm.Controls.Find("panelPlaylist", false)[0].Controls.Find("labelPlaylistSongsTitle", false)[0].Text;
+                    else
+                        _mainForm.SetCurrentPlaylist = "";
                 }
             }
-        }
-
-        private void DoubleClickEvent(object sender, EventArgs args)
-        { 
-        
         }
     }
 }

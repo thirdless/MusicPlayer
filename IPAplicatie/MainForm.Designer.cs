@@ -92,6 +92,7 @@ namespace IPAplicatie
             this.trackBarEq3 = new System.Windows.Forms.TrackBar();
             this.trackBarEq2 = new System.Windows.Forms.TrackBar();
             this.trackBarEq1 = new System.Windows.Forms.TrackBar();
+            this.trackVolume = new System.Windows.Forms.TrackBar();
             this.panelMedia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).BeginInit();
@@ -115,6 +116,7 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAcasa
@@ -191,6 +193,7 @@ namespace IPAplicatie
             // 
             // panelMedia
             // 
+            this.panelMedia.Controls.Add(this.trackVolume);
             this.panelMedia.Controls.Add(this.trackMediaProgress);
             this.panelMedia.Controls.Add(this.pictureMediaForth);
             this.panelMedia.Controls.Add(this.pictureMediaBack);
@@ -206,6 +209,7 @@ namespace IPAplicatie
             // trackMediaProgress
             // 
             this.trackMediaProgress.Location = new System.Drawing.Point(317, 49);
+            this.trackMediaProgress.Maximum = 100;
             this.trackMediaProgress.Name = "trackMediaProgress";
             this.trackMediaProgress.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.trackMediaProgress.Size = new System.Drawing.Size(423, 56);
@@ -213,6 +217,7 @@ namespace IPAplicatie
             this.trackMediaProgress.TabIndex = 6;
             this.trackMediaProgress.TickFrequency = 0;
             this.trackMediaProgress.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackMediaProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DurationSlider_MouseUp);
             // 
             // pictureMediaForth
             // 
@@ -226,6 +231,7 @@ namespace IPAplicatie
             this.pictureMediaForth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureMediaForth.TabIndex = 5;
             this.pictureMediaForth.TabStop = false;
+            this.pictureMediaForth.Click += new System.EventHandler(this.pictureMediaForth_Click);
             // 
             // pictureMediaBack
             // 
@@ -429,7 +435,7 @@ namespace IPAplicatie
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Text = "Căutare";
             this.buttonSearch.UseVisualStyleBackColor = false;
-            this.buttonSearch.Click += new System.EventHandler(buttonSearch_Click);
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // textBoxSearch
             // 
@@ -471,6 +477,7 @@ namespace IPAplicatie
             this.buttonYoutubeAdd.TabIndex = 3;
             this.buttonYoutubeAdd.Text = "Adaugă în lista de melodii";
             this.buttonYoutubeAdd.UseVisualStyleBackColor = false;
+            this.buttonYoutubeAdd.Click += new System.EventHandler(this.buttonYouTubeAdd_Click);
             // 
             // buttonYoutubePlay
             // 
@@ -485,6 +492,7 @@ namespace IPAplicatie
             this.buttonYoutubePlay.TabIndex = 2;
             this.buttonYoutubePlay.Text = "Redă melodia";
             this.buttonYoutubePlay.UseVisualStyleBackColor = false;
+            this.buttonYoutubePlay.Click += new System.EventHandler(this.buttonYouTubePlay_Click);
             // 
             // label1
             // 
@@ -738,7 +746,9 @@ namespace IPAplicatie
             this.trackBarEq10.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq10.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq10.TabIndex = 9;
+            this.trackBarEq10.Tag = "9";
             this.trackBarEq10.Value = 5;
+            this.trackBarEq10.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq9
             // 
@@ -747,7 +757,9 @@ namespace IPAplicatie
             this.trackBarEq9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq9.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq9.TabIndex = 8;
+            this.trackBarEq9.Tag = "8";
             this.trackBarEq9.Value = 5;
+            this.trackBarEq9.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq8
             // 
@@ -756,7 +768,9 @@ namespace IPAplicatie
             this.trackBarEq8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq8.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq8.TabIndex = 7;
+            this.trackBarEq8.Tag = "7";
             this.trackBarEq8.Value = 5;
+            this.trackBarEq8.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq7
             // 
@@ -765,7 +779,9 @@ namespace IPAplicatie
             this.trackBarEq7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq7.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq7.TabIndex = 6;
+            this.trackBarEq7.Tag = "6";
             this.trackBarEq7.Value = 5;
+            this.trackBarEq7.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq6
             // 
@@ -774,7 +790,9 @@ namespace IPAplicatie
             this.trackBarEq6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq6.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq6.TabIndex = 5;
+            this.trackBarEq6.Tag = "5";
             this.trackBarEq6.Value = 5;
+            this.trackBarEq6.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq5
             // 
@@ -783,7 +801,9 @@ namespace IPAplicatie
             this.trackBarEq5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq5.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq5.TabIndex = 4;
+            this.trackBarEq5.Tag = "4";
             this.trackBarEq5.Value = 5;
+            this.trackBarEq5.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq4
             // 
@@ -792,7 +812,9 @@ namespace IPAplicatie
             this.trackBarEq4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq4.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq4.TabIndex = 3;
+            this.trackBarEq4.Tag = "3";
             this.trackBarEq4.Value = 5;
+            this.trackBarEq4.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq3
             // 
@@ -801,7 +823,9 @@ namespace IPAplicatie
             this.trackBarEq3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq3.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq3.TabIndex = 2;
+            this.trackBarEq3.Tag = "2";
             this.trackBarEq3.Value = 5;
+            this.trackBarEq3.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq2
             // 
@@ -810,7 +834,9 @@ namespace IPAplicatie
             this.trackBarEq2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq2.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq2.TabIndex = 1;
+            this.trackBarEq2.Tag = "1";
             this.trackBarEq2.Value = 5;
+            this.trackBarEq2.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
             // trackBarEq1
             // 
@@ -819,7 +845,23 @@ namespace IPAplicatie
             this.trackBarEq1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBarEq1.Size = new System.Drawing.Size(56, 303);
             this.trackBarEq1.TabIndex = 0;
+            this.trackBarEq1.Tag = "0";
             this.trackBarEq1.Value = 5;
+            this.trackBarEq1.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
+            // 
+            // trackVolume
+            // 
+            this.trackVolume.Location = new System.Drawing.Point(813, 10);
+            this.trackVolume.Maximum = 100;
+            this.trackVolume.Name = "trackVolume";
+            this.trackVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackVolume.Size = new System.Drawing.Size(114, 56);
+            this.trackVolume.SmallChange = 0;
+            this.trackVolume.TabIndex = 7;
+            this.trackVolume.TickFrequency = 0;
+            this.trackVolume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackVolume.Value = 100;
+            this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
             // 
             // MainForm
             // 
@@ -859,6 +901,7 @@ namespace IPAplicatie
             this.panelYoutube.ResumeLayout(false);
             this.panelYoutube.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
+            this.panelPlaylist.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelEqualizer.ResumeLayout(false);
             this.panelEqualizer.PerformLayout();
@@ -872,6 +915,7 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -940,6 +984,7 @@ namespace IPAplicatie
         private System.Windows.Forms.TrackBar trackBarEq2;
         private System.Windows.Forms.TrackBar trackBarEq1;
         private System.Windows.Forms.Button buttonEqualizerSave;
+        private System.Windows.Forms.TrackBar trackVolume;
     }
 }
 

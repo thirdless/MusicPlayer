@@ -27,3 +27,5 @@ F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\En
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.SqlServer.xml
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.xml
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\CSCore.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Main\ProiectIP\IPAplicatie\bin\Debug\CSCore.xml

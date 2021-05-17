@@ -7,17 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace IPAplicatie
 {
     public partial class MainForm : Form
     {
-
         private readonly Dictionary<string, Panel> _views;
 
         PlaylistsListView _playlistsListView;
 
         SQLManager _sqlManager;
+
+        MusicPlayer _player;
+
+        string _selectedPlaylist = "";
 
         public MainForm()
         {
@@ -35,34 +39,41 @@ namespace IPAplicatie
 
             _sqlManager = new SQLManager();
 
+            _player = new MusicPlayer();
+
             _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
         }
 
-        public string SetLabelSong
+        public TrackBar GetDurationSlider
         {
-            set
+            get
             {
-                labelSongName.Text = value;
+                return trackMediaProgress;
             }
         }
 
-        public string SetLabelArtist
+        public string SetCurrentPlaylist
         {
             set
             {
-                labelArtistName.Text = value;
+                _selectedPlaylist = value;
             }
         }
 
         public void DisplayPlayList(string playList)
         {
             SetView(panelPlaylist);
-            if (playList != "" && playList != "Toate melodiile")
-                labelPlaylistSongsTitle.Text = playList;
-            else
-                labelPlaylistSongsTitle.Text = "Toate melodiile";
             _playlistsListView.SetPanel = panelPlaylistSongs;
-            _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
+            if (playList != "" && playList != "Toate melodiile")
+            {
+                labelPlaylistSongsTitle.Text = playList;
+                _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
+            }
+            else
+            {
+                labelPlaylistSongsTitle.Text = "Toate melodiile";
+                _playlistsListView.CreatePlaylists(_sqlManager.GetSongs());
+            }
         }
 
         private void SetView(Panel panel = null)
@@ -91,21 +102,6 @@ namespace IPAplicatie
             }
 
             return "";
-        }
-
-        private void SetSongName(string name)
-        {
-            labelSongName.Text = name;
-        }
-
-        private void SetArtistName(string name)
-        {
-            labelArtistName.Text = name;
-        }
-
-        private void SetPicture(Image picture)
-        {
-            pictureBoxSong.Image = picture;
         }
 
         private void buttonAcasa_Click(object sender, EventArgs e)
@@ -148,6 +144,10 @@ namespace IPAplicatie
         {
             contextMenuStripOthers.Show(new Point(MousePosition.X, MousePosition.Y));
         }
+        private void EqSlider_ValueChanged(object sender, EventArgs e)
+        {
+            _player.ChangeValue((TrackBar)sender);
+        }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -172,15 +172,63 @@ namespace IPAplicatie
 
         private void pictureMediaBack_Click(object sender, EventArgs e)
         {
-            panelMedia.Controls.Find("labelSongNam*", false)[0].Text = "ceva";
+            SetMedia(_sqlManager.GetPrevSong(_selectedPlaylist, labelSongName.Text));
         }
 
+        private void pictureMediaForth_Click(object sender, EventArgs e)
+        {
+            SetMedia(_sqlManager.GetNextSong(_selectedPlaylist, labelSongName.Text));
+        }
         private void pictureMediaPlay_Click(object sender, EventArgs e)
         {
-            if (DateTimeOffset.Now.ToUnixTimeSeconds() % 2 == 0)
+            if(_player.Play_Pause_Click())
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.play;
             else
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
+
+            //if (DateTimeOffset.Now.ToUnixTimeSeconds() % 2 == 0)
+
+        }
+
+        private string AddSongToDatabase(string link)
+        {
+            string songTitle = "";
+
+            if (link != "")
+            {
+                songTitle = _player.GetName(link);
+
+                int duration = _player.GetDuration(link);
+
+                if (!_sqlManager.CheckMelodie(link))
+                    _sqlManager.AddMelodie(link, songTitle, duration);
+            }
+
+            return songTitle;
+        }
+
+        private void buttonYouTubeAdd_Click(object sender, EventArgs e)
+        {
+            AddSongToDatabase(textBoxYoutubeURL.Text);
+
+            textBoxYoutubeURL.Text = "";
+        }
+
+        public void SetMedia(string title)
+        {
+            if (title != "")
+            {
+                labelSongName.Text = title;
+                labelArtistName.Text = _sqlManager.GetSongStats(title);
+                _player.DownloadProcedure(_sqlManager.GetSongURL(title));
+            }
+        }
+
+        private void buttonYouTubePlay_Click(object sender, EventArgs e)
+        {
+            SetMedia(AddSongToDatabase(textBoxYoutubeURL.Text));
+
+            textBoxYoutubeURL.Text = "";
         }
 
         private void buttonPlaylistsListCreate_Click(object sender, EventArgs e)
@@ -234,5 +282,22 @@ namespace IPAplicatie
         {
 
         }
+        
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _player.Stop();
+            base.OnClosing(e);
+        }
+
+        private void DurationSlider_MouseUp(object sender, MouseEventArgs e)
+        {
+            _player.SetDuration = 100 * GetDurationSlider.Value;
+        }
+
+        private void trackVolume_Scroll(object sender, EventArgs e)
+        {
+            _player.ChangeVolume = (float)((TrackBar)sender).Value / 100.0f;
+        }
+
     }
 }
