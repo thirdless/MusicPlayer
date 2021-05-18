@@ -20,7 +20,8 @@ namespace IPAplicatie
     {
         private Equalizer _eq;
         private ISoundOut _soundOut;
-        
+        private bool _isReady;
+
         public MusicPlayer()
         {
         }
@@ -48,12 +49,26 @@ namespace IPAplicatie
             _soundOut.Initialize(_eq.ToWaveSource(16));
             _soundOut.Play();
 
-            ChangeVolume = (float)volume / 100.0f;
+            ChangeVolume = (float)volume;
+
+            _isReady = true;
+        }
+
+        public bool Ready
+        {
+            set
+            {
+                _isReady = value;
+            }
+            get
+            {
+                return _isReady;
+            }
         }
 
         public int monitorPosition()
         {
-            if(_eq != null)
+            if(_eq != null && _isReady)
                 return (int)(100.0f * _eq.Position / _eq.Length);
             return 0;
         }
@@ -68,6 +83,7 @@ namespace IPAplicatie
                     _soundOut.Dispose();
                     _eq.Dispose();
                     _soundOut = null;
+                    _eq = null;
                 }
                 catch (Exception err)
                 {
@@ -96,8 +112,8 @@ namespace IPAplicatie
         {
             set
             {
-                if(_soundOut != null)
-                    _soundOut.Volume = value;
+                if(_soundOut != null && _isReady)
+                    _soundOut.Volume = value / 100.0f;
             }
         }
         

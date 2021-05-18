@@ -48,6 +48,8 @@ namespace IPAplicatie
             _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
 
             timer1.Start();
+
+            volumeValue = trackVolume.Value;
         }
         public TrackBar GetDurationSlider
         {
@@ -112,8 +114,9 @@ namespace IPAplicatie
         private void buttonAcasa_Click(object sender, EventArgs e)
         {
             SetView(panelPlaylist);
+            _playlistsListView.SetPanel = panelPlaylistSongs;
             labelPlaylistSongsTitle.Text = "Cele mai recente";
-            //_playlistsListView.CreatePlaylists();
+            _playlistsListView.CreatePlaylists(_sqlManager.GetRecentSongs());
 
         }
 
@@ -164,7 +167,7 @@ namespace IPAplicatie
             string text = "\n\n" +
             "Proiect IP 2021\n" +
             "Numele proiectului: SoundCore\n\n" +
-            "Realizatori:\n\tMacovei Ioan\n\tRotaru Vlad\n\tManole Stefan\n\tHretu Cristian\n\n" +
+            "Realizatori:\n\tMacovei Ioan\n\tRotaru Vlad\n\tManole Stefan\n\t" +
             "Descriere: Program Proiect IP\n\n";
 
             MessageBox.Show(text, "Despre aplicatie");
@@ -190,9 +193,6 @@ namespace IPAplicatie
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
             else
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.play;
-
-            //if (DateTimeOffset.Now.ToUnixTimeSeconds() % 2 == 0)
-
         }
 
         private string AddSongToDatabase(string link)
@@ -214,7 +214,12 @@ namespace IPAplicatie
 
         private void buttonYouTubeAdd_Click(object sender, EventArgs e)
         {
-            AddSongToDatabase(textBoxYoutubeURL.Text);
+            if (currentOperation != null && currentOperation.IsAlive)
+                currentOperation.Interrupt();
+
+            currentOperation = new Thread(() => AddSongToDatabase(textBoxYoutubeURL.Text));
+
+            currentOperation.Start();
 
             textBoxYoutubeURL.Text = "";
         }
@@ -223,6 +228,17 @@ namespace IPAplicatie
         {
             if (title != "")
             {
+                _player.Ready = false;
+
+                _sqlManager.UpdateRecentPlaylist(title);
+
+                if (CheckView() == "playlist" && labelPlaylistSongsTitle.Text == "Cele mai recente")
+                {
+                    SetView(panelPlaylist);
+                    _playlistsListView.SetPanel = panelPlaylistSongs;
+                    _playlistsListView.CreatePlaylists(_sqlManager.GetRecentSongs());
+                }
+
                 labelSongName.Text = title.Substring(title.IndexOf("-") + 1).Trim(' ');
                 labelArtistName.Text = _sqlManager.GetSongStats(title);
 
@@ -308,8 +324,8 @@ namespace IPAplicatie
 
         private void trackVolume_Scroll(object sender, EventArgs e)
         {
-            //volumeValue = ((TrackBar)sender).Value;
-            _player.ChangeVolume = (float)((TrackBar)sender).Value / 100.0f;
+            volumeValue = ((TrackBar)sender).Value;
+            _player.ChangeVolume = (float)volumeValue;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

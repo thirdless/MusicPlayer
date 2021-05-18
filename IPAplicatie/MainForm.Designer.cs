@@ -378,7 +378,7 @@ namespace IPAplicatie
             this.panelPlaylistsList.Visible = false;
             // 
             // buttonPlaylistsListCreate
-            // 
+            //
             this.buttonPlaylistsListCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.buttonPlaylistsListCreate.FlatAppearance.BorderSize = 0;
             this.buttonPlaylistsListCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

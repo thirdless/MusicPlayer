@@ -15,7 +15,7 @@ namespace IPAplicatie
         Label _secondary;
         static private string _fontName = "Microsoft PhagsPa";
 
-        public ListItem(int x, int y, int width, int height, int id, string name, string secondary, EventHandler click, int style = 0)
+        public ListItem(int x, int y, int width, int height, int id, string name, string secondary, EventHandler enter, EventHandler leave, MouseEventHandler rightClick, EventHandler doubleClick, int style = 0)
         {
             if (style == 0)
             {
@@ -38,7 +38,10 @@ namespace IPAplicatie
             _panel.Top = y;
             _panel.Width = width;
             _panel.Height = height;
-            _panel.DoubleClick += click;
+            _panel.MouseEnter += enter;
+            _panel.MouseLeave += leave;
+            _panel.MouseClick += rightClick;
+            _panel.DoubleClick += doubleClick;
             _panel.Cursor = Cursors.Hand;
 
             //
@@ -53,7 +56,10 @@ namespace IPAplicatie
             _thumbnail.Width = (int)(height * 0.8);
             _thumbnail.Height = (int)(height * 0.8);
             _thumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            _thumbnail.DoubleClick += click;
+            _thumbnail.MouseEnter += enter;
+            _thumbnail.MouseLeave += leave;
+            _thumbnail.MouseClick += rightClick;
+            _thumbnail.DoubleClick += doubleClick;
 
             //
             // Name
@@ -67,7 +73,10 @@ namespace IPAplicatie
             _name.BackColor = System.Drawing.Color.Transparent;
             _name.Font = new System.Drawing.Font(_fontName, 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             _name.ForeColor = System.Drawing.Color.White;
-            _name.DoubleClick += click;
+            _name.MouseEnter += enter;
+            _name.MouseLeave += leave;
+            _name.MouseClick += rightClick;
+            _name.DoubleClick += doubleClick;
 
             //
             // Secondary
@@ -81,7 +90,10 @@ namespace IPAplicatie
             _secondary.BackColor = System.Drawing.Color.Transparent;
             _secondary.Font = new System.Drawing.Font(_fontName, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             _secondary.ForeColor = System.Drawing.Color.White;
-            _secondary.DoubleClick += click;
+            _secondary.MouseEnter += enter;
+            _secondary.MouseLeave += leave;
+            _secondary.MouseClick += rightClick;
+            _secondary.DoubleClick += doubleClick;
 
             _panel.Controls.Add(_thumbnail);
             _panel.Controls.Add(_name);

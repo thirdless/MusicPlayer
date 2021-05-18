@@ -33,11 +33,12 @@ namespace IPAplicatie
 
             for (int i = 0; i < playLists.Keys.Count; ++i)
             {
-                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), new EventHandler(DoubleClickEvent));
+                _items[i] = new ListItem(20, _height * i, _panel.Width, _height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), new EventHandler(EnterEvent), new EventHandler(LeaveEvent), new MouseEventHandler(RightClickEvent), new EventHandler(DoubleClickEvent));
                 _panel.Controls.Add(_items[i].Panel);
             }
 
             _panel.Height = _height * _itemsNo;
+
         }
         
         public Panel SetPanel
@@ -46,6 +47,59 @@ namespace IPAplicatie
             {
                 _panel = value;
             }
+        }
+
+        private void EnterEvent(object sender, EventArgs args)
+        {
+            Panel parent = null;
+
+            try
+            {
+                parent = (Panel)sender;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    parent = (Panel)((Label)sender).Parent;
+                }
+                catch (Exception exc)
+                {
+                    parent = (Panel)((PictureBox)sender).Parent;
+                }
+            }
+
+            parent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
+        }
+
+        private void LeaveEvent(object sender, EventArgs args)
+        {
+
+            Panel parent = null;
+
+            try
+            {
+                parent = (Panel)sender;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    parent = (Panel)((Label)sender).Parent;
+                }
+                catch (Exception exc)
+                {
+                    parent = (Panel)((PictureBox)sender).Parent;
+                }
+            }
+
+            parent.BackColor = System.Drawing.Color.Transparent;
+        }
+
+        private void RightClickEvent(object sender, MouseEventArgs args)
+        {
+            //if (args.Button == MouseButtons.Right)
+
         }
 
         private void DoubleClickEvent(object sender, EventArgs args)

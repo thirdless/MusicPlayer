@@ -32,6 +32,10 @@ namespace IPAplicatie
             CreateTables();
 
             AddPlaylist("Toate melodiile");
+
+            AddPlaylist("Favorite");
+
+            AddPlaylist("Melodii Recente");
         }
 
         public void DisposeDatabase()
@@ -56,7 +60,8 @@ namespace IPAplicatie
 
             cmd.CommandText = "CREATE TABLE if NOT EXISTS Playlist_uri (" +
                 "playlistID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Nume_Playlist TEXT NOT NULL" +
+                "Nume_Playlist TEXT NOT NULL," +
+                "UNIQUE(Nume_Playlist)"+
                 ")";
 
             cmd.ExecuteNonQuery();
@@ -69,6 +74,198 @@ namespace IPAplicatie
                 ")";
 
             cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "CREATE TABLE if NOT EXISTS PlaylistRecente (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," + 
+                "playlistID INTEGER NOT NULL," +
+                "FOREIGN KEY(playlistID) REFERENCES Playlist_uri(playlistID)" +
+                ")";
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void DeleteSongFromPlaylist(string playlistName, string songName)
+        {
+            int songID = -1;
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT melodieID FROM Melodii WHERE Nume_Melodie=\'" + songName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            DeleteSongFromPlaylist(playlistName, songID);
+        }
+
+        public void DeleteSongFromPlaylist(string playlistName, int songID)
+        {
+            int playlistID = -1;
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'" + playlistName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                playlistID = reader.GetInt32(0);
+
+            reader.Close();
+
+            if (songID != -1 && playlistID != -1)
+            {
+                cmd.CommandText = "DELETE FROM Playlist WHERE playlistID=" + playlistID + " AND " + "melodieID=" + songID;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteSong(string songName)
+        {
+            int songID = -1;
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT melodieID FROM Melodii WHERE Nume_Melodie=\'" + songName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                songID = reader.GetInt32(0);
+
+            reader.Close();
+
+            DeleteSong(songID);
+        }
+
+        public void DeleteSong(int songID)
+        {
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Melodii WHERE melodieID=" + songID;
+
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "DELETE FROM Playlist WHERE melodieID=" + songID;
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void DeletePlaylist(string playlistName)
+        {
+            int playlistID = -1;
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT playlistID FROM Melodii WHERE Nume_Playlist=\'" + playlistName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                playlistID = reader.GetInt32(0);
+
+            reader.Close();
+
+            DeletePlaylist(playlistID);
+        }
+
+        public void DeletePlaylist(int playlistID)
+        {
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            cmd.CommandText = "DELETE FROM Playlist_uri WHERE playlistID=" + playlistID;
+
+            cmd.ExecuteNonQuery();
+
+            cmd.CommandText = "DELETE FROM Playlist WHERE playlistID=" + playlistID;
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateRecentPlaylist(string song)
+        {
+            int songID = -1, playlistID = -1;
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT melodieID FROM Melodie WHERE Nume_Melodie=\'" + song + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                songID = reader.GetInt32(0);
+
+            reader.Close();
+
+            cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'Melodii Recente\'";
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                playlistID = reader.GetInt32(0);
+
+            reader.Close();
+
+            List<int> songList = new List<int>();
+
+            cmd.CommandText = "SELECT melodieID FROM Playlist WHERE playlistID=" + playlistID;
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+                songList.Add(reader.GetInt32(0));
+
+            reader.Close();
+
+            if (songList.Count > 0)
+            {
+                if (songList.Contains(songID))
+                {
+                    DeleteSongFromPlaylist("Melodii Recente", songID);
+
+                    AddToPlaylist(playlistID, songID);
+                }
+                else
+                {
+                    while (songList.Count >= 5)
+                    {
+                        DeleteSongFromPlaylist("Melodii Recente", songList.ElementAt(0));
+
+                        songList.RemoveAt(0);
+                    }
+
+                    AddToPlaylist(playlistID, songID);
+                }
+            }
+            else
+                AddToPlaylist(playlistID, songID);
+            
+        }
+
+        public Dictionary<string, string> GetRecentSongs()
+        {
+            Dictionary<string, string> rez = new Dictionary<string, string>();
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            List<string> songs = GetListSongs("Melodii Recente");
+
+            for (int i = songs.Count - 1; i >= 0; --i)
+                rez[songs.ElementAt(i)] = GetSongStats(songs.ElementAt(i));
+
+            return rez;
         }
 
         public void AddMelodie(string url, string name, int duration)
@@ -102,11 +299,9 @@ namespace IPAplicatie
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
-            cmd.CommandText = "SELECT count(playlistID) FROM Playlist_uri WHERE Nume_Playlist=\'" + name + "\'";
+            cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'" + name + "\'";
 
-            int rez = Convert.ToInt32(cmd.ExecuteScalar());
-
-            return rez > 0;
+            return cmd.ExecuteReader().Read();
         }
 
         public void AddToPlaylist(int playListID, int melodieID)
@@ -171,6 +366,129 @@ namespace IPAplicatie
             return rez;
         }
 
+        public void InsertToRecent(string playlistName)
+        {
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT count(id) FROM PlaylistRecente";
+
+            int count = 0;
+
+            reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                count = reader.GetInt32(0);
+
+            reader.Close();
+
+            cmd.CommandText = "SELECT melodieID FROM Playlist_uri WHERE Nume_Playlist=\'" + playlistName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            int id = -1;
+
+            if (reader.Read())
+                id = reader.GetInt32(0);
+
+            reader.Close();
+
+            if (count > 0)
+            {
+                if (id != -1)
+                {
+                    cmd.CommandText = "SELECT id FROM Playlist_uri WHERE playlistID=" + id;
+
+                    reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        reader.Close();
+                        try
+                        {
+                            cmd.CommandText = "DELETE FROM Playlist_uri WHERE playlistID=" + id;
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Stergerea nu a putut fi efectuata");
+                            return;
+                        }
+
+                        try
+                        {
+                            cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Inserarea nu s-a putut efectua");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        cmd.CommandText = "DELETE FROM Playlist_uri WHERE id=(SELECT MIN(id) FROM Playlist_uri)";
+
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            else
+            {
+                cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public Dictionary<string, string> GetRecentPlaylists()
+        {
+            Dictionary<string, string> rez = new Dictionary<string, string>();
+
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            List<int> idList = new List<int>();
+
+            cmd.CommandText = "SELECT playlistID FROM PlaylistRecente";
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+                idList.Add(reader.GetInt32(0));
+
+            reader.Close();
+
+            string temp;
+
+            for (int i = idList.Count - 1; i >= 0; --i)
+            {
+                cmd.CommandText = "SELECT Nume_Playlist FROM Playlist_uri WHERE playlistID=" + idList.ElementAt(i);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    temp = reader.GetString(0);
+                    
+                    rez[temp] = GetPlayListStats(temp);
+                }
+
+                reader.Close();
+            }
+
+            return rez;
+        }
+
         public Dictionary<string, string> SearchSongsByName(string wildcard)
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -201,7 +519,13 @@ namespace IPAplicatie
 
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
-            cmd.CommandText = "SELECT melodieID FROM Playlist WHERE playlistID=" + listID;
+            if (listID != -1)
+
+                cmd.CommandText = "SELECT melodieID FROM Playlist WHERE playlistID=" + listID;
+
+            else
+
+                cmd.CommandText = "SELECT melodieID FROM Melodie";
 
             reader = cmd.ExecuteReader();
 
@@ -230,6 +554,9 @@ namespace IPAplicatie
 
         public List<string> GetListSongs(string listName)
         {
+            if (listName == "Toate melodiile" || listName == "")
+                return GetListSongs(-1);
+
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
             cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'" + listName + "\'";
@@ -315,10 +642,16 @@ namespace IPAplicatie
 
             string rez;
 
+            if (playList == "Toate melodiile")
+                rez = "Number of songs: " + length;
+            else 
             if (duration % 60 > 9)
                 rez = "Duration: " + (duration / 60) + ":" + (duration % 60) + " * " + "Number of songs: " + length;
             else
                 rez = "Duration: " + (duration / 60) + ":0" + (duration % 60) + " * " + "Number of songs: " + length;
+
+            if (playList == "Melodii Recente")
+                rez = rez.Substring(0, rez.IndexOf(" *"));
 
             return rez;
         }
@@ -405,7 +738,6 @@ namespace IPAplicatie
             cmd.CommandText = "SELECT Duration FROM Melodie WHERE Nume_Melodie=\'" + song + "\'";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
-
 
             if (reader.Read())
             {
