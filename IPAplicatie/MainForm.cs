@@ -23,6 +23,10 @@ namespace IPAplicatie
 
         string _selectedPlaylist = "";
 
+        public Thread currentOperation;
+
+        public int volumeValue;
+
         public MainForm()
         {
             InitializeComponent();
@@ -42,8 +46,9 @@ namespace IPAplicatie
             _player = new MusicPlayer();
 
             _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
-        }
 
+            timer1.Start();
+        }
         public TrackBar GetDurationSlider
         {
             get
@@ -181,10 +186,10 @@ namespace IPAplicatie
         }
         private void pictureMediaPlay_Click(object sender, EventArgs e)
         {
-            if(_player.Play_Pause_Click())
-                pictureMediaPlay.Image = IPAplicatie.Properties.Resources.play;
-            else
+            if(_player.Play_Pause_Click() )
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
+            else
+                pictureMediaPlay.Image = IPAplicatie.Properties.Resources.play;
 
             //if (DateTimeOffset.Now.ToUnixTimeSeconds() % 2 == 0)
 
@@ -218,9 +223,16 @@ namespace IPAplicatie
         {
             if (title != "")
             {
-                labelSongName.Text = title;
+                labelSongName.Text = title.Substring(title.IndexOf("-") + 1).Trim(' ');
                 labelArtistName.Text = _sqlManager.GetSongStats(title);
-                _player.DownloadProcedure(_sqlManager.GetSongURL(title));
+
+                pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
+
+                if (currentOperation != null && currentOperation.IsAlive)
+                        currentOperation.Interrupt();
+                
+                currentOperation = new Thread(() => _player.DownloadProcedure(_sqlManager.GetSongURL(title), volumeValue));
+                currentOperation.Start();
             }
         }
 
@@ -291,13 +303,18 @@ namespace IPAplicatie
 
         private void DurationSlider_MouseUp(object sender, MouseEventArgs e)
         {
-            _player.SetDuration = 100 * GetDurationSlider.Value;
+            _player.SetDuration = GetDurationSlider.Value;
         }
 
         private void trackVolume_Scroll(object sender, EventArgs e)
         {
+            //volumeValue = ((TrackBar)sender).Value;
             _player.ChangeVolume = (float)((TrackBar)sender).Value / 100.0f;
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            trackMediaProgress.Value = _player.monitorPosition();
+        }
     }
 }

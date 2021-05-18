@@ -12,7 +12,7 @@ using CSCore.SoundOut;
 using CSCore.Streams;
 using CSCore.Streams.Effects;
 using System.Diagnostics;
-
+using System.Threading;
 
 namespace IPAplicatie
 {
@@ -20,12 +20,12 @@ namespace IPAplicatie
     {
         private Equalizer _eq;
         private ISoundOut _soundOut;
-
+        
         public MusicPlayer()
         {
         }
 
-        private void PlayFunc(string fileName)
+        private void PlayFunc(string fileName, int volume)
         {
             Stop();
 
@@ -48,31 +48,14 @@ namespace IPAplicatie
             _soundOut.Initialize(_eq.ToWaveSource(16));
             _soundOut.Play();
 
-            /*Thread t = new Thread(monitorPosition);
-
-            t.Start();*/
+            ChangeVolume = (float)volume / 100.0f;
         }
 
-        /*private void monitorPosition()
+        public int monitorPosition()
         {
-            while (_eq.Position / _eq.Length < 1.0f)
-            {
-                trackBar12.Value = (int)(100.0f * _eq.Position / _eq.Length);
-
-                Thread.Sleep(1000);
-            }
-        }*/
-
-        private void ChangeSong_Click()
-        {
-            var ofn = new OpenFileDialog();
-
-            ofn.Filter = CodecFactory.SupportedFilesFilterEn;
-
-            if (ofn.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                PlayFunc(ofn.FileName);
-            }
+            if(_eq != null)
+                return (int)(100.0f * _eq.Position / _eq.Length);
+            return 0;
         }
 
         public void Stop()
@@ -113,22 +96,24 @@ namespace IPAplicatie
         {
             set
             {
-                _soundOut.Volume = value;
+                if(_soundOut != null)
+                    _soundOut.Volume = value;
             }
         }
         
 
         public bool Play_Pause_Click()
         {
-            if (_soundOut.PlaybackState == PlaybackState.Playing)
-            {
-                _soundOut.Pause();
-            }
-            else if (_soundOut.PlaybackState == PlaybackState.Paused)
-            {
-                _soundOut.Play();
-                return true;
-            }
+            if(_soundOut != null)
+                if (_soundOut.PlaybackState == PlaybackState.Playing)
+                {
+                    _soundOut.Pause();
+                }
+                else if (_soundOut.PlaybackState == PlaybackState.Paused)
+                {
+                    _soundOut.Play();
+                    return true;
+                }
 
             return false;
         }
@@ -216,7 +201,7 @@ namespace IPAplicatie
                 return 0;
         }
 
-        public void DownloadProcedure(string link)
+        public void DownloadProcedure(string link, int volume)
         {
             if (_soundOut != null && _soundOut.PlaybackState != PlaybackState.Stopped)
                 Stop();
@@ -232,7 +217,8 @@ namespace IPAplicatie
                 }
             }
             ExecCommand("cmd.exe", " /c del \"Samples\\*.webp\"");
-            PlayFunc("Samples\\audio.wav");
+
+            PlayFunc("Samples\\audio.wav", volume);
         }
 
         private string ParseLink(string url)
@@ -247,7 +233,7 @@ namespace IPAplicatie
         {
             set
             {
-                _eq.Position = _eq.Length / value;
+                _eq.Position = _eq.Length / 100 * value;
             }
         }
     }

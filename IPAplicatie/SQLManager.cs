@@ -387,7 +387,7 @@ namespace IPAplicatie
             if (list.Keys.ElementAt(length - 1) == song)
                 return "";
 
-            for (int i = length - 1; i > 0; ++i)
+            for (int i = length - 1; i > 0; --i)
             {
                 if (list.Keys.ElementAt(i - 1) == song)
                     return list.Keys.ElementAt(i);
@@ -410,10 +410,16 @@ namespace IPAplicatie
             if (reader.Read())
             {
                 int duration = reader.GetInt32(0);
+
+                if (song.IndexOf("-") != -1)
+                {
+                    rez = song.Substring(0, song.IndexOf("-")).Trim(' ') + " ";
+                }
+
                 if (duration % 60 > 9)
-                    rez = "Duration: " + duration / 60 + ":" + duration % 60;
+                    rez += "Duration: " + duration / 60 + ":" + duration % 60;
                 else
-                    rez = "Duration: " + duration / 60 + ":0" + duration % 60; 
+                    rez += "Duration: " + duration / 60 + ":0" + duration % 60; 
             }
             
             return rez;

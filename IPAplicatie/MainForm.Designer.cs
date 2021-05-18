@@ -35,6 +35,7 @@ namespace IPAplicatie
             this.buttonCautare = new System.Windows.Forms.Button();
             this.buttonYoutube = new System.Windows.Forms.Button();
             this.panelMedia = new System.Windows.Forms.Panel();
+            this.trackVolume = new System.Windows.Forms.TrackBar();
             this.trackMediaProgress = new System.Windows.Forms.TrackBar();
             this.pictureMediaForth = new System.Windows.Forms.PictureBox();
             this.pictureMediaBack = new System.Windows.Forms.PictureBox();
@@ -92,8 +93,9 @@ namespace IPAplicatie
             this.trackBarEq3 = new System.Windows.Forms.TrackBar();
             this.trackBarEq2 = new System.Windows.Forms.TrackBar();
             this.trackBarEq1 = new System.Windows.Forms.TrackBar();
-            this.trackVolume = new System.Windows.Forms.TrackBar();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelMedia.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).BeginInit();
@@ -116,7 +118,6 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAcasa
@@ -206,6 +207,20 @@ namespace IPAplicatie
             this.panelMedia.Size = new System.Drawing.Size(1002, 78);
             this.panelMedia.TabIndex = 4;
             // 
+            // trackVolume
+            // 
+            this.trackVolume.Location = new System.Drawing.Point(813, 10);
+            this.trackVolume.Maximum = 100;
+            this.trackVolume.Name = "trackVolume";
+            this.trackVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.trackVolume.Size = new System.Drawing.Size(114, 56);
+            this.trackVolume.SmallChange = 0;
+            this.trackVolume.TabIndex = 7;
+            this.trackVolume.TickFrequency = 0;
+            this.trackVolume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackVolume.Value = 100;
+            this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
+            // 
             // trackMediaProgress
             // 
             this.trackMediaProgress.Location = new System.Drawing.Point(317, 49);
@@ -263,25 +278,23 @@ namespace IPAplicatie
             // 
             // labelArtistName
             // 
-            this.labelArtistName.AutoSize = true;
             this.labelArtistName.BackColor = System.Drawing.Color.Transparent;
             this.labelArtistName.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelArtistName.ForeColor = System.Drawing.Color.White;
             this.labelArtistName.Location = new System.Drawing.Point(105, 40);
             this.labelArtistName.Name = "labelArtistName";
-            this.labelArtistName.Size = new System.Drawing.Size(113, 20);
+            this.labelArtistName.Size = new System.Drawing.Size(206, 20);
             this.labelArtistName.TabIndex = 2;
             this.labelArtistName.Text = "Artist name test";
             // 
             // labelSongName
             // 
-            this.labelSongName.AutoSize = true;
             this.labelSongName.BackColor = System.Drawing.Color.Transparent;
             this.labelSongName.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSongName.ForeColor = System.Drawing.Color.White;
             this.labelSongName.Location = new System.Drawing.Point(105, 18);
             this.labelSongName.Name = "labelSongName";
-            this.labelSongName.Size = new System.Drawing.Size(135, 22);
+            this.labelSongName.Size = new System.Drawing.Size(206, 22);
             this.labelSongName.TabIndex = 1;
             this.labelSongName.Text = "Song name test";
             // 
@@ -412,6 +425,7 @@ namespace IPAplicatie
             // 
             // panelSearch
             // 
+            this.panelSearch.AutoScroll = true;
             this.panelSearch.Controls.Add(this.buttonSearch);
             this.panelSearch.Controls.Add(this.textBoxSearch);
             this.panelSearch.Controls.Add(this.panelSearchResults);
@@ -523,6 +537,7 @@ namespace IPAplicatie
             // 
             // panelPlaylist
             // 
+            this.panelPlaylist.AutoScroll = true;
             this.panelPlaylist.Controls.Add(this.panelPlaylistSongs);
             this.panelPlaylist.Controls.Add(this.labelPlaylistSongsTitle);
             this.panelPlaylist.Location = new System.Drawing.Point(1, 62);
@@ -849,19 +864,10 @@ namespace IPAplicatie
             this.trackBarEq1.Value = 5;
             this.trackBarEq1.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
-            // trackVolume
+            // timer1
             // 
-            this.trackVolume.Location = new System.Drawing.Point(813, 10);
-            this.trackVolume.Maximum = 100;
-            this.trackVolume.Name = "trackVolume";
-            this.trackVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.trackVolume.Size = new System.Drawing.Size(114, 56);
-            this.trackVolume.SmallChange = 0;
-            this.trackVolume.TabIndex = 7;
-            this.trackVolume.TickFrequency = 0;
-            this.trackVolume.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackVolume.Value = 100;
-            this.trackVolume.Scroll += new System.EventHandler(this.trackVolume_Scroll);
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MainForm
             // 
@@ -888,6 +894,7 @@ namespace IPAplicatie
             this.Text = "SoundCore";
             this.panelMedia.ResumeLayout(false);
             this.panelMedia.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).EndInit();
@@ -915,7 +922,6 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -985,6 +991,7 @@ namespace IPAplicatie
         private System.Windows.Forms.TrackBar trackBarEq1;
         private System.Windows.Forms.Button buttonEqualizerSave;
         private System.Windows.Forms.TrackBar trackVolume;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
