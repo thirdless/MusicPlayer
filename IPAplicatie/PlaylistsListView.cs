@@ -12,7 +12,8 @@ namespace IPAplicatie
         MainForm _mainForm;
         Panel _panel;
         ListItem[] _items;
-
+        string _selectedPlaylist;
+        string _selectedSong;
         private readonly static int _height = 100;
 
         private readonly static int _itemsNo = 11;
@@ -21,6 +22,8 @@ namespace IPAplicatie
         {
             _mainForm = form;
             _panel = panel;
+            _selectedPlaylist = "";
+            _selectedSong = "";
         }
 
         public void CreatePlaylists(Dictionary<string, string> playLists)
@@ -49,6 +52,21 @@ namespace IPAplicatie
             }
         }
 
+        public string GetSelectedPlaylist
+        {
+            get
+            {
+                return _selectedPlaylist;
+            }
+        }
+        public string GetSelectedSong
+        {
+            get
+            {
+                return _selectedSong;
+            }
+        }
+
         private void EnterEvent(object sender, EventArgs args)
         {
             Panel parent = null;
@@ -74,7 +92,6 @@ namespace IPAplicatie
 
         private void LeaveEvent(object sender, EventArgs args)
         {
-
             Panel parent = null;
 
             try
@@ -98,8 +115,43 @@ namespace IPAplicatie
 
         private void RightClickEvent(object sender, MouseEventArgs args)
         {
-            //if (args.Button == MouseButtons.Right)
+            if (args.Button == MouseButtons.Right)
+            {
+                Panel parent = null;
 
+                try
+                {
+                    parent = (Panel)sender;
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        parent = (Panel)((Label)sender).Parent;
+                    }
+                    catch (Exception exc)
+                    {
+                        parent = (Panel)((PictureBox)sender).Parent;
+                    }
+                }
+                
+                if(parent != null)
+                {
+                    if (_mainForm.CheckView() == "playlistsList")
+                    {
+                        _selectedPlaylist = parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text;
+
+                        _mainForm.ShowPlaylistContext();
+                    }
+                    else
+                    if (_mainForm.CheckView() == "playlist" || _mainForm.CheckView() == "search")
+                    {
+                        _selectedSong = parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text;
+                        
+                        _mainForm.ShowSongsContext();
+                    }
+                }
+            }
         }
 
         private void DoubleClickEvent(object sender, EventArgs args)
@@ -132,6 +184,10 @@ namespace IPAplicatie
                 else
                 if (_mainForm.CheckView() == "playlist" || _mainForm.CheckView() == "search")
                 {
+
+                    if (_mainForm.currentOperation != null && _mainForm.currentOperation.IsAlive)
+                        _mainForm.currentOperation.Abort();
+
                     _mainForm.SetMedia(parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text);
                     if (_mainForm.CheckView() == "playlist")
                         _mainForm.SetCurrentPlaylist = _mainForm.Controls.Find("panelPlaylist", false)[0].Controls.Find("labelPlaylistSongsTitle", false)[0].Text;

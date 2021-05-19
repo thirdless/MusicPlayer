@@ -21,6 +21,8 @@ namespace IPAplicatie
 
         MusicPlayer _player;
 
+        private int _currentSongDuration;
+
         string _selectedPlaylist = "";
 
         public Thread currentOperation;
@@ -46,6 +48,8 @@ namespace IPAplicatie
             _player = new MusicPlayer();
 
             _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
+
+            _currentSongDuration = 0;
 
             timer1.Start();
 
@@ -152,6 +156,18 @@ namespace IPAplicatie
         {
             contextMenuStripOthers.Show(new Point(MousePosition.X, MousePosition.Y));
         }
+
+        public void ShowSongsContext()
+        {
+            SongContextMenuStrip.Show(new Point(MousePosition.X, MousePosition.Y));
+        }
+        public void ShowPlaylistContext()
+        {
+            if (_playlistsListView.GetSelectedPlaylist != "Toate melodiile" && _playlistsListView.GetSelectedPlaylist != "Favorite" && _playlistsListView.GetSelectedPlaylist != "Melodii Recente")
+
+                PlaylistContextMenuStrip.Show(new Point(MousePosition.X, MousePosition.Y));
+        }
+
         private void EqSlider_ValueChanged(object sender, EventArgs e)
         {
             _player.ChangeValue((TrackBar)sender);
@@ -180,12 +196,18 @@ namespace IPAplicatie
 
         private void pictureMediaBack_Click(object sender, EventArgs e)
         {
-            SetMedia(_sqlManager.GetPrevSong(_selectedPlaylist, labelSongName.Text));
+            if (labelArtistName.Text.IndexOf(" Duration") > 0)
+                SetMedia(_sqlManager.GetPrevSong(_selectedPlaylist, labelArtistName.Text.Substring(0, labelArtistName.Text.IndexOf(" Duration")) + " - " + labelSongName.Text));
+            else
+                SetMedia(_sqlManager.GetPrevSong(_selectedPlaylist, labelSongName.Text));
         }
 
         private void pictureMediaForth_Click(object sender, EventArgs e)
         {
-            SetMedia(_sqlManager.GetNextSong(_selectedPlaylist, labelSongName.Text));
+            if (labelArtistName.Text.IndexOf(" Duration") > 0)
+                SetMedia(_sqlManager.GetNextSong(_selectedPlaylist, labelArtistName.Text.Substring(0, labelArtistName.Text.IndexOf(" Duration")) + " - " + labelSongName.Text));
+            else
+                SetMedia(_sqlManager.GetNextSong(_selectedPlaylist, labelSongName.Text));
         }
         private void pictureMediaPlay_Click(object sender, EventArgs e)
         {
@@ -203,10 +225,11 @@ namespace IPAplicatie
             {
                 songTitle = _player.GetName(link);
 
-                int duration = _player.GetDuration(link);
+                if(songTitle.IndexOf("-") != -1)
+                    songTitle = songTitle.Substring(0, songTitle.IndexOf("-")).Trim(' ') + " - " + songTitle.Substring(songTitle.IndexOf("-") + 1).Trim(' ');
 
                 if (!_sqlManager.CheckMelodie(link))
-                    _sqlManager.AddMelodie(link, songTitle, duration);
+                    _sqlManager.AddMelodie(link, songTitle, _player.GetDuration(link));
             }
 
             return songTitle;
@@ -215,9 +238,11 @@ namespace IPAplicatie
         private void buttonYouTubeAdd_Click(object sender, EventArgs e)
         {
             if (currentOperation != null && currentOperation.IsAlive)
-                currentOperation.Interrupt();
+                currentOperation.Abort();
 
-            currentOperation = new Thread(() => AddSongToDatabase(textBoxYoutubeURL.Text));
+            string temp = textBoxYoutubeURL.Text;
+
+            currentOperation = new Thread(() => AddSongToDatabase(temp));
 
             currentOperation.Start();
 
@@ -242,10 +267,12 @@ namespace IPAplicatie
                 labelSongName.Text = title.Substring(title.IndexOf("-") + 1).Trim(' ');
                 labelArtistName.Text = _sqlManager.GetSongStats(title);
 
+                _currentSongDuration = _sqlManager.GetSongDuration(title);
+
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
 
                 if (currentOperation != null && currentOperation.IsAlive)
-                        currentOperation.Interrupt();
+                        currentOperation.Abort();
                 
                 currentOperation = new Thread(() => _player.DownloadProcedure(_sqlManager.GetSongURL(title), volumeValue));
                 currentOperation.Start();
@@ -254,7 +281,9 @@ namespace IPAplicatie
 
         private void buttonYouTubePlay_Click(object sender, EventArgs e)
         {
-            SetMedia(AddSongToDatabase(textBoxYoutubeURL.Text));
+            string temp = textBoxYoutubeURL.Text;
+
+            SetMedia(AddSongToDatabase(temp));
 
             textBoxYoutubeURL.Text = "";
         }
@@ -331,6 +360,82 @@ namespace IPAplicatie
         private void timer1_Tick(object sender, EventArgs e)
         {
             trackMediaProgress.Value = _player.monitorPosition();
+            if (_currentSongDuration > 0)
+                if (_currentSongDuration % 60 > 9)
+                    labelCurrentTime.Text = _player.monitorTime(_currentSongDuration, trackMediaProgress.Value) + _currentSongDuration / 60 + ":" + _currentSongDuration % 60;
+                else
+                    labelCurrentTime.Text = _player.monitorTime(_currentSongDuration, trackMediaProgress.Value) + _currentSongDuration / 60 + ":0" + _currentSongDuration % 60;
+            else
+                labelCurrentTime.Text = "";
+        }
+
+        private void deletePlaylistStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _sqlManager.DeletePlaylist(_playlistsListView.GetSelectedPlaylist);
+            SetView(panelPlaylistsList);
+            _playlistsListView.SetPanel = panelPlaylistsListResult;
+            _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
+        }
+        private void deleteSongStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (labelPlaylistSongsTitle.Text == "Toate melodiile")
+                _sqlManager.DeleteSong(_playlistsListView.GetSelectedSong);
+            else
+                _sqlManager.DeleteSongFromPlaylist(labelPlaylistSongsTitle.Text, _playlistsListView.GetSelectedSong);
+
+            SetView(panelPlaylist);
+            _playlistsListView.SetPanel = panelPlaylistSongs;
+            _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(labelPlaylistSongsTitle.Text));
+        }
+        private void addToPlaylistStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form popup = new Form();
+            ListBox nameBox = new ListBox();
+            foreach (string line in _sqlManager.GetPlaylists().Keys)
+            {
+                if(line != "Toate melodiile" && line != "Favorite" && line != "Melodii Recente")
+                    nameBox.Items.Add(line);
+            }
+            Button buttonOK = new Button();
+            Button buttonCancel = new Button();
+            popup.Width = 350;
+            popup.Height = 200;
+            popup.FormBorderStyle = FormBorderStyle.FixedSingle;
+            popup.Text = "Introdu playlist-ul destinatie";
+            popup.StartPosition = FormStartPosition.CenterParent;
+            popup.MaximizeBox = false;
+            popup.MinimizeBox = false;
+            nameBox.Width = 290;
+            nameBox.Height = 100;
+            nameBox.Top = 20;
+            nameBox.Left = 30;
+            buttonOK.Text = "OK";
+            buttonOK.Left = 50;
+            buttonOK.Top = 130;
+            buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
+                _sqlManager.AddToPlaylist((string)nameBox.SelectedItem, _playlistsListView.GetSelectedSong);
+                popup.DialogResult = DialogResult.OK;
+                popup.Close();
+            });
+            buttonCancel.Text = "Cancel";
+            buttonCancel.Left = 220;
+            buttonCancel.Top = 130;
+            buttonCancel.Click += new EventHandler((object s, EventArgs ev) => { popup.DialogResult = DialogResult.Abort; popup.Close(); });
+            popup.Controls.Add(nameBox);
+            popup.Controls.Add(buttonOK);
+            popup.Controls.Add(buttonCancel);
+            DialogResult show = popup.ShowDialog(this);
+            string result = nameBox.Text;
+
+            if (show == DialogResult.OK && result != "")
+            {
+                //Adaugare melodie in playlist
+                MessageBox.Show("Melodia " + _playlistsListView.GetSelectedSong + " a fost introdus in playlist-ul " + result);
+            }
+        }
+        private void addToFavoriteStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _sqlManager.AddToPlaylist("Favorite", _playlistsListView.GetSelectedSong);
         }
     }
 }

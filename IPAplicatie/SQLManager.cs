@@ -92,9 +92,12 @@ namespace IPAplicatie
 
             SQLiteDataReader reader;
 
-            cmd.CommandText = "SELECT melodieID FROM Melodii WHERE Nume_Melodie=\'" + songName + "\'";
+            cmd.CommandText = "SELECT melodieID FROM Melodie WHERE Nume_Melodie=\'" + songName + "\'";
 
             reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                songID = reader.GetInt32(0);
 
             DeleteSongFromPlaylist(playlistName, songID);
         }
@@ -132,7 +135,7 @@ namespace IPAplicatie
 
             SQLiteDataReader reader;
 
-            cmd.CommandText = "SELECT melodieID FROM Melodii WHERE Nume_Melodie=\'" + songName + "\'";
+            cmd.CommandText = "SELECT melodieID FROM Melodie WHERE Nume_Melodie=\'" + songName + "\'";
 
             reader = cmd.ExecuteReader();
 
@@ -148,7 +151,7 @@ namespace IPAplicatie
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
 
-            cmd.CommandText = "DELETE FROM Melodii WHERE melodieID=" + songID;
+            cmd.CommandText = "DELETE FROM Melodie WHERE melodieID=" + songID;
 
             cmd.ExecuteNonQuery();
 
@@ -165,7 +168,7 @@ namespace IPAplicatie
 
             SQLiteDataReader reader;
 
-            cmd.CommandText = "SELECT playlistID FROM Melodii WHERE Nume_Playlist=\'" + playlistName + "\'";
+            cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'" + playlistName + "\'";
 
             reader = cmd.ExecuteReader();
 
@@ -190,6 +193,24 @@ namespace IPAplicatie
             cmd.ExecuteNonQuery();
         }
 
+        public int GetSongDuration(string songName)
+        {
+            SQLiteCommand cmd = _sqlConnection.CreateCommand();
+
+            SQLiteDataReader reader;
+
+            cmd.CommandText = "SELECT Duration FROM Melodie WHERE Nume_Melodie=\'" + songName + "\'";
+
+            reader = cmd.ExecuteReader();
+
+            int duration = 0;
+
+            if (reader.Read())
+                duration = reader.GetInt32(0);
+
+            return duration;
+        }
+        
         public void UpdateRecentPlaylist(string song)
         {
             int songID = -1, playlistID = -1;
@@ -275,8 +296,8 @@ namespace IPAplicatie
             try
             {
                 cmd.CommandText = "INSERT INTO Melodie " +
-                    "(Sursa_Video, Nume_Melodie, Duration) VALUES" +
-                    "(\'" + url + "\', \'" + name + "\' , " + duration + ")";
+                    "(Sursa_Video, Nume_Melodie, Duration) VALUES " +
+                    "(\'" + url + "\', \'" + name + "\', " + duration + ")";
 
                 cmd.ExecuteNonQuery();
             }

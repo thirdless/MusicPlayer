@@ -35,6 +35,7 @@ namespace IPAplicatie
             this.buttonCautare = new System.Windows.Forms.Button();
             this.buttonYoutube = new System.Windows.Forms.Button();
             this.panelMedia = new System.Windows.Forms.Panel();
+            this.labelCurrentTime = new System.Windows.Forms.Label();
             this.trackVolume = new System.Windows.Forms.TrackBar();
             this.trackMediaProgress = new System.Windows.Forms.TrackBar();
             this.pictureMediaForth = new System.Windows.Forms.PictureBox();
@@ -49,6 +50,10 @@ namespace IPAplicatie
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToPlaylistStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToFavoriteStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deletePlaylistStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSongStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelPlaylistsList = new System.Windows.Forms.Panel();
             this.buttonPlaylistsListCreate = new System.Windows.Forms.Button();
             this.panelPlaylistsListResult = new System.Windows.Forms.Panel();
@@ -66,10 +71,6 @@ namespace IPAplicatie
             this.panelAcasa = new System.Windows.Forms.Panel();
             this.panelPlaylist = new System.Windows.Forms.Panel();
             this.panelPlaylistSongs = new System.Windows.Forms.Panel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altcevaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.altcevaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonEqualizer = new System.Windows.Forms.Button();
             this.panelEqualizer = new System.Windows.Forms.Panel();
             this.buttonEqualizerSave = new System.Windows.Forms.Button();
@@ -94,6 +95,8 @@ namespace IPAplicatie
             this.trackBarEq2 = new System.Windows.Forms.TrackBar();
             this.trackBarEq1 = new System.Windows.Forms.TrackBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.SongContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.PlaylistContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panelMedia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).BeginInit();
@@ -106,7 +109,6 @@ namespace IPAplicatie
             this.panelSearch.SuspendLayout();
             this.panelYoutube.SuspendLayout();
             this.panelPlaylist.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.panelEqualizer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq9)).BeginInit();
@@ -118,6 +120,8 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
+            this.SongContextMenuStrip.SuspendLayout();
+            this.PlaylistContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonAcasa
@@ -194,6 +198,7 @@ namespace IPAplicatie
             // 
             // panelMedia
             // 
+            this.panelMedia.Controls.Add(this.labelCurrentTime);
             this.panelMedia.Controls.Add(this.trackVolume);
             this.panelMedia.Controls.Add(this.trackMediaProgress);
             this.panelMedia.Controls.Add(this.pictureMediaForth);
@@ -206,6 +211,18 @@ namespace IPAplicatie
             this.panelMedia.Name = "panelMedia";
             this.panelMedia.Size = new System.Drawing.Size(1002, 78);
             this.panelMedia.TabIndex = 4;
+            // 
+            // labelCurrentTime
+            // 
+            this.labelCurrentTime.AutoSize = true;
+            this.labelCurrentTime.BackColor = System.Drawing.Color.Transparent;
+            this.labelCurrentTime.Font = new System.Drawing.Font("Microsoft PhagsPa", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentTime.ForeColor = System.Drawing.Color.White;
+            this.labelCurrentTime.Location = new System.Drawing.Point(748, 49);
+            this.labelCurrentTime.Name = "labelCurrentTime";
+            this.labelCurrentTime.Size = new System.Drawing.Size(54, 17);
+            this.labelCurrentTime.TabIndex = 8;
+            this.labelCurrentTime.Text = "label12";
             // 
             // trackVolume
             // 
@@ -365,6 +382,34 @@ namespace IPAplicatie
             this.closeToolStripMenuItem.Text = "Iesire";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
+            // addToPlaylistStripMenuItem
+            // 
+            this.addToPlaylistStripMenuItem.Name = "addToPlaylistStripMenuItem";
+            this.addToPlaylistStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.addToPlaylistStripMenuItem.Text = "Add To Playlist...";
+            this.addToPlaylistStripMenuItem.Click += new System.EventHandler(this.addToPlaylistStripMenuItem_Click);
+            // 
+            // addToFavoriteStripMenuItem
+            // 
+            this.addToFavoriteStripMenuItem.Name = "addToFavoriteStripMenuItem";
+            this.addToFavoriteStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.addToFavoriteStripMenuItem.Text = "Add To Favorite";
+            this.addToFavoriteStripMenuItem.Click += new System.EventHandler(this.addToFavoriteStripMenuItem_Click);
+            // 
+            // deletePlaylistStripMenuItem
+            // 
+            this.deletePlaylistStripMenuItem.Name = "deletePlaylistStripMenuItem";
+            this.deletePlaylistStripMenuItem.Size = new System.Drawing.Size(173, 24);
+            this.deletePlaylistStripMenuItem.Text = "Delete playlist";
+            this.deletePlaylistStripMenuItem.Click += new System.EventHandler(this.deletePlaylistStripMenuItem_Click);
+            // 
+            // deleteSongStripMenuItem
+            // 
+            this.deleteSongStripMenuItem.Name = "deleteSongStripMenuItem";
+            this.deleteSongStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.deleteSongStripMenuItem.Text = "Delete song";
+            this.deleteSongStripMenuItem.Click += new System.EventHandler(this.deleteSongStripMenuItem_Click);
+            // 
             // panelPlaylistsList
             // 
             this.panelPlaylistsList.AutoScroll = true;
@@ -378,7 +423,7 @@ namespace IPAplicatie
             this.panelPlaylistsList.Visible = false;
             // 
             // buttonPlaylistsListCreate
-            //
+            // 
             this.buttonPlaylistsListCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.buttonPlaylistsListCreate.FlatAppearance.BorderSize = 0;
             this.buttonPlaylistsListCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -552,35 +597,6 @@ namespace IPAplicatie
             this.panelPlaylistSongs.Name = "panelPlaylistSongs";
             this.panelPlaylistSongs.Size = new System.Drawing.Size(977, 300);
             this.panelPlaylistSongs.TabIndex = 10;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cevaToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 28);
-            // 
-            // cevaToolStripMenuItem
-            // 
-            this.cevaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altcevaToolStripMenuItem,
-            this.altcevaToolStripMenuItem1});
-            this.cevaToolStripMenuItem.Name = "cevaToolStripMenuItem";
-            this.cevaToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
-            this.cevaToolStripMenuItem.Text = "ceva";
-            // 
-            // altcevaToolStripMenuItem
-            // 
-            this.altcevaToolStripMenuItem.Name = "altcevaToolStripMenuItem";
-            this.altcevaToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
-            this.altcevaToolStripMenuItem.Text = "altceva";
-            // 
-            // altcevaToolStripMenuItem1
-            // 
-            this.altcevaToolStripMenuItem1.Name = "altcevaToolStripMenuItem1";
-            this.altcevaToolStripMenuItem1.Size = new System.Drawing.Size(139, 26);
-            this.altcevaToolStripMenuItem1.Text = "altceva";
             // 
             // buttonEqualizer
             // 
@@ -869,6 +885,24 @@ namespace IPAplicatie
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // SongContextMenuStrip
+            // 
+            this.SongContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.SongContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addToFavoriteStripMenuItem,
+            this.addToPlaylistStripMenuItem,
+            this.deleteSongStripMenuItem});
+            this.SongContextMenuStrip.Name = "SongContextMenuStrip";
+            this.SongContextMenuStrip.Size = new System.Drawing.Size(186, 76);
+            // 
+            // PlaylistContextMenuStrip
+            // 
+            this.PlaylistContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.PlaylistContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deletePlaylistStripMenuItem});
+            this.PlaylistContextMenuStrip.Name = "PlaylistContextMenuStrip";
+            this.PlaylistContextMenuStrip.Size = new System.Drawing.Size(174, 28);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -909,7 +943,6 @@ namespace IPAplicatie
             this.panelYoutube.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
             this.panelPlaylist.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.panelEqualizer.ResumeLayout(false);
             this.panelEqualizer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).EndInit();
@@ -922,6 +955,8 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
+            this.SongContextMenuStrip.ResumeLayout(false);
+            this.PlaylistContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -938,9 +973,13 @@ namespace IPAplicatie
         private System.Windows.Forms.PictureBox pictureBoxSong;
         private System.Windows.Forms.Button buttonOthers;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOthers;
+        private System.Windows.Forms.ToolStripMenuItem deletePlaylistStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSongStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToPlaylistStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToFavoriteStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.PictureBox pictureMediaPlay;
         private System.Windows.Forms.PictureBox pictureMediaForth;
@@ -963,10 +1002,6 @@ namespace IPAplicatie
         private System.Windows.Forms.Panel panelPlaylist;
         private System.Windows.Forms.Panel panelPlaylistSongs;
         private System.Windows.Forms.Button buttonPlaylistsListCreate;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem cevaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altcevaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem altcevaToolStripMenuItem1;
         private System.Windows.Forms.Button buttonEqualizer;
         private System.Windows.Forms.Panel panelEqualizer;
         private System.Windows.Forms.Label label11;
@@ -992,6 +1027,9 @@ namespace IPAplicatie
         private System.Windows.Forms.Button buttonEqualizerSave;
         private System.Windows.Forms.TrackBar trackVolume;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelCurrentTime;
+        private System.Windows.Forms.ContextMenuStrip SongContextMenuStrip;
+        private System.Windows.Forms.ContextMenuStrip PlaylistContextMenuStrip;
     }
 }
 

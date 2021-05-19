@@ -66,6 +66,24 @@ namespace IPAplicatie
             }
         }
 
+        public string monitorTime(int duration, int percentage)
+        {
+            if (_eq != null && _isReady)
+            {
+                int currentTime = duration * percentage / 100;
+
+                if (currentTime % 60 > 9)
+
+                    return currentTime / 60 + ":" + currentTime % 60 + "/";
+
+                else
+
+                    return currentTime / 60 + ":0" + currentTime % 60 + "/";
+            }
+
+            return "";
+        }
+
         public int monitorPosition()
         {
             if(_eq != null && _isReady)
@@ -222,8 +240,8 @@ namespace IPAplicatie
             if (_soundOut != null && _soundOut.PlaybackState != PlaybackState.Stopped)
                 Stop();
 
-            ExecCommand("cmd.exe", "/c mkdir \"Samples\\audio.wav*\"");
-            ExecCommand("cmd.exe", " /c del \"Samples\\audio.wav*\"");
+            ExecCommand("cmd.exe", "/c mkdir Samples");
+            ExecCommand("cmd.exe", " /c del /Q \"Samples\\*\"");
             ExecCommand("youtube-dl.exe", "-f best " + ParseLink(link) + " -x --audio-format \"wav\" -o \"Samples\\audio.wav\" --write-thumbnail");
             foreach (string file in Directory.GetFiles("Samples"))
             {
