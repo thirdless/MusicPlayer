@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
@@ -16,34 +12,35 @@ namespace IPAplicatie
     {
         private readonly Dictionary<string, Panel> _views;
 
-        ViewManager _viewManager;
+        public readonly static string EqualizerPath = "equalizer.data";
 
-        SQLManager _sqlManager;
+        ViewManager _viewManager; // Instanta a obiectului ViewManager ce va avea rolul de generare a layout-urilor
 
-        MusicPlayer _player;
+        SQLManager _sqlManager; // Instanta a obiectului SQLManager ce se va ocupa cu comunicarea cu baza de date
 
-        private int _currentSongDuration;
+        MusicPlayer _player; // Instanta a obiectului MusicPlayer ce se va ocupa cu redarea melodiei
 
-        string _selectedPlaylist = "";
+        private int _currentSongDuration; // Variabila "_currentSongDuration" contribuie la afisarea duratei 
 
-        public Thread currentOperation;
+        string _selectedPlaylist = ""; // Va pastra playlist-ul care reda melodiile la un moment dat; Este necesar pentru reda melodii din playlist-ul curent in momentul in care apasam pe butoanele de inainte si inapoi
+
+        public Thread currentOperation; // Pentru a pastra fluiditatea interfetei grafice vom lansa metodele blocante intr-un thread separat
 
         public int volumeValue;
-
-        public readonly static string EqualizerPath = "equalizer.data";
 
         public MainForm()
         {
             InitializeComponent();
 
+            // Se stocheaza panourile principale
             _views = new Dictionary<string, Panel>()
             {
-                { "acasa", panelAcasa },
-                { "playlistsList", panelPlaylistsList },
-                { "search", panelSearch },
-                { "youtube", panelYoutube },
-                { "equalizer", panelEqualizer },
-                { "playlist", panelPlaylist }
+                { "acasa", panelAcasa },                    // Afiseaza melodiile si panourile recente
+                { "playlistsList", panelPlaylistsList },    // Afiseaza lista cu playlist-uri iar accesarea unui playlist va redirectiona utilizatorul pe panoul panelPlaylist
+                { "search", panelSearch },                  // Afiseaza lista melodiilor care au in nume textul din panoul de cautare
+                { "youtube", panelYoutube },                // Se ocupa cu optiunile procedura pentru downloadare a melodiilor de pe youtube
+                { "equalizer", panelEqualizer },            // Ofera posibilitatea de a modifica valorile din equalizer
+                { "playlist", panelPlaylist }               // Afiseaza melodiile dintr-un playlist in momentul in care acesta este selectat
             };
 
             _sqlManager = SQLManager.GetInstance();
@@ -58,7 +55,6 @@ namespace IPAplicatie
 
             volumeValue = trackVolume.Value;
 
-            // afisare acasa
             Thread.Sleep(500);
             ShowAcasa();
             CheckEqualizer();
@@ -80,11 +76,16 @@ namespace IPAplicatie
             }
         }
 
+        public void RefreshRecentPlaylists(string playlist)
+        {
+            _sqlManager.InsertToRecent(playlist);
+        }
+
+        // Afisarea melodiilor dintr-un playlist in interfata grafica
         public void DisplayPlayList(string playList)
         {
             SetView(panelPlaylist);
             _viewManager.SetPanel = panelPlaylistSongs;
-            _sqlManager.InsertToRecent(playList);
             if (playList != "" && playList != "Toate melodiile")
             {
                 labelPlaylistSongsTitle.Text = playList;
@@ -97,6 +98,7 @@ namespace IPAplicatie
             }
         }
 
+        // Modifica si asigura ca singurul panou vizibil este cel pasat ca argument
         private void SetView(Panel panel = null)
         {
             foreach (KeyValuePair<string, Panel> item in _views)
@@ -108,11 +110,10 @@ namespace IPAplicatie
             }
 
             if (panel != null && panel != panelPlaylistsList)
-            {
                 _viewManager.SetPanel = panel;
-            }
         }
 
+        // Se foloseste pentru a verificarea panoului vizibil
         public string CheckView()
         {
             foreach (KeyValuePair<string, Panel> item in _views)
@@ -124,6 +125,9 @@ namespace IPAplicatie
             return "";
         }
 
+        // Panoul acasa are in componenta sa doua panouri care au rolul de a afisa separat melodiile si playlist-urile recente
+        // Restul layout-urilor au doar o zona de afisare a listelor deci se face de fiecare data dispose la inceputul crearii elementelor
+        // Pentru panoul acasa trebuie luat in calcul acest lucru asa ca vom apela metoda de dispose doar o singura data la inceputul metodei
         public void ShowAcasa()
         {
             _viewManager.CleanupItems();
@@ -151,6 +155,7 @@ namespace IPAplicatie
             SetView(panelSearch);
         }
 
+        // Interogare baza de date dupa wildcard-ul din panoul de cautare
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             _viewManager.SetPanel = panelSearchResults;
@@ -172,10 +177,15 @@ namespace IPAplicatie
             contextMenuStripOthers.Show(new Point(MousePosition.X, MousePosition.Y));
         }
 
+        // Aceasta metoda este apelata in evenimentul de click-dreapta elementele corespondente melodiilor din layout
+        // Afiseaza optiunile din meniul pentru melodii la coordonatele mouse-ului
         public void ShowSongsContext()
         {
             SongContextMenuStrip.Show(new Point(MousePosition.X, MousePosition.Y));
         }
+
+        // Aceasta metoda este apelata in evenimentul de click-dreapta elementele corespondente playlist-urilor din layout
+        // Afiseaza optiunile din meniul pentru playlist-uri la coordonatele mouse-ului
         public void ShowPlaylistContext()
         {
             if (_viewManager.GetSelectedPlaylist != "Toate melodiile" && _viewManager.GetSelectedPlaylist != "Favorite" && _viewManager.GetSelectedPlaylist != "Melodii Recente")
@@ -183,6 +193,7 @@ namespace IPAplicatie
                 PlaylistContextMenuStrip.Show(new Point(MousePosition.X, MousePosition.Y));
         }
 
+        // Aplica modificarile din slider-urile din panoul equalizer
         private void EqSlider_ValueChanged(object sender, EventArgs e)
         {
             _player.ChangeValue((TrackBar)sender);
@@ -202,11 +213,6 @@ namespace IPAplicatie
             "Descriere: Program Proiect IP\n\n";
 
             MessageBox.Show(text, "Despre aplicatie");
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void pictureMediaBack_Click(object sender, EventArgs e)
@@ -250,20 +256,10 @@ namespace IPAplicatie
             return songTitle;
         }
 
-        private void buttonYouTubeAdd_Click(object sender, EventArgs e)
-        {
-            if (currentOperation != null && currentOperation.IsAlive)
-                currentOperation.Abort();
-
-            string temp = textBoxYoutubeURL.Text;
-
-            currentOperation = new Thread(() => AddSongToDatabase(temp));
-
-            currentOperation.Start();
-
-            textBoxYoutubeURL.Text = "";
-        }
-
+        // Aceasta metoda este apelata de fiecare data cand se doreste redarea unei melodii
+        // Trebuie tratata perioada in care se deruleaza procedura de download
+        // Daca aceasta tratare nu este efectuata exista riscul sa accesam un fisier inexistent
+        // Se evita aceasta accesare ilegala prin setarea flagului isReady din '_player' pe valoarea false
         public void SetMedia(string title)
         {
             if (title != "")
@@ -297,7 +293,23 @@ namespace IPAplicatie
                 timerThumbnail.Start();
             }
         }
+        
+        // Se apeleaza in momentul in care se doreste adaugarea unei melodii de pe youtube in lista de melodii
+        private void buttonYouTubeAdd_Click(object sender, EventArgs e)
+        {
+            if (currentOperation != null && currentOperation.IsAlive)
+                currentOperation.Abort();
 
+            string temp = textBoxYoutubeURL.Text;
+
+            currentOperation = new Thread(() => AddSongToDatabase(temp));
+
+            currentOperation.Start();
+
+            textBoxYoutubeURL.Text = "";
+        }
+
+        // Se apeleaza in momentul in care se doreste redarea unei melodii cu un link de pe youtube
         private void buttonYouTubePlay_Click(object sender, EventArgs e)
         {
             string temp = textBoxYoutubeURL.Text;
@@ -307,11 +319,24 @@ namespace IPAplicatie
             textBoxYoutubeURL.Text = "";
         }
 
+        // Aceasta metoda este apelata in momentul in care se doreste crearea unui nou playlist
         private void buttonPlaylistsListCreate_Click(object sender, EventArgs e)
         {
+            //
+            //  Panou de popup
+            //
             Form popup = new Form();
+            //
+            //  Panou de introducere a numelui playlist-ului
+            //
             TextBox nameBox = new TextBox();
+            //
+            //  Buton de acceptare
+            //
             Button buttonOK = new Button();
+            //
+            //  Buton de anulare
+            //
             Button buttonCancel = new Button();
             popup.Width = 350;
             popup.Height = 120;
@@ -327,6 +352,7 @@ namespace IPAplicatie
             buttonOK.Text = "OK";
             buttonOK.Left = 50;
             buttonOK.Top = 50;
+            // Daca se apasa butonul OK se updateaza baza de date si se actualizeaza interfata
             buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
                 if (nameBox.Text != "")
                 {
@@ -354,6 +380,7 @@ namespace IPAplicatie
             }
         }
 
+        // Configurarea slider-urilor cu valorile din fisierul equalizer.data
         private void CheckEqualizer()
         {
             try
@@ -383,6 +410,7 @@ namespace IPAplicatie
             } 
         }
 
+        // Metoda pentru resetarea valorilor din panoul equalizer
         private void ClearEqualizer()
         {
             for (int i = 0; i < 10; i++)
@@ -391,6 +419,7 @@ namespace IPAplicatie
             }
         }
 
+        // Metoda pentru salvarea configurarilor din panoul pentru equalizer
         private void SaveEqualizer()
         {
             try
@@ -433,6 +462,8 @@ namespace IPAplicatie
             _player.ChangeVolume = (float)volumeValue;
         }
 
+        // Aceasta metoda monitorizeaza progresul melodiei si actualizeaza bara de durata
+        // Aceasta actualizare a duratei se face doar in conditiile in care procedeul de download a luat sfarsit si redarea melodiei a inceput
         private void timerSong_Tick(object sender, EventArgs e)
         {
             trackMediaProgress.Value = _player.monitorPosition();
@@ -445,6 +476,7 @@ namespace IPAplicatie
                 labelCurrentTime.Text = "";
         }
 
+        // Implementare pentru stergerea playlist-urilor
         private void deletePlaylistStripMenuItem_Click(object sender, EventArgs e)
         {
             _sqlManager.DeletePlaylist(_viewManager.GetSelectedPlaylist);
@@ -452,6 +484,8 @@ namespace IPAplicatie
             _viewManager.SetPanel = panelPlaylistsListResult;
             _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
         }
+
+        // Implementare pentru stergerea melodiilor sau stergerea melodiilor din playlist-uri
         private void deleteSongStripMenuItem_Click(object sender, EventArgs e)
         {
             if (labelPlaylistSongsTitle.Text == "Toate melodiile")
@@ -463,16 +497,30 @@ namespace IPAplicatie
             _viewManager.SetPanel = panelPlaylistSongs;
             _viewManager.CreatePlaylists(_sqlManager.GetSongsFromPlayList(labelPlaylistSongsTitle.Text));
         }
+
+        // Implementare pentru adaugarea melodiilor in playlist-uri
         private void addToPlaylistStripMenuItem_Click(object sender, EventArgs e)
         {
+            //
+            // Fereastra de popup
+            //
             Form popup = new Form();
+            //
+            // Lista cu playlisturi disponibile
+            //
             ListBox nameBox = new ListBox();
             foreach (string line in _sqlManager.GetPlaylists().Keys)
             {
                 if(line != "Toate melodiile" && line != "Favorite" && line != "Melodii Recente")
                     nameBox.Items.Add(line);
             }
+            //
+            // Buton de acceptare
+            //
             Button buttonOK = new Button();
+            //
+            // Buton de anulare
+            //
             Button buttonCancel = new Button();
             popup.Width = 350;
             popup.Height = 200;
@@ -488,6 +536,7 @@ namespace IPAplicatie
             buttonOK.Text = "OK";
             buttonOK.Left = 50;
             buttonOK.Top = 130;
+            // Daca este apasat butonul de OK se va adauga melodia in playlistul selectat in elementul listBox
             buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
                 _sqlManager.AddToPlaylist((string)nameBox.SelectedItem, _viewManager.GetSelectedSong);
                 popup.DialogResult = DialogResult.OK;
@@ -524,6 +573,11 @@ namespace IPAplicatie
             Environment.Exit(0);
         }
 
+
+        // Acest eveniment este necesar deoarece trebuie sa inlocuim continutul din calea "Samples/" 
+        // Iar pe parcursul inlocuirii nu se poate accesa continutul
+        // Asa ca interogam aceasta cale pentru a observa momentul in care continutul se actualizeaza
+        // Ea este apaelata la momentul schimbarii melodiei
         private void timerThumbnail_Tick(object sender, EventArgs e)
         {
             string path = "Samples/audio.jpg";

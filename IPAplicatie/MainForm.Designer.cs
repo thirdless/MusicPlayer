@@ -384,7 +384,6 @@ namespace IPAplicatie
             this.helpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
             this.helpToolStripMenuItem.Text = "Ajutor";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -409,28 +408,28 @@ namespace IPAplicatie
             // 
             this.addToPlaylistStripMenuItem.Name = "addToPlaylistStripMenuItem";
             this.addToPlaylistStripMenuItem.Size = new System.Drawing.Size(185, 24);
-            this.addToPlaylistStripMenuItem.Text = "Add To Playlist...";
+            this.addToPlaylistStripMenuItem.Text = "Adauga la un playlist...";
             this.addToPlaylistStripMenuItem.Click += new System.EventHandler(this.addToPlaylistStripMenuItem_Click);
             // 
             // addToFavoriteStripMenuItem
             // 
             this.addToFavoriteStripMenuItem.Name = "addToFavoriteStripMenuItem";
             this.addToFavoriteStripMenuItem.Size = new System.Drawing.Size(185, 24);
-            this.addToFavoriteStripMenuItem.Text = "Add To Favorite";
+            this.addToFavoriteStripMenuItem.Text = "Adauga la favorite";
             this.addToFavoriteStripMenuItem.Click += new System.EventHandler(this.addToFavoriteStripMenuItem_Click);
             // 
             // deletePlaylistStripMenuItem
             // 
             this.deletePlaylistStripMenuItem.Name = "deletePlaylistStripMenuItem";
             this.deletePlaylistStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.deletePlaylistStripMenuItem.Text = "Delete playlist";
+            this.deletePlaylistStripMenuItem.Text = "Sterge playlist";
             this.deletePlaylistStripMenuItem.Click += new System.EventHandler(this.deletePlaylistStripMenuItem_Click);
             // 
             // deleteSongStripMenuItem
             // 
             this.deleteSongStripMenuItem.Name = "deleteSongStripMenuItem";
             this.deleteSongStripMenuItem.Size = new System.Drawing.Size(185, 24);
-            this.deleteSongStripMenuItem.Text = "Delete song";
+            this.deleteSongStripMenuItem.Text = "Sterge melodie";
             this.deleteSongStripMenuItem.Click += new System.EventHandler(this.deleteSongStripMenuItem_Click);
             // 
             // panelPlaylistsList

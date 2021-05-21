@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using CSCore;
@@ -12,21 +7,23 @@ using CSCore.SoundOut;
 using CSCore.Streams;
 using CSCore.Streams.Effects;
 using System.Diagnostics;
-using System.Threading;
 using System.Net;
 
 namespace IPAplicatie
 {
     class MusicPlayer
     {
-        private Equalizer _eq;
-        private ISoundOut _soundOut;
-        private bool _isReady;
+        private Equalizer _eq; // prin intermediul acestei variabile vom modifica progresul melodiei si vom genera si modifica canalele pentru equalizer
+        private ISoundOut _soundOut; // prin intermediul acestei variabile vom reda, vom opri si vom modifica volumul fisierul audio
+        private bool _isReady; // acest flag determina daca aplicatia se afla sau nu in procesul de inlocuire a fisierelor din directorul de media
 
         public MusicPlayer()
         {
         }
 
+        // Se va obtine handler-ul pentru redarea melodiei
+        // se vor genera 10 canale pentru equalizer
+        // Se va seta volumul cu valoarea de la slider-ul de volum din interfata grafica
         private void PlayFunc(string fileName, int volume)
         {
             Stop();
@@ -43,7 +40,7 @@ namespace IPAplicatie
             var source = CodecFactory.Instance.GetCodec(fileName);
 
             source = new LoopStream(source) { EnableLoop = false };
-            (source as LoopStream).StreamFinished += (s, args) => Stop();
+            ((LoopStream)source).StreamFinished += (s, args) => Stop();
 
             _eq = Equalizer.Create10BandEqualizer(source.ToSampleSource());
 
@@ -55,6 +52,9 @@ namespace IPAplicatie
             _isReady = true;
         }
 
+        // Proprietate folosita in MainForm pentru interogarea instantei de tip MusicPlayer in legatura cu starea in care se afla aplicatia
+        // Aceast flag devine fals in momentul in care se modifica o melodie
+        // Si va deveni true cand se incheie procesul de download si redare a noii melodii
         public bool Ready
         {
             set
@@ -67,6 +67,8 @@ namespace IPAplicatie
             }
         }
 
+        // Este necesar pentru a afisa cu acuratete progresul melodiei in interfata grafica
+        // Va fi apelata de evenimentul tick al elementului TimerSong
         public string monitorTime(int duration, int percentage)
         {
             if (_eq != null && _isReady)
@@ -85,6 +87,7 @@ namespace IPAplicatie
             return "";
         }
 
+        // Va returna in procente progresul melodiei
         public int monitorPosition()
         {
             if(_eq != null && _isReady)
@@ -92,6 +95,7 @@ namespace IPAplicatie
             return 0;
         }
 
+        // Procedura de oprire si eliminare a handler-lor audio
         public void Stop()
         {
             if (_soundOut != null)
@@ -115,6 +119,9 @@ namespace IPAplicatie
             }
         }
 
+        // Aceasta metoda este apelata de fiecare data cand un slider din panoul equalizer este modificat
+        // Numarul canalului va fi memorat in proprietatea tag al elementului de tip TrackBar
+        // Astfel cele 10 slidere din panoul equalizer au la rubrica Tag cate o valoare de la 0-9
         public void ChangeValue(TrackBar trackBar)
         {
             if (_eq != null)
@@ -131,6 +138,8 @@ namespace IPAplicatie
             }
         }
 
+        // Se foloseste la schimbarea efectiva volumului prin modificarea handler-ului audio
+        // Este necesar in acelasi timp sa se verifice daca melodia este in procesul de redare si daca handler-ului este nul
         public float ChangeVolume
         {
             set
@@ -140,7 +149,7 @@ namespace IPAplicatie
             }
         }
         
-
+        // Se va apela in momentul in care se apasa buton de play/pause din interfata grafica
         public bool Play_Pause_Click()
         {
             if(_soundOut != null)
@@ -157,6 +166,8 @@ namespace IPAplicatie
             return false;
         } 
 
+        // Pentru utilizarea utilitarului youtube-dl vom apela functii de sistem
+        // Din acest motiv am creat aceasta metoda ce va simplifica acest proces prin intermediul argumentelor
         private void ExecCommand(string command, string args)
         {
             var processInfo = new ProcessStartInfo(command, args);
@@ -192,7 +203,7 @@ namespace IPAplicatie
             process.Close();
         }
 
-        //youtube-dl -f best "URL" -x --audio-format "wav" -o "audio2.wav" --write-thumbnail
+        // Metoda de a obtine titlul unui videoclip
         public string GetName(string url)
         {
             string line = "";
@@ -216,6 +227,8 @@ namespace IPAplicatie
 
             return line;
         }
+
+        // Metoda de a obtine durata unui videoclip
         public int GetDuration(string url)
         {
             string line = "";
@@ -252,8 +265,12 @@ namespace IPAplicatie
                 return 0;
         }
 
+        // Metoda creata pentru a simplifica procedeul de downloadare a unei melodii
+        // Melodia va fi in format audio
+        // In plus in acelasi director vom salva si thumbnail-ul corespunzator melodiei
         public void DownloadProcedure(string link, int volume)
         {
+            // Oprim si eliminam melodia din prezent pentru a evita accesarea fisierului audio dupa ce acesta este sters in pasurile urmatoare
             if (_soundOut != null && _soundOut.PlaybackState != PlaybackState.Stopped)
                 Stop();
 
@@ -274,6 +291,7 @@ namespace IPAplicatie
             }
         }
 
+        // Metoda de obtinere a thumbnail-ului
         private void DownloadThumbnail(string vid_id)
         {
             string path = "Samples/audio.jpg";
@@ -294,6 +312,8 @@ namespace IPAplicatie
             }
         }
 
+        // Este utila in cazul in care utilizatorul introduce o melodie dintr-un mix/playlist de pe youtube
+        // Pentru a evita acest lucru vom parsa link-ul in asa fel incat sa nu accesam videoclipul din lista
         private string ParseLink(string url)
         {
             string temp = url;
@@ -302,6 +322,8 @@ namespace IPAplicatie
             return temp;
         }
 
+        // Prin acest mod vom seta progresul melodiei
+        // Se va apela in momentul in care se modifica slider-ul de durata din interfata grafica
         public int SetDuration
         {
             set

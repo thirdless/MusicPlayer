@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IPAplicatie
 {
     class ViewManager
     {
-        MainForm _mainForm;
-        Panel _panel;
-        LayoutItem[] _items;
-        ItemFactory _factory;
+        MainForm _mainForm; // Referinta la obiectul MainForm de care ne vom folosi pentru a accesa metodele publice necesare afisarii in panou
+        Panel _panel; // Panoul in care se vor introduce elementele la momentul generarii
+        LayoutItem[] _items; // Vectorul in care vom stoca elementele din layout
+        ItemFactory _factory; // Instanta pentru obiectul de tip fabrica ce va avea rolul de a genera elementele din vectorul "_items"
         string _selectedPlaylist;
         string _selectedSong;
 
@@ -25,6 +23,7 @@ namespace IPAplicatie
             _selectedSong = "";
         }
 
+        // Sterge elemntele grafice din vector
         public void CleanupItems()
         {
             if (_items != null && _items.Length > 0)
@@ -35,15 +34,18 @@ namespace IPAplicatie
             _items = null;
         }
 
-
+        // Metoda ce genereaza si afiseaza in panou elementele grafice in functie de layout
         public void CreateRoutine(Dictionary<string, string> playLists)
         {
             int height = 0,
                 width = 0,
                 type = 0;
 
-            string check = _mainForm.CheckView();
+            string check = _mainForm.CheckView(); // Se stocheaza numele panoului vizibil din prezent
 
+            // Se determina ce tip de layout se va folosi
+            // In cazul in care ne dorim sa afisam panoul acasa sau panoul playlist vom afisa elementele intr-un layout de tip tabel
+            // In cazul in care ne dorim sa afisam melodiile dintr-un playlist vom afisa elemntele intr-un layout de tip lista
             if (check == "playlistsList" || check == "acasa" || check == "")
             {
                 height = 200;
@@ -78,12 +80,15 @@ namespace IPAplicatie
             }
         }
 
+        // In majoritatea cazurilor de afisare a elemtelor grafica dintr-o lista se apeleaza mai intai procedura de eliminare a elementelor pentru inlocuirea acestora cu noile elemente
+        // Aceasta metoda a fost creata pentru simplificarea apelulilor
         public void CreatePlaylists(Dictionary<string, string> playLists)
         {
             CleanupItems();
             CreateRoutine(playLists);
         }
         
+        // Este necesara modificarea panoului in care se vor afisa elemntele in unele din evenimentele din MainForm
         public Panel SetPanel
         {
             set
@@ -99,6 +104,8 @@ namespace IPAplicatie
                 return _selectedPlaylist;
             }
         }
+
+
         public string GetSelectedSong
         {
             get
@@ -107,6 +114,7 @@ namespace IPAplicatie
             }
         }
 
+        // Este necesar pentru a scoate in evidenta elementul pe care se afla mouse-ul
         private void EnterEvent(object sender, EventArgs args)
         {
             Panel parent = null;
@@ -130,6 +138,7 @@ namespace IPAplicatie
             parent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
         }
 
+        // Este necesar pentru anularea evidentierii unui element care a primit inainte de acesta evenimentul de Enter
         private void LeaveEvent(object sender, EventArgs args)
         {
             Panel parent = null;
@@ -153,6 +162,8 @@ namespace IPAplicatie
             parent.BackColor = System.Drawing.Color.Transparent;
         }
 
+        // Acest eveniment va afisa o lista de optiuni in momentul in care se apasa click-dreapta
+        // Pentru coordonatele mouse-ului se va apela o metoda public din referinta catre MainForm
         private void RightClickEvent(object sender, MouseEventArgs args)
         {
             if (args.Button == MouseButtons.Right)
@@ -194,6 +205,9 @@ namespace IPAplicatie
             }
         }
 
+        // Va accesa un element din panou
+        // Daca acesta este de tip playlist atunci se va afisa continutul playlist-ului si se va actualiza baza de date
+        // Iar daca elemntul ales este de tip melodie atunci se va reda melodia si se va actualiza baza de date si referinta catre MainForm
         private void DoubleClickEvent(object sender, EventArgs args)
         {
 
@@ -219,7 +233,7 @@ namespace IPAplicatie
             {
                 string viewName = _mainForm.CheckView();
 
-                if (viewName == "acasa" || viewName == "")
+                if (viewName == "acasa" || viewName == "") // Se trateaza cazul in care elementele de acces se afla pe panoul acasa; deoarece pe acest panou se afla si elemnte de tip melodie si elemnte de tip playlist
                 {
                     string name = ((Panel)(parent.Parent)).Name;
                     if (name == "panelAcasaPlaylisturi")
@@ -235,11 +249,11 @@ namespace IPAplicatie
                     }
                 }
                 else
-                if (viewName == "playlistsList")
+                if (viewName == "playlistsList") // Se trateaza cazul in care elementele de acces se afla pe un panou de playlist-uri
                 {
                     _mainForm.DisplayPlayList(parent.Controls.Find("labelItemName" + parent.Name.Substring("panelItem".Length), false)[0].Text);
                 }
-                else if (viewName == "playlist" || viewName == "search")
+                else if (viewName == "playlist" || viewName == "search") // Se trateaza cazul in care elementele de acces se afla intr-o list de melodii
                 {
                     if (_mainForm.currentOperation != null && _mainForm.currentOperation.IsAlive)
                         _mainForm.currentOperation.Abort();
@@ -249,7 +263,9 @@ namespace IPAplicatie
                     if (viewName == "playlist")
                     {
                         string currentPlaylist = _mainForm.Controls.Find("panelPlaylist", false)[0].Controls.Find("labelPlaylistSongsTitle", false)[0].Text;
-                        
+
+                        _mainForm.RefreshRecentPlaylists(currentPlaylist);
+
                         _mainForm.SetCurrentPlaylist = currentPlaylist;
 
                         if (currentPlaylist == "Melodii Recente")

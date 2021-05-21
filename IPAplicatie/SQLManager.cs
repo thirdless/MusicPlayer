@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Data.Sql;
 using System.Data.SQLite;
 using System.Windows.Forms;
 
@@ -33,6 +29,8 @@ namespace IPAplicatie
             }
 
             CreateTables();
+
+            // Adaugare de playlist-uri implicite in baza de date
 
             AddPlaylist("Toate melodiile");
 
@@ -87,6 +85,7 @@ namespace IPAplicatie
             cmd.ExecuteNonQuery();
         }
 
+        // Stergere melodii dintr-un playlist in functie de numele melodiei
         public void DeleteSongFromPlaylist(string playlistName, string songName)
         {
             int songID = -1;
@@ -105,6 +104,8 @@ namespace IPAplicatie
             DeleteSongFromPlaylist(playlistName, songID);
         }
 
+        // Stergere melodii dintr-un playlist in functie de id-ul melodiei
+        // Este apelat din optiunea "Sterge melodie" din evenimentul de click-dreapta pe o melodie
         public void DeleteSongFromPlaylist(string playlistName, int songID)
         {
             int playlistID = -1;
@@ -130,6 +131,7 @@ namespace IPAplicatie
             }
         }
 
+        // Sterge melodiile din lista de melodii si din playlist-urile care o detin
         public void DeleteSong(string songName)
         {
             int songID = -1;
@@ -163,6 +165,7 @@ namespace IPAplicatie
             cmd.ExecuteNonQuery();
         }
 
+        // Stergerea unui playlist in functie de nume
         public void DeletePlaylist(string playlistName)
         {
             int playlistID = -1;
@@ -183,6 +186,7 @@ namespace IPAplicatie
             DeletePlaylist(playlistID);
         }
 
+        // Stergerea unui playlist in functie de id
         public void DeletePlaylist(int playlistID)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -196,6 +200,8 @@ namespace IPAplicatie
             cmd.ExecuteNonQuery();
         }
 
+        // Metoda ce returneaza durata unei melodii
+        // Este necesara pentru a actualiza valoarea "_currentSongDuration" din MainForm
         public int GetSongDuration(string songName)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -214,6 +220,7 @@ namespace IPAplicatie
             return duration;
         }
 
+        // Este necesara in momentul in care se modifica cele mai recente playlist-uri si efectueaza actualizarea tableli de playlist-uri recente 
         public void UpdateRecentPlaylist(string song)
         {
             int songID = -1, playlistID = -1;
@@ -276,6 +283,7 @@ namespace IPAplicatie
 
         }
 
+        // Interogheaza baza de date pentru numele melodiilor inregistrate si inregistreaza si detaliile fiecarei melodii
         public Dictionary<string, string> GetRecentSongs()
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -288,6 +296,8 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Procedura de adaugare a unei melodii in baza de date
+        // Este aplicata din panoul de YouTube cand se alege una din cele doua optiuni
         public void AddMelodie(string url, string name, int duration)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -306,6 +316,7 @@ namespace IPAplicatie
             }
         }
 
+        // Verifica daca exista melodia in baza de date
         public bool CheckMelodie(string url)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -315,6 +326,7 @@ namespace IPAplicatie
             return cmd.ExecuteReader().Read();
         }
 
+        // Verifica daca exista playlist-ul in baza de date
         public bool CheckPlaylist(string name)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -324,6 +336,7 @@ namespace IPAplicatie
             return cmd.ExecuteReader().Read();
         }
 
+        // Adauga melodia intr-un playlist
         public void AddToPlaylist(int playListID, int melodieID)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -386,6 +399,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Metoda de actualizare a tabelei de playlist-urile recente
         public void InsertToRecent(string playlistName)
         {
             SQLiteCommand cmd = _sqlConnection.CreateCommand();
@@ -467,6 +481,7 @@ namespace IPAplicatie
             }
         }
 
+        // Metoda ce se foloseste la afisarea de playlist-uri recente in panoul acasa
         public Dictionary<string, string> GetRecentPlaylists()
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -507,6 +522,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Metoda ce se va interoga baza de date in functie de widlcard-ul de la operatia de cautare din panoul de cautare
         public Dictionary<string, string> SearchSongsByName(string wildcard)
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -529,6 +545,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Interogheaza baza de date pentru numele melodiilor dintr-un playlist
         public List<string> GetListSongs(int listID)
         {
             List<string> songs = new List<string>();
@@ -591,6 +608,7 @@ namespace IPAplicatie
             return null;
         }
 
+        // Interogheaza baza de date pentru melodii in momentul in care se acceseaza un playlist
         public Dictionary<string, string> GetSongsFromPlayList(string listName)
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -603,6 +621,7 @@ namespace IPAplicatie
             return rez;
         }
     
+        // Metoda ce interogheaza baza de date pentru toate playlist-urile in momentul in care se afiseaza panoul pentru playlist-uri
         public Dictionary<string, string> GetPlaylists()
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -630,6 +649,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // In functie de playlist aceasta metoda returneaza un obiect de tip string cu numarul de melodii si durata totala din melodii
         public string GetPlayListStats(string playList)
         {
             int duration = 0;
@@ -674,6 +694,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Proces prin care se obtine numele melodiilor si detalii despre acestea
         public Dictionary<string, string> GetSongs()
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
@@ -695,6 +716,8 @@ namespace IPAplicatie
             return rez;
         }
 
+        // In momentul in care dorim sa ascultam melodia anterioara din lista ne folosim de baza de date pentru determinarea melodiei
+        // Acest procedeu este similar cu evenimentul de redare a melodiei urmatoare
         public string GetPrevSong(string playlist, string song)
         {
             Dictionary<string, string> list;
@@ -747,6 +770,7 @@ namespace IPAplicatie
             return "";
         }
 
+        // Procedeu apelat de fiecare data cand se doresc detaliile unei melodii sub forma de sir de caractere
         public string GetSongStats(string song)
         {
             string rez = "";
@@ -775,6 +799,7 @@ namespace IPAplicatie
             return rez;
         }
 
+        // Introducere in baza de date a unui nou playlist
         public void AddPlaylist(string newList)
         {
             if (!CheckPlaylist(newList))

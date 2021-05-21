@@ -17,6 +17,10 @@ namespace IPAplicatie
         protected Label name;
         protected Label secondary;
 
+        // Un obiect de tip LayoutItem va fi compus din: 
+        //  - Un panou ce va contine elemntele din obiect
+        //  - Un obiect de tip pictureBox pentru afisarea unei imagini (Nu este implementata deocamdata)
+        //  - Doua obiecte de tip label unul pentru numele obiectului si celalalt pentru detalii despre obiect
         protected LayoutItem(int width, int height, int id, string nameParam, string secondaryParam)
         {
             //
@@ -60,6 +64,7 @@ namespace IPAplicatie
             panel.Controls.Add(secondary);
         }
 
+        // Metoda de eliminare a elementelor din obiect
         public void Dispose()
         {
             for (int i = 0; i < panel.Controls.Count; ++i)
@@ -77,6 +82,8 @@ namespace IPAplicatie
             panel.Dispose();
         }
 
+        // Metoda de setare a evenimentelor unui obiect
+        // Am creat-o pentru a simplifica generarea unui obiect din aceast tip de clasa 
         public void SetEvents(EventHandler enterEvent, EventHandler leaveEvent, MouseEventHandler rightClick, EventHandler doubleClick)
         {
             panel.MouseEnter += enterEvent;

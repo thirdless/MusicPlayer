@@ -10,7 +10,7 @@ namespace IPAplicatie
 {
     class GridItem : LayoutItem
     {
-        public readonly static int NumberItems = 5;
+        public readonly static int NumberItems = 5; // Vor exista 5 elemnte pe un rand
 
         public GridItem(int width, int height, int id, string nameParam, string secondaryParam) : base(width, height, id, nameParam, secondaryParam)
         {
