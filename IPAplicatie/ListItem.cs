@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,129 +8,30 @@ using System.Windows.Forms;
 
 namespace IPAplicatie
 {
-    class ListItem
+    class ListItem : LayoutItem
     {
-        Panel _panel;
-        PictureBox _thumbnail;
-        Label _name;
-        Label _secondary;
-        static private string _fontName = "Microsoft PhagsPa";
-
-        public ListItem(int x, int y, int width, int height, int id, string name, string secondary, EventHandler enter, EventHandler leave, MouseEventHandler rightClick, EventHandler doubleClick, int style = 0)
+        public ListItem(int width, int height, int id, string nameParam, string secondaryParam) : base(width, height, id, nameParam, secondaryParam)
         {
-            if (style == 0)
-            {
+            int x = 20;
+            int y = height * id;
 
-            }
-            else if (style == 1)
-            {
+            panel.Left = x;
+            panel.Top = y;
+            panel.Width = width;
+            panel.Height = height;
 
-            }
-            else
-            {
+            thumbnail.Left = (int)(height * 0.1);
+            thumbnail.Top = (int)(height * 0.1);
+            thumbnail.Width = (int)(height * 0.8);
+            thumbnail.Height = (int)(height * 0.8);
 
-            }
-            //
-            // Panel
-            //
-            _panel = new Panel();
-            _panel.Name = "panelItem" + id;
-            _panel.Left = x;
-            _panel.Top = y;
-            _panel.Width = width;
-            _panel.Height = height;
-            _panel.MouseEnter += enter;
-            _panel.MouseLeave += leave;
-            _panel.MouseClick += rightClick;
-            _panel.DoubleClick += doubleClick;
-            _panel.Cursor = Cursors.Hand;
+            name.Left = (int)(height * 1);
+            name.Top = (int)(height * 0.2);
+            name.Font = new System.Drawing.Font(FontName, (float)(0.2 * height), System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-            //
-            // Thumbnail
-            //
-            _thumbnail = new PictureBox();
-            _thumbnail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            _thumbnail.Image = global::IPAplicatie.Properties.Resources.music;
-            _thumbnail.Name = "imageItem" + id;
-            _thumbnail.Left = (int)(height * 0.1);
-            _thumbnail.Top = (int)(height * 0.1);
-            _thumbnail.Width = (int)(height * 0.8);
-            _thumbnail.Height = (int)(height * 0.8);
-            _thumbnail.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            _thumbnail.MouseEnter += enter;
-            _thumbnail.MouseLeave += leave;
-            _thumbnail.MouseClick += rightClick;
-            _thumbnail.DoubleClick += doubleClick;
-
-            //
-            // Name
-            //
-            _name = new Label();
-            _name.AutoSize = true;
-            _name.Name = "labelItemName" + id;
-            _name.Text = name;
-            _name.Left = (int)(height * 1);
-            _name.Top = (int)(height * 0.2);
-            _name.BackColor = System.Drawing.Color.Transparent;
-            _name.Font = new System.Drawing.Font(_fontName, 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            _name.ForeColor = System.Drawing.Color.White;
-            _name.MouseEnter += enter;
-            _name.MouseLeave += leave;
-            _name.MouseClick += rightClick;
-            _name.DoubleClick += doubleClick;
-
-            //
-            // Secondary
-            //
-            _secondary = new Label();
-            _secondary.AutoSize = true;
-            _secondary.Name = "labelItemSecondary" + id;
-            _secondary.Text = secondary;
-            _secondary.Left = (int)(height * 1.03);
-            _secondary.Top = (int)(height * 0.3) + _name.Height;
-            _secondary.BackColor = System.Drawing.Color.Transparent;
-            _secondary.Font = new System.Drawing.Font(_fontName, 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            _secondary.ForeColor = System.Drawing.Color.White;
-            _secondary.MouseEnter += enter;
-            _secondary.MouseLeave += leave;
-            _secondary.MouseClick += rightClick;
-            _secondary.DoubleClick += doubleClick;
-
-            _panel.Controls.Add(_thumbnail);
-            _panel.Controls.Add(_name);
-            _panel.Controls.Add(_secondary);
-        }
-
-        public void Dispose()
-        {
-            for (int i = 0; i < _panel.Controls.Count; ++i)
-            {
-                try
-                {
-                    _panel.Controls[i].Dispose();
-                }
-                catch (Exception ex)
-                {
-                    _panel.Controls.RemoveAt(i);
-                }
-            }
-
-            _panel.Dispose();
-        }
-    
-        public Label ItemName
-        {
-            get { return _name; }
-        }
-
-        public Label ItemSecondary
-        {
-            get { return _secondary; }
-        }
-
-        public Panel Panel
-        {
-            get { return _panel; }
+            secondary.Left = (int)(height * 1.03);
+            secondary.Top = (int)(height * 0.2) + name.Height;
+            secondary.Font = new System.Drawing.Font(FontName, (float)(0.15 * height), System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
     }
 }

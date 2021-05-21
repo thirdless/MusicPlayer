@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace IPAplicatie
 {
@@ -15,7 +16,7 @@ namespace IPAplicatie
     {
         private readonly Dictionary<string, Panel> _views;
 
-        PlaylistsListView _playlistsListView;
+        ViewManager _viewManager;
 
         SQLManager _sqlManager;
 
@@ -28,6 +29,8 @@ namespace IPAplicatie
         public Thread currentOperation;
 
         public int volumeValue;
+
+        public readonly static string EqualizerPath = "equalizer.data";
 
         public MainForm()
         {
@@ -43,18 +46,24 @@ namespace IPAplicatie
                 { "playlist", panelPlaylist }
             };
 
-            _sqlManager = new SQLManager();
+            _sqlManager = SQLManager.GetInstance();
 
             _player = new MusicPlayer();
 
-            _playlistsListView = new PlaylistsListView(this, panelPlaylistsListResult);
+            _viewManager = new ViewManager(this, panelPlaylistsListResult);
 
             _currentSongDuration = 0;
 
-            timer1.Start();
+            timerSong.Start();
 
             volumeValue = trackVolume.Value;
+
+            // afisare acasa
+            Thread.Sleep(500);
+            ShowAcasa();
+            CheckEqualizer();
         }
+
         public TrackBar GetDurationSlider
         {
             get
@@ -74,16 +83,17 @@ namespace IPAplicatie
         public void DisplayPlayList(string playList)
         {
             SetView(panelPlaylist);
-            _playlistsListView.SetPanel = panelPlaylistSongs;
+            _viewManager.SetPanel = panelPlaylistSongs;
+            _sqlManager.InsertToRecent(playList);
             if (playList != "" && playList != "Toate melodiile")
             {
                 labelPlaylistSongsTitle.Text = playList;
-                _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
+                _viewManager.CreatePlaylists(_sqlManager.GetSongsFromPlayList(playList));
             }
             else
             {
                 labelPlaylistSongsTitle.Text = "Toate melodiile";
-                _playlistsListView.CreatePlaylists(_sqlManager.GetSongs());
+                _viewManager.CreatePlaylists(_sqlManager.GetSongs());
             }
         }
 
@@ -91,16 +101,15 @@ namespace IPAplicatie
         {
             foreach (KeyValuePair<string, Panel> item in _views)
             {
-                item.Value.Visible = false;
+                if (item.Value != panel)
+                    item.Value.Visible = false;
+                else
+                    item.Value.Visible = true;
             }
 
-            if (panel != null)
+            if (panel != null && panel != panelPlaylistsList)
             {
-                if (panel != panelPlaylistsList)
-                {
-                    _playlistsListView.SetPanel = panel;
-                }
-                panel.Visible = true;
+                _viewManager.SetPanel = panel;
             }
         }
 
@@ -115,20 +124,26 @@ namespace IPAplicatie
             return "";
         }
 
+        public void ShowAcasa()
+        {
+            _viewManager.CleanupItems();
+            SetView(panelAcasa);
+            _viewManager.SetPanel = panelAcasaMelodii;
+            _viewManager.CreateRoutine(_sqlManager.GetRecentSongs());
+            _viewManager.SetPanel = panelAcasaPlaylisturi;
+            _viewManager.CreateRoutine(_sqlManager.GetRecentPlaylists());
+        }
+
         private void buttonAcasa_Click(object sender, EventArgs e)
         {
-            SetView(panelPlaylist);
-            _playlistsListView.SetPanel = panelPlaylistSongs;
-            labelPlaylistSongsTitle.Text = "Cele mai recente";
-            _playlistsListView.CreatePlaylists(_sqlManager.GetRecentSongs());
-
+            ShowAcasa();
         }
 
         private void buttonPlaylisturi_Click(object sender, EventArgs e)
         {
             SetView(panelPlaylistsList);
-            _playlistsListView.SetPanel = panelPlaylistsListResult;
-            _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
+            _viewManager.SetPanel = panelPlaylistsListResult;
+            _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
         }
 
         private void buttonCautare_Click(object sender, EventArgs e)
@@ -138,8 +153,8 @@ namespace IPAplicatie
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            _playlistsListView.SetPanel = panelSearchResults;
-            _playlistsListView.CreatePlaylists(_sqlManager.SearchSongsByName(textBoxSearch.Text));
+            _viewManager.SetPanel = panelSearchResults;
+            _viewManager.CreatePlaylists(_sqlManager.SearchSongsByName(textBoxSearch.Text));
         }
 
         private void buttonYoutube_Click(object sender, EventArgs e)
@@ -163,7 +178,7 @@ namespace IPAplicatie
         }
         public void ShowPlaylistContext()
         {
-            if (_playlistsListView.GetSelectedPlaylist != "Toate melodiile" && _playlistsListView.GetSelectedPlaylist != "Favorite" && _playlistsListView.GetSelectedPlaylist != "Melodii Recente")
+            if (_viewManager.GetSelectedPlaylist != "Toate melodiile" && _viewManager.GetSelectedPlaylist != "Favorite" && _viewManager.GetSelectedPlaylist != "Melodii Recente")
 
                 PlaylistContextMenuStrip.Show(new Point(MousePosition.X, MousePosition.Y));
         }
@@ -183,7 +198,7 @@ namespace IPAplicatie
             string text = "\n\n" +
             "Proiect IP 2021\n" +
             "Numele proiectului: SoundCore\n\n" +
-            "Realizatori:\n\tMacovei Ioan\n\tRotaru Vlad\n\tManole Stefan\n\t" +
+            "Realizatori:\n\tMacovei Ioan\n\tRotaru Vlad\n\tManole Stefan\n\n" +
             "Descriere: Program Proiect IP\n\n";
 
             MessageBox.Show(text, "Despre aplicatie");
@@ -260,8 +275,8 @@ namespace IPAplicatie
                 if (CheckView() == "playlist" && labelPlaylistSongsTitle.Text == "Cele mai recente")
                 {
                     SetView(panelPlaylist);
-                    _playlistsListView.SetPanel = panelPlaylistSongs;
-                    _playlistsListView.CreatePlaylists(_sqlManager.GetRecentSongs());
+                    _viewManager.SetPanel = panelPlaylistSongs;
+                    _viewManager.CreatePlaylists(_sqlManager.GetRecentSongs());
                 }
 
                 labelSongName.Text = title.Substring(title.IndexOf("-") + 1).Trim(' ');
@@ -272,10 +287,14 @@ namespace IPAplicatie
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
 
                 if (currentOperation != null && currentOperation.IsAlive)
-                        currentOperation.Abort();
+                {
+                    //MessageBox.Show(currentOperation.IsAlive.ToString());
+                    currentOperation.Abort();
+                }       
                 
                 currentOperation = new Thread(() => _player.DownloadProcedure(_sqlManager.GetSongURL(title), volumeValue));
                 currentOperation.Start();
+                timerThumbnail.Start();
             }
         }
 
@@ -313,7 +332,7 @@ namespace IPAplicatie
                 {
                     _sqlManager.AddPlaylist(nameBox.Text);
                     SetView(panelPlaylistsList);
-                    _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
+                    _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
                 }
                 popup.DialogResult =  DialogResult.OK;
                 popup.Close(); 
@@ -335,9 +354,66 @@ namespace IPAplicatie
             }
         }
 
+        private void CheckEqualizer()
+        {
+            try
+            {
+                if (File.Exists(@EqualizerPath))
+                {
+                    string settings = File.ReadAllText(@EqualizerPath);
+                    string[] values = settings.Split(' ');
+
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int value = Int32.Parse(values[i]);
+
+                        if (value < 0 || value > 40)
+                            throw new Exception("error");
+
+                        ((TrackBar)(panelEqualizer.Controls.Find("trackBarEq" + (i + 1), false)[0])).Value = value;
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Eroare la parsarea datelor de equalizer");
+                ClearEqualizer();
+                SaveEqualizer();
+                return;
+            } 
+        }
+
+        private void ClearEqualizer()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ((TrackBar)(panelEqualizer.Controls.Find("trackBarEq" + (i + 1), false)[0])).Value = 5;
+            }
+        }
+
+        private void SaveEqualizer()
+        {
+            try
+            {
+                string text = "";
+
+                for (int i = 0; i < 10; i++)
+                {
+                    text += ((TrackBar)(panelEqualizer.Controls.Find("trackBarEq" + (i + 1), false)[0])).Value.ToString() + " ";
+                }
+
+                File.WriteAllText(@EqualizerPath, text);
+            }
+            catch 
+            {
+                MessageBox.Show("Eroare la scrierea datelor de equalizer");
+                return;
+            }
+        }
+
         private void buttonEqualizerSave_Click(object sender, EventArgs e)
         {
-
+            SaveEqualizer();
         }
         
         protected override void OnClosing(CancelEventArgs e)
@@ -357,7 +433,7 @@ namespace IPAplicatie
             _player.ChangeVolume = (float)volumeValue;
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timerSong_Tick(object sender, EventArgs e)
         {
             trackMediaProgress.Value = _player.monitorPosition();
             if (_currentSongDuration > 0)
@@ -371,21 +447,21 @@ namespace IPAplicatie
 
         private void deletePlaylistStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sqlManager.DeletePlaylist(_playlistsListView.GetSelectedPlaylist);
+            _sqlManager.DeletePlaylist(_viewManager.GetSelectedPlaylist);
             SetView(panelPlaylistsList);
-            _playlistsListView.SetPanel = panelPlaylistsListResult;
-            _playlistsListView.CreatePlaylists(_sqlManager.GetPlaylists());
+            _viewManager.SetPanel = panelPlaylistsListResult;
+            _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
         }
         private void deleteSongStripMenuItem_Click(object sender, EventArgs e)
         {
             if (labelPlaylistSongsTitle.Text == "Toate melodiile")
-                _sqlManager.DeleteSong(_playlistsListView.GetSelectedSong);
+                _sqlManager.DeleteSong(_viewManager.GetSelectedSong);
             else
-                _sqlManager.DeleteSongFromPlaylist(labelPlaylistSongsTitle.Text, _playlistsListView.GetSelectedSong);
+                _sqlManager.DeleteSongFromPlaylist(labelPlaylistSongsTitle.Text, _viewManager.GetSelectedSong);
 
             SetView(panelPlaylist);
-            _playlistsListView.SetPanel = panelPlaylistSongs;
-            _playlistsListView.CreatePlaylists(_sqlManager.GetSongsFromPlayList(labelPlaylistSongsTitle.Text));
+            _viewManager.SetPanel = panelPlaylistSongs;
+            _viewManager.CreatePlaylists(_sqlManager.GetSongsFromPlayList(labelPlaylistSongsTitle.Text));
         }
         private void addToPlaylistStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -413,7 +489,7 @@ namespace IPAplicatie
             buttonOK.Left = 50;
             buttonOK.Top = 130;
             buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
-                _sqlManager.AddToPlaylist((string)nameBox.SelectedItem, _playlistsListView.GetSelectedSong);
+                _sqlManager.AddToPlaylist((string)nameBox.SelectedItem, _viewManager.GetSelectedSong);
                 popup.DialogResult = DialogResult.OK;
                 popup.Close();
             });
@@ -430,12 +506,47 @@ namespace IPAplicatie
             if (show == DialogResult.OK && result != "")
             {
                 //Adaugare melodie in playlist
-                MessageBox.Show("Melodia " + _playlistsListView.GetSelectedSong + " a fost introdus in playlist-ul " + result);
+                MessageBox.Show("Melodia " + _viewManager.GetSelectedSong + " a fost introdus in playlist-ul " + result);
             }
         }
         private void addToFavoriteStripMenuItem_Click(object sender, EventArgs e)
         {
-            _sqlManager.AddToPlaylist("Favorite", _playlistsListView.GetSelectedSong);
+            _sqlManager.AddToPlaylist("Favorite", _viewManager.GetSelectedSong);
+        }
+
+        private void buttonEqualizerClear_Click(object sender, EventArgs e)
+        {
+            ClearEqualizer();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void timerThumbnail_Tick(object sender, EventArgs e)
+        {
+            string path = "Samples/audio.jpg";
+
+            try
+            {
+                if (File.Exists(@path) && _player.Ready)
+                {
+                    byte[] content = File.ReadAllBytes(@path);
+                    Image thumb = Image.FromStream(new MemoryStream(content));
+                    if (pictureBoxSong.Image != null)
+                        pictureBoxSong.Image.Dispose();
+                    pictureBoxSong.Image = new Bitmap(thumb, new Size(thumb.Width * pictureBoxSong.Height / thumb.Height, pictureBoxSong.Height));;
+                    timerThumbnail.Stop();
+                }
+                else
+                    throw new Exception("not found");
+            }
+            catch
+            {
+                pictureBoxSong.Image = Properties.Resources.music;
+                pictureBoxSong.SizeMode = PictureBoxSizeMode.CenterImage;
+            }
         }
     }
 }

@@ -38,12 +38,8 @@ namespace IPAplicatie
             this.labelCurrentTime = new System.Windows.Forms.Label();
             this.trackVolume = new System.Windows.Forms.TrackBar();
             this.trackMediaProgress = new System.Windows.Forms.TrackBar();
-            this.pictureMediaForth = new System.Windows.Forms.PictureBox();
-            this.pictureMediaBack = new System.Windows.Forms.PictureBox();
-            this.pictureMediaPlay = new System.Windows.Forms.PictureBox();
             this.labelArtistName = new System.Windows.Forms.Label();
             this.labelSongName = new System.Windows.Forms.Label();
-            this.pictureBoxSong = new System.Windows.Forms.PictureBox();
             this.buttonOthers = new System.Windows.Forms.Button();
             this.contextMenuStripOthers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +65,10 @@ namespace IPAplicatie
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxYoutubeURL = new System.Windows.Forms.TextBox();
             this.panelAcasa = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panelAcasaPlaylisturi = new System.Windows.Forms.Panel();
+            this.panelAcasaMelodii = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.panelPlaylist = new System.Windows.Forms.Panel();
             this.panelPlaylistSongs = new System.Windows.Forms.Panel();
             this.buttonEqualizer = new System.Windows.Forms.Button();
@@ -94,20 +94,25 @@ namespace IPAplicatie
             this.trackBarEq3 = new System.Windows.Forms.TrackBar();
             this.trackBarEq2 = new System.Windows.Forms.TrackBar();
             this.trackBarEq1 = new System.Windows.Forms.TrackBar();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerSong = new System.Windows.Forms.Timer(this.components);
             this.SongContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PlaylistContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonEqualizerClear = new System.Windows.Forms.Button();
+            this.timerThumbnail = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureMediaForth = new System.Windows.Forms.PictureBox();
+            this.pictureMediaBack = new System.Windows.Forms.PictureBox();
+            this.pictureMediaPlay = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSong = new System.Windows.Forms.PictureBox();
             this.panelMedia.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaPlay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSong)).BeginInit();
             this.contextMenuStripOthers.SuspendLayout();
             this.panelPlaylistsList.SuspendLayout();
             this.panelSearch.SuspendLayout();
             this.panelYoutube.SuspendLayout();
+            this.panelAcasa.SuspendLayout();
+            this.panelAcasaPlaylisturi.SuspendLayout();
             this.panelPlaylist.SuspendLayout();
             this.panelEqualizer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).BeginInit();
@@ -122,6 +127,11 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).BeginInit();
             this.SongContextMenuStrip.SuspendLayout();
             this.PlaylistContextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaPlay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSong)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAcasa
@@ -198,6 +208,7 @@ namespace IPAplicatie
             // 
             // panelMedia
             // 
+            this.panelMedia.Controls.Add(this.pictureBox1);
             this.panelMedia.Controls.Add(this.labelCurrentTime);
             this.panelMedia.Controls.Add(this.trackVolume);
             this.panelMedia.Controls.Add(this.trackMediaProgress);
@@ -220,13 +231,13 @@ namespace IPAplicatie
             this.labelCurrentTime.ForeColor = System.Drawing.Color.White;
             this.labelCurrentTime.Location = new System.Drawing.Point(748, 49);
             this.labelCurrentTime.Name = "labelCurrentTime";
-            this.labelCurrentTime.Size = new System.Drawing.Size(54, 17);
+            this.labelCurrentTime.Size = new System.Drawing.Size(58, 20);
             this.labelCurrentTime.TabIndex = 8;
             this.labelCurrentTime.Text = "label12";
             // 
             // trackVolume
             // 
-            this.trackVolume.Location = new System.Drawing.Point(813, 10);
+            this.trackVolume.Location = new System.Drawing.Point(852, 10);
             this.trackVolume.Maximum = 100;
             this.trackVolume.Name = "trackVolume";
             this.trackVolume.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -251,48 +262,6 @@ namespace IPAplicatie
             this.trackMediaProgress.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackMediaProgress.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DurationSlider_MouseUp);
             // 
-            // pictureMediaForth
-            // 
-            this.pictureMediaForth.BackColor = System.Drawing.Color.Transparent;
-            this.pictureMediaForth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureMediaForth.Image = global::IPAplicatie.Properties.Resources.skip_forward;
-            this.pictureMediaForth.Location = new System.Drawing.Point(563, 10);
-            this.pictureMediaForth.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureMediaForth.Name = "pictureMediaForth";
-            this.pictureMediaForth.Size = new System.Drawing.Size(30, 30);
-            this.pictureMediaForth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureMediaForth.TabIndex = 5;
-            this.pictureMediaForth.TabStop = false;
-            this.pictureMediaForth.Click += new System.EventHandler(this.pictureMediaForth_Click);
-            // 
-            // pictureMediaBack
-            // 
-            this.pictureMediaBack.BackColor = System.Drawing.Color.Transparent;
-            this.pictureMediaBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureMediaBack.Image = global::IPAplicatie.Properties.Resources.skip_back;
-            this.pictureMediaBack.Location = new System.Drawing.Point(457, 10);
-            this.pictureMediaBack.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureMediaBack.Name = "pictureMediaBack";
-            this.pictureMediaBack.Size = new System.Drawing.Size(30, 30);
-            this.pictureMediaBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureMediaBack.TabIndex = 4;
-            this.pictureMediaBack.TabStop = false;
-            this.pictureMediaBack.Click += new System.EventHandler(this.pictureMediaBack_Click);
-            // 
-            // pictureMediaPlay
-            // 
-            this.pictureMediaPlay.BackColor = System.Drawing.Color.Transparent;
-            this.pictureMediaPlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureMediaPlay.Image = global::IPAplicatie.Properties.Resources.play;
-            this.pictureMediaPlay.Location = new System.Drawing.Point(510, 10);
-            this.pictureMediaPlay.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureMediaPlay.Name = "pictureMediaPlay";
-            this.pictureMediaPlay.Size = new System.Drawing.Size(30, 30);
-            this.pictureMediaPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureMediaPlay.TabIndex = 3;
-            this.pictureMediaPlay.TabStop = false;
-            this.pictureMediaPlay.Click += new System.EventHandler(this.pictureMediaPlay_Click);
-            // 
             // labelArtistName
             // 
             this.labelArtistName.BackColor = System.Drawing.Color.Transparent;
@@ -302,7 +271,6 @@ namespace IPAplicatie
             this.labelArtistName.Name = "labelArtistName";
             this.labelArtistName.Size = new System.Drawing.Size(206, 20);
             this.labelArtistName.TabIndex = 2;
-            this.labelArtistName.Text = "Artist name test";
             // 
             // labelSongName
             // 
@@ -313,18 +281,6 @@ namespace IPAplicatie
             this.labelSongName.Name = "labelSongName";
             this.labelSongName.Size = new System.Drawing.Size(206, 22);
             this.labelSongName.TabIndex = 1;
-            this.labelSongName.Text = "Song name test";
-            // 
-            // pictureBoxSong
-            // 
-            this.pictureBoxSong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.pictureBoxSong.Image = global::IPAplicatie.Properties.Resources.music;
-            this.pictureBoxSong.Location = new System.Drawing.Point(33, 5);
-            this.pictureBoxSong.Name = "pictureBoxSong";
-            this.pictureBoxSong.Size = new System.Drawing.Size(65, 65);
-            this.pictureBoxSong.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxSong.TabIndex = 0;
-            this.pictureBoxSong.TabStop = false;
             // 
             // buttonOthers
             // 
@@ -574,11 +530,52 @@ namespace IPAplicatie
             // 
             // panelAcasa
             // 
+            this.panelAcasa.Controls.Add(this.panelAcasaPlaylisturi);
+            this.panelAcasa.Controls.Add(this.panelAcasaMelodii);
+            this.panelAcasa.Controls.Add(this.label13);
             this.panelAcasa.Location = new System.Drawing.Point(0, 62);
             this.panelAcasa.Name = "panelAcasa";
             this.panelAcasa.Size = new System.Drawing.Size(1011, 459);
             this.panelAcasa.TabIndex = 6;
-            this.panelAcasa.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(7, -10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(243, 25);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Playlisturi ascultate recent";
+            // 
+            // panelAcasaPlaylisturi
+            // 
+            this.panelAcasaPlaylisturi.Controls.Add(this.label12);
+            this.panelAcasaPlaylisturi.Location = new System.Drawing.Point(12, 259);
+            this.panelAcasaPlaylisturi.Name = "panelAcasaPlaylisturi";
+            this.panelAcasaPlaylisturi.Size = new System.Drawing.Size(973, 200);
+            this.panelAcasaPlaylisturi.TabIndex = 4;
+            // 
+            // panelAcasaMelodii
+            // 
+            this.panelAcasaMelodii.Location = new System.Drawing.Point(12, 24);
+            this.panelAcasaMelodii.Name = "panelAcasaMelodii";
+            this.panelAcasaMelodii.Size = new System.Drawing.Size(973, 200);
+            this.panelAcasaMelodii.TabIndex = 3;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(19, -3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(223, 25);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Melodii ascultate recent";
             // 
             // panelPlaylist
             // 
@@ -593,9 +590,9 @@ namespace IPAplicatie
             // 
             // panelPlaylistSongs
             // 
-            this.panelPlaylistSongs.Location = new System.Drawing.Point(3, 156);
+            this.panelPlaylistSongs.Location = new System.Drawing.Point(3, 80);
             this.panelPlaylistSongs.Name = "panelPlaylistSongs";
-            this.panelPlaylistSongs.Size = new System.Drawing.Size(977, 300);
+            this.panelPlaylistSongs.Size = new System.Drawing.Size(971, 376);
             this.panelPlaylistSongs.TabIndex = 10;
             // 
             // buttonEqualizer
@@ -618,6 +615,7 @@ namespace IPAplicatie
             // 
             // panelEqualizer
             // 
+            this.panelEqualizer.Controls.Add(this.buttonEqualizerClear);
             this.panelEqualizer.Controls.Add(this.buttonEqualizerSave);
             this.panelEqualizer.Controls.Add(this.label11);
             this.panelEqualizer.Controls.Add(this.label10);
@@ -652,7 +650,7 @@ namespace IPAplicatie
             this.buttonEqualizerSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEqualizerSave.Font = new System.Drawing.Font("Microsoft PhagsPa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEqualizerSave.ForeColor = System.Drawing.Color.White;
-            this.buttonEqualizerSave.Location = new System.Drawing.Point(411, 406);
+            this.buttonEqualizerSave.Location = new System.Drawing.Point(338, 407);
             this.buttonEqualizerSave.Name = "buttonEqualizerSave";
             this.buttonEqualizerSave.Size = new System.Drawing.Size(158, 33);
             this.buttonEqualizerSave.TabIndex = 20;
@@ -667,9 +665,9 @@ namespace IPAplicatie
             this.label11.ForeColor = System.Drawing.Color.White;
             this.label11.Location = new System.Drawing.Point(855, 361);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(59, 20);
+            this.label11.Size = new System.Drawing.Size(57, 20);
             this.label11.TabIndex = 19;
-            this.label11.Text = "-40kHz";
+            this.label11.Text = "16 kHz";
             // 
             // label10
             // 
@@ -678,9 +676,9 @@ namespace IPAplicatie
             this.label10.ForeColor = System.Drawing.Color.White;
             this.label10.Location = new System.Drawing.Point(766, 361);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 20);
+            this.label10.Size = new System.Drawing.Size(48, 20);
             this.label10.TabIndex = 18;
-            this.label10.Text = "-40kHz";
+            this.label10.Text = "8 kHz";
             // 
             // label9
             // 
@@ -689,9 +687,9 @@ namespace IPAplicatie
             this.label9.ForeColor = System.Drawing.Color.White;
             this.label9.Location = new System.Drawing.Point(676, 361);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 20);
+            this.label9.Size = new System.Drawing.Size(48, 20);
             this.label9.TabIndex = 17;
-            this.label9.Text = "-40kHz";
+            this.label9.Text = "4 kHz";
             // 
             // label8
             // 
@@ -700,9 +698,9 @@ namespace IPAplicatie
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(582, 361);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 20);
+            this.label8.Size = new System.Drawing.Size(48, 20);
             this.label8.TabIndex = 16;
-            this.label8.Text = "-40kHz";
+            this.label8.Text = "2 kHz";
             // 
             // label7
             // 
@@ -711,9 +709,9 @@ namespace IPAplicatie
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(490, 361);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 20);
+            this.label7.Size = new System.Drawing.Size(48, 20);
             this.label7.TabIndex = 15;
-            this.label7.Text = "-40kHz";
+            this.label7.Text = "1 kHz";
             // 
             // label6
             // 
@@ -722,9 +720,9 @@ namespace IPAplicatie
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(394, 361);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 20);
+            this.label6.Size = new System.Drawing.Size(58, 20);
             this.label6.TabIndex = 14;
-            this.label6.Text = "-40kHz";
+            this.label6.Text = "500 Hz";
             // 
             // label5
             // 
@@ -733,9 +731,9 @@ namespace IPAplicatie
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(313, 361);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 20);
+            this.label5.Size = new System.Drawing.Size(58, 20);
             this.label5.TabIndex = 13;
-            this.label5.Text = "-40kHz";
+            this.label5.Text = "250 Hz";
             // 
             // label4
             // 
@@ -744,9 +742,9 @@ namespace IPAplicatie
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(231, 361);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 20);
+            this.label4.Size = new System.Drawing.Size(58, 20);
             this.label4.TabIndex = 12;
-            this.label4.Text = "-40kHz";
+            this.label4.Text = "125 Hz";
             // 
             // label3
             // 
@@ -755,9 +753,9 @@ namespace IPAplicatie
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(146, 361);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 20);
+            this.label3.Size = new System.Drawing.Size(49, 20);
             this.label3.TabIndex = 11;
-            this.label3.Text = "-40kHz";
+            this.label3.Text = "62 Hz";
             // 
             // label2
             // 
@@ -766,9 +764,9 @@ namespace IPAplicatie
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(50, 361);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 20);
+            this.label2.Size = new System.Drawing.Size(49, 20);
             this.label2.TabIndex = 10;
-            this.label2.Text = "-40kHz";
+            this.label2.Text = "31 Hz";
             // 
             // trackBarEq10
             // 
@@ -880,10 +878,10 @@ namespace IPAplicatie
             this.trackBarEq1.Value = 5;
             this.trackBarEq1.ValueChanged += new System.EventHandler(this.EqSlider_ValueChanged);
             // 
-            // timer1
+            // timerSong
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerSong.Interval = 500;
+            this.timerSong.Tick += new System.EventHandler(this.timerSong_Tick);
             // 
             // SongContextMenuStrip
             // 
@@ -902,6 +900,91 @@ namespace IPAplicatie
             this.deletePlaylistStripMenuItem});
             this.PlaylistContextMenuStrip.Name = "PlaylistContextMenuStrip";
             this.PlaylistContextMenuStrip.Size = new System.Drawing.Size(174, 28);
+            // 
+            // buttonEqualizerClear
+            // 
+            this.buttonEqualizerClear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.buttonEqualizerClear.FlatAppearance.BorderSize = 0;
+            this.buttonEqualizerClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEqualizerClear.Font = new System.Drawing.Font("Microsoft PhagsPa", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEqualizerClear.ForeColor = System.Drawing.Color.White;
+            this.buttonEqualizerClear.Location = new System.Drawing.Point(511, 407);
+            this.buttonEqualizerClear.Name = "buttonEqualizerClear";
+            this.buttonEqualizerClear.Size = new System.Drawing.Size(158, 33);
+            this.buttonEqualizerClear.TabIndex = 21;
+            this.buttonEqualizerClear.Text = "Resetează";
+            this.buttonEqualizerClear.UseVisualStyleBackColor = false;
+            this.buttonEqualizerClear.Click += new System.EventHandler(this.buttonEqualizerClear_Click);
+            // 
+            // timerThumbnail
+            // 
+            this.timerThumbnail.Tick += new System.EventHandler(this.timerThumbnail_Tick);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureBox1.Image = global::IPAplicatie.Properties.Resources.volume;
+            this.pictureBox1.Location = new System.Drawing.Point(819, 10);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(30, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureMediaForth
+            // 
+            this.pictureMediaForth.BackColor = System.Drawing.Color.Transparent;
+            this.pictureMediaForth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureMediaForth.Image = global::IPAplicatie.Properties.Resources.skip_forward;
+            this.pictureMediaForth.Location = new System.Drawing.Point(563, 10);
+            this.pictureMediaForth.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureMediaForth.Name = "pictureMediaForth";
+            this.pictureMediaForth.Size = new System.Drawing.Size(30, 30);
+            this.pictureMediaForth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureMediaForth.TabIndex = 5;
+            this.pictureMediaForth.TabStop = false;
+            this.pictureMediaForth.Click += new System.EventHandler(this.pictureMediaForth_Click);
+            // 
+            // pictureMediaBack
+            // 
+            this.pictureMediaBack.BackColor = System.Drawing.Color.Transparent;
+            this.pictureMediaBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureMediaBack.Image = global::IPAplicatie.Properties.Resources.skip_back;
+            this.pictureMediaBack.Location = new System.Drawing.Point(457, 10);
+            this.pictureMediaBack.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureMediaBack.Name = "pictureMediaBack";
+            this.pictureMediaBack.Size = new System.Drawing.Size(30, 30);
+            this.pictureMediaBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureMediaBack.TabIndex = 4;
+            this.pictureMediaBack.TabStop = false;
+            this.pictureMediaBack.Click += new System.EventHandler(this.pictureMediaBack_Click);
+            // 
+            // pictureMediaPlay
+            // 
+            this.pictureMediaPlay.BackColor = System.Drawing.Color.Transparent;
+            this.pictureMediaPlay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureMediaPlay.Image = global::IPAplicatie.Properties.Resources.play;
+            this.pictureMediaPlay.Location = new System.Drawing.Point(510, 10);
+            this.pictureMediaPlay.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureMediaPlay.Name = "pictureMediaPlay";
+            this.pictureMediaPlay.Size = new System.Drawing.Size(30, 30);
+            this.pictureMediaPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureMediaPlay.TabIndex = 3;
+            this.pictureMediaPlay.TabStop = false;
+            this.pictureMediaPlay.Click += new System.EventHandler(this.pictureMediaPlay_Click);
+            // 
+            // pictureBoxSong
+            // 
+            this.pictureBoxSong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.pictureBoxSong.Image = global::IPAplicatie.Properties.Resources.music;
+            this.pictureBoxSong.Location = new System.Drawing.Point(33, 5);
+            this.pictureBoxSong.Name = "pictureBoxSong";
+            this.pictureBoxSong.Size = new System.Drawing.Size(65, 65);
+            this.pictureBoxSong.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxSong.TabIndex = 0;
+            this.pictureBoxSong.TabStop = false;
             // 
             // MainForm
             // 
@@ -926,14 +1009,11 @@ namespace IPAplicatie
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SoundCore";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.panelMedia.ResumeLayout(false);
             this.panelMedia.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackVolume)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackMediaProgress)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaPlay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSong)).EndInit();
             this.contextMenuStripOthers.ResumeLayout(false);
             this.panelPlaylistsList.ResumeLayout(false);
             this.panelPlaylistsList.PerformLayout();
@@ -941,6 +1021,10 @@ namespace IPAplicatie
             this.panelSearch.PerformLayout();
             this.panelYoutube.ResumeLayout(false);
             this.panelYoutube.PerformLayout();
+            this.panelAcasa.ResumeLayout(false);
+            this.panelAcasa.PerformLayout();
+            this.panelAcasaPlaylisturi.ResumeLayout(false);
+            this.panelAcasaPlaylisturi.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
             this.panelPlaylist.PerformLayout();
             this.panelEqualizer.ResumeLayout(false);
@@ -957,6 +1041,11 @@ namespace IPAplicatie
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq1)).EndInit();
             this.SongContextMenuStrip.ResumeLayout(false);
             this.PlaylistContextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaForth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMediaPlay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSong)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1026,10 +1115,17 @@ namespace IPAplicatie
         private System.Windows.Forms.TrackBar trackBarEq1;
         private System.Windows.Forms.Button buttonEqualizerSave;
         private System.Windows.Forms.TrackBar trackVolume;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerSong;
         private System.Windows.Forms.Label labelCurrentTime;
         private System.Windows.Forms.ContextMenuStrip SongContextMenuStrip;
         private System.Windows.Forms.ContextMenuStrip PlaylistContextMenuStrip;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panelAcasaPlaylisturi;
+        private System.Windows.Forms.Panel panelAcasaMelodii;
+        private System.Windows.Forms.Button buttonEqualizerClear;
+        private System.Windows.Forms.Timer timerThumbnail;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

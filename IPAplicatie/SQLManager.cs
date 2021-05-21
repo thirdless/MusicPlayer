@@ -12,8 +12,11 @@ namespace IPAplicatie
 {
     class SQLManager
     {
+        private static SQLManager _instance = null;
+
         private SQLiteConnection _sqlConnection;
-        public SQLManager()
+
+        private SQLManager()
         {
             if (!File.Exists("ProjectDatabase.db"))
                 _sqlConnection = new SQLiteConnection("Data Source=ProjectDatabase.db;Version=3;New=True;Compress=True;");
@@ -61,7 +64,7 @@ namespace IPAplicatie
             cmd.CommandText = "CREATE TABLE if NOT EXISTS Playlist_uri (" +
                 "playlistID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Nume_Playlist TEXT NOT NULL," +
-                "UNIQUE(Nume_Playlist)"+
+                "UNIQUE(Nume_Playlist)" +
                 ")";
 
             cmd.ExecuteNonQuery();
@@ -76,7 +79,7 @@ namespace IPAplicatie
             cmd.ExecuteNonQuery();
 
             cmd.CommandText = "CREATE TABLE if NOT EXISTS PlaylistRecente (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," + 
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "playlistID INTEGER NOT NULL," +
                 "FOREIGN KEY(playlistID) REFERENCES Playlist_uri(playlistID)" +
                 ")";
@@ -210,7 +213,7 @@ namespace IPAplicatie
 
             return duration;
         }
-        
+
         public void UpdateRecentPlaylist(string song)
         {
             int songID = -1, playlistID = -1;
@@ -270,16 +273,12 @@ namespace IPAplicatie
             }
             else
                 AddToPlaylist(playlistID, songID);
-            
+
         }
 
         public Dictionary<string, string> GetRecentSongs()
         {
             Dictionary<string, string> rez = new Dictionary<string, string>();
-
-            SQLiteCommand cmd = _sqlConnection.CreateCommand();
-
-            SQLiteDataReader reader;
 
             List<string> songs = GetListSongs("Melodii Recente");
 
@@ -301,7 +300,7 @@ namespace IPAplicatie
 
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Operatia de adaugare a melodiei nu a putut fi efectuata");
             }
@@ -337,7 +336,7 @@ namespace IPAplicatie
 
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Operatia de adaugare in playlist a esuat");
             }
@@ -380,7 +379,7 @@ namespace IPAplicatie
             reader = cmd.ExecuteReader();
 
             string rez = "";
-            
+
             if (reader.Read())
                 rez = reader.GetString(0);
 
@@ -393,18 +392,18 @@ namespace IPAplicatie
 
             SQLiteDataReader reader;
 
-            cmd.CommandText = "SELECT count(id) FROM PlaylistRecente";
+            cmd.CommandText = "SELECT id FROM PlaylistRecente";
 
-            int count = 0;
+            List<int> count = new List<int>();
 
             reader = cmd.ExecuteReader();
 
-            if (reader.Read())
-                count = reader.GetInt32(0);
+            while (reader.Read())
+                count.Add(reader.GetInt32(0));
 
             reader.Close();
 
-            cmd.CommandText = "SELECT melodieID FROM Playlist_uri WHERE Nume_Playlist=\'" + playlistName + "\'";
+            cmd.CommandText = "SELECT playlistID FROM Playlist_uri WHERE Nume_Playlist=\'" + playlistName + "\'";
 
             reader = cmd.ExecuteReader();
 
@@ -415,58 +414,56 @@ namespace IPAplicatie
 
             reader.Close();
 
-            if (count > 0)
+            if (id != -1)
             {
-                if (id != -1)
+                cmd.CommandText = "SELECT id FROM PlaylistRecente WHERE playlistID=" + id;
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
                 {
-                    cmd.CommandText = "SELECT id FROM Playlist_uri WHERE playlistID=" + id;
-
-                    reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
+                    reader.Close();
+                    try
                     {
-                        reader.Close();
-                        try
-                        {
-                            cmd.CommandText = "DELETE FROM Playlist_uri WHERE playlistID=" + id;
+                        cmd.CommandText = "DELETE FROM PlaylistRecente WHERE playlistID=" + id;
 
-                            cmd.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Stergerea nu a putut fi efectuata");
-                            return;
-                        }
-
-                        try
-                        {
-                            cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
-
-                            cmd.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Inserarea nu s-a putut efectua");
-                            return;
-                        }
+                        cmd.ExecuteNonQuery();
                     }
-                    else
+                    catch
                     {
-                        cmd.CommandText = "DELETE FROM Playlist_uri WHERE id=(SELECT MIN(id) FROM Playlist_uri)";
+                        MessageBox.Show("Stergerea nu a putut fi efectuata");
+                        return;
+                    }
+
+                    try
+                    {
+                        cmd.CommandText = "INSERT INTO PlaylistRecente (playlistID) VALUES (" + id + ")";
 
                         cmd.ExecuteNonQuery();
-
-                        cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
-
-                        cmd.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Inserarea nu s-a putut efectua");
+                        return;
                     }
                 }
-            }
-            else
-            {
-                cmd.CommandText = "INSERT INTO Playlist_uri (playlistID) VALUES (" + id + ")";
+                else
+                {
+                    reader.Close();
 
-                cmd.ExecuteNonQuery();
+                    while (count.Count > 4)
+                    {
+                        cmd.CommandText = "DELETE FROM Playlist_uri WHERE id=" + count.ElementAt(0);
+
+                        cmd.ExecuteNonQuery();
+
+                        count.RemoveAt(0);
+                    }
+
+                    cmd.CommandText = "INSERT INTO PlaylistRecente (playlistID) VALUES (" + id + ")";
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -667,12 +664,12 @@ namespace IPAplicatie
                 rez = "Number of songs: " + length;
             else 
             if (duration % 60 > 9)
-                rez = "Duration: " + (duration / 60) + ":" + (duration % 60) + " * " + "Number of songs: " + length;
+                rez = "Duration: " + (duration / 60) + ":" + (duration % 60) + "\n" + "Number of songs: " + length;
             else
-                rez = "Duration: " + (duration / 60) + ":0" + (duration % 60) + " * " + "Number of songs: " + length;
+                rez = "Duration: " + (duration / 60) + ":0" + (duration % 60) + "\n" + "Number of songs: " + length;
 
             if (playList == "Melodii Recente")
-                rez = rez.Substring(0, rez.IndexOf(" *"));
+                rez = rez.Substring(0, rez.IndexOf("\n"));
 
             return rez;
         }
@@ -792,11 +789,19 @@ namespace IPAplicatie
 
                     cmd.ExecuteNonQuery();
                 }
-                catch (Exception ex)
+                catch
                 {
                     MessageBox.Show("Operatia de adaugare a noului playlist a esuat");
                 }
             }
+        }
+
+        public static SQLManager GetInstance()
+        {
+            if (_instance == null)
+                _instance = new SQLManager();
+
+            return _instance;
         }
     }
 }

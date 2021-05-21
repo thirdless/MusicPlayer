@@ -13,6 +13,7 @@ using CSCore.Streams;
 using CSCore.Streams.Effects;
 using System.Diagnostics;
 using System.Threading;
+using System.Net;
 
 namespace IPAplicatie
 {
@@ -97,9 +98,13 @@ namespace IPAplicatie
             {
                 try
                 {
-                    _soundOut.Stop();
-                    _soundOut.Dispose();
-                    _eq.Dispose();
+                    if (_soundOut != null)
+                    {
+                        _soundOut.Stop();
+                        _soundOut.Dispose();
+                    }
+                    if(_eq != null)
+                        _eq.Dispose();
                     _soundOut = null;
                     _eq = null;
                 }
@@ -114,7 +119,7 @@ namespace IPAplicatie
         {
             if (_eq != null)
             {
-                const double MaxDB = 20;
+                const double MaxDB = 40;
 
                 double perc = ((double)(trackBar.Value - 5) / (double)trackBar.Maximum);
 
@@ -150,7 +155,8 @@ namespace IPAplicatie
                 }
 
             return false;
-        }
+        } 
+
         private void ExecCommand(string command, string args)
         {
             var processInfo = new ProcessStartInfo(command, args);
@@ -159,7 +165,18 @@ namespace IPAplicatie
             processInfo.RedirectStandardError = true;
             processInfo.RedirectStandardOutput = true;
 
-            var process = Process.Start(processInfo);
+            Process process;
+
+            try
+            {
+                process = Process.Start(processInfo);
+            }
+            catch
+            {
+                MessageBox.Show("Lipseste una din executabilele dependenta.");
+                return;
+            }
+            
 
             process.OutputDataReceived += (object send, DataReceivedEventArgs ev) =>
             Console.WriteLine("output>>" + ev.Data);
@@ -242,17 +259,39 @@ namespace IPAplicatie
 
             ExecCommand("cmd.exe", "/c mkdir Samples");
             ExecCommand("cmd.exe", " /c del /Q \"Samples\\*\"");
-            ExecCommand("youtube-dl.exe", "-f best " + ParseLink(link) + " -x --audio-format \"wav\" -o \"Samples\\audio.wav\" --write-thumbnail");
-            foreach (string file in Directory.GetFiles("Samples"))
-            {
-                if (file.Contains(".webp"))
-                {
-                    ExecCommand("ffmpeg.exe", " -i \"" + file + "\" \"" + file.Replace(".webp", ".jpg") + "\"");
-                }
-            }
-            ExecCommand("cmd.exe", " /c del \"Samples\\*.webp\"");
+            ExecCommand("youtube-dl.exe", "-f best " + ParseLink(link) + " -x --audio-format \"wav\" -o \"Samples\\audio.wav\"");
 
-            PlayFunc("Samples\\audio.wav", volume);
+            DownloadThumbnail(ParseLink(link));
+
+            try
+            {
+                PlayFunc("Samples\\audio.wav", volume);
+            }
+            catch
+            {
+                MessageBox.Show("Redarea melodiei nu s-a facut cu succes. Incearca din nou");
+                return;
+            }
+        }
+
+        private void DownloadThumbnail(string vid_id)
+        {
+            string path = "Samples/audio.jpg";
+            try
+            {
+                string id = vid_id.Split('=')[1];
+
+                if (File.Exists(@path))
+                    File.Delete(@path);
+
+                WebClient client = new WebClient();
+                client.DownloadFileAsync(new Uri("https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"), @path);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Eroare la descarcarea thumbnailului.\n" + ex.Message);
+                return;
+            }
         }
 
         private string ParseLink(string url)
@@ -267,7 +306,8 @@ namespace IPAplicatie
         {
             set
             {
-                _eq.Position = _eq.Length / 100 * value;
+                if (this.Ready)
+                    _eq.Position = _eq.Length / 100 * value;
             }
         }
     }
