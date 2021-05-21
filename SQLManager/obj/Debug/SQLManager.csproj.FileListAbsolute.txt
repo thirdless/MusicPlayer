@@ -1,0 +1,16 @@
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\SQLManager.dll.config
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\SQLManager.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\SQLManager.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\EntityFramework.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\EntityFramework.SqlServer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\System.Data.SQLite.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\System.Data.SQLite.EF6.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\System.Data.SQLite.Linq.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\EntityFramework.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\EntityFramework.SqlServer.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\bin\Debug\System.Data.SQLite.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\obj\Debug\SQLManager.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\obj\Debug\SQLManager.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\obj\Debug\SQLManager.csproj.CopyComplete
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\obj\Debug\SQLManager.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\SQLManager\obj\Debug\SQLManager.pdb

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Layout;
 
 namespace IPAplicatie
 {
@@ -46,12 +47,19 @@ namespace IPAplicatie
             // Se determina ce tip de layout se va folosi
             // In cazul in care ne dorim sa afisam panoul acasa sau panoul playlist vom afisa elementele intr-un layout de tip tabel
             // In cazul in care ne dorim sa afisam melodiile dintr-un playlist vom afisa elemntele intr-un layout de tip lista
-            if (check == "playlistsList" || check == "acasa" || check == "")
+            if (check == "acasa" || check == "")
+            {
+                height = 185;
+                width = _panel.Width / Layout.GridItem.NumberItems;
+                type = 1;
+                _panel.Height = (height * (playLists.Keys.Count / Layout.GridItem.NumberItems + 1));
+            }
+            else if (check == "playlistsList")
             {
                 height = 200;
-                width = _panel.Width / GridItem.NumberItems;
+                width = _panel.Width / Layout.GridItem.NumberItems;
                 type = 1;
-                _panel.Height = (height * (playLists.Keys.Count / GridItem.NumberItems + 1));
+                _panel.Height = (height * (playLists.Keys.Count / Layout.GridItem.NumberItems + 1));
             }
             else if (check == "playlist" || check == "search")
             {
@@ -74,7 +82,7 @@ namespace IPAplicatie
 
             for (int i = 0; i < playLists.Keys.Count; ++i)
             {
-                _items[i] = _factory.GetItem(type, width, height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i));
+                _items[i] = _factory.GetItem(type, width, height, i, playLists.Keys.ElementAt(i), playLists.Values.ElementAt(i), global::IPAplicatie.Properties.Resources.music);
                 _items[i].SetEvents(new EventHandler(EnterEvent), new EventHandler(LeaveEvent), new MouseEventHandler(RightClickEvent), new EventHandler(DoubleClickEvent));
                 _panel.Controls.Add(_items[i].Panel);
             }

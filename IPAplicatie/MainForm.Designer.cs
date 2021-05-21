@@ -30,7 +30,6 @@ namespace IPAplicatie
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonAcasa = new System.Windows.Forms.Button();
             this.buttonPlaylisturi = new System.Windows.Forms.Button();
             this.buttonCautare = new System.Windows.Forms.Button();
@@ -71,8 +70,8 @@ namespace IPAplicatie
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxYoutubeURL = new System.Windows.Forms.TextBox();
             this.panelAcasa = new System.Windows.Forms.Panel();
-            this.panelAcasaPlaylisturi = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
+            this.panelAcasaPlaylisturi = new System.Windows.Forms.Panel();
             this.panelAcasaMelodii = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.panelPlaylist = new System.Windows.Forms.Panel();
@@ -118,7 +117,6 @@ namespace IPAplicatie
             this.panelSearch.SuspendLayout();
             this.panelYoutube.SuspendLayout();
             this.panelAcasa.SuspendLayout();
-            this.panelAcasaPlaylisturi.SuspendLayout();
             this.panelPlaylist.SuspendLayout();
             this.panelEqualizer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEq10)).BeginInit();
@@ -228,7 +226,7 @@ namespace IPAplicatie
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Image = global::IPAplicatie.Properties.Resources.volume;
             this.pictureBox1.Location = new System.Drawing.Point(819, 10);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox1.Name = "pictureBox1";
@@ -376,59 +374,60 @@ namespace IPAplicatie
             this.toolStripSeparator1,
             this.closeToolStripMenuItem});
             this.contextMenuStripOthers.Name = "contextMenuStrip1";
-            this.contextMenuStripOthers.Size = new System.Drawing.Size(144, 82);
+            this.contextMenuStripOthers.Size = new System.Drawing.Size(211, 110);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.helpToolStripMenuItem.Text = "Ajutor";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.aboutToolStripMenuItem.Text = "Despre";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(140, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.closeToolStripMenuItem.Text = "Iesire";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // addToPlaylistStripMenuItem
             // 
             this.addToPlaylistStripMenuItem.Name = "addToPlaylistStripMenuItem";
-            this.addToPlaylistStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.addToPlaylistStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.addToPlaylistStripMenuItem.Text = "Adauga la un playlist...";
             this.addToPlaylistStripMenuItem.Click += new System.EventHandler(this.addToPlaylistStripMenuItem_Click);
             // 
             // addToFavoriteStripMenuItem
             // 
             this.addToFavoriteStripMenuItem.Name = "addToFavoriteStripMenuItem";
-            this.addToFavoriteStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.addToFavoriteStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.addToFavoriteStripMenuItem.Text = "Adauga la favorite";
             this.addToFavoriteStripMenuItem.Click += new System.EventHandler(this.addToFavoriteStripMenuItem_Click);
             // 
             // deletePlaylistStripMenuItem
             // 
             this.deletePlaylistStripMenuItem.Name = "deletePlaylistStripMenuItem";
-            this.deletePlaylistStripMenuItem.Size = new System.Drawing.Size(173, 24);
+            this.deletePlaylistStripMenuItem.Size = new System.Drawing.Size(172, 24);
             this.deletePlaylistStripMenuItem.Text = "Sterge playlist";
             this.deletePlaylistStripMenuItem.Click += new System.EventHandler(this.deletePlaylistStripMenuItem_Click);
             // 
             // deleteSongStripMenuItem
             // 
             this.deleteSongStripMenuItem.Name = "deleteSongStripMenuItem";
-            this.deleteSongStripMenuItem.Size = new System.Drawing.Size(185, 24);
+            this.deleteSongStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.deleteSongStripMenuItem.Text = "Sterge melodie";
             this.deleteSongStripMenuItem.Click += new System.EventHandler(this.deleteSongStripMenuItem_Click);
             // 
@@ -596,6 +595,7 @@ namespace IPAplicatie
             // 
             // panelAcasa
             // 
+            this.panelAcasa.Controls.Add(this.label12);
             this.panelAcasa.Controls.Add(this.panelAcasaPlaylisturi);
             this.panelAcasa.Controls.Add(this.panelAcasaMelodii);
             this.panelAcasa.Controls.Add(this.label13);
@@ -604,31 +604,30 @@ namespace IPAplicatie
             this.panelAcasa.Size = new System.Drawing.Size(1011, 459);
             this.panelAcasa.TabIndex = 6;
             // 
-            // panelAcasaPlaylisturi
-            // 
-            this.panelAcasaPlaylisturi.Controls.Add(this.label12);
-            this.panelAcasaPlaylisturi.Location = new System.Drawing.Point(12, 259);
-            this.panelAcasaPlaylisturi.Name = "panelAcasaPlaylisturi";
-            this.panelAcasaPlaylisturi.Size = new System.Drawing.Size(973, 200);
-            this.panelAcasaPlaylisturi.TabIndex = 4;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft PhagsPa", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(7, -10);
+            this.label12.Location = new System.Drawing.Point(19, 231);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(243, 25);
             this.label12.TabIndex = 2;
             this.label12.Text = "Playlisturi ascultate recent";
             // 
+            // panelAcasaPlaylisturi
+            // 
+            this.panelAcasaPlaylisturi.Location = new System.Drawing.Point(12, 259);
+            this.panelAcasaPlaylisturi.Name = "panelAcasaPlaylisturi";
+            this.panelAcasaPlaylisturi.Size = new System.Drawing.Size(973, 190);
+            this.panelAcasaPlaylisturi.TabIndex = 4;
+            // 
             // panelAcasaMelodii
             // 
-            this.panelAcasaMelodii.Location = new System.Drawing.Point(12, 24);
+            this.panelAcasaMelodii.Location = new System.Drawing.Point(12, 28);
             this.panelAcasaMelodii.Name = "panelAcasaMelodii";
-            this.panelAcasaMelodii.Size = new System.Drawing.Size(973, 200);
+            this.panelAcasaMelodii.Size = new System.Drawing.Size(973, 190);
             this.panelAcasaMelodii.TabIndex = 3;
             // 
             // label13
@@ -972,7 +971,7 @@ namespace IPAplicatie
             this.addToPlaylistStripMenuItem,
             this.deleteSongStripMenuItem});
             this.SongContextMenuStrip.Name = "SongContextMenuStrip";
-            this.SongContextMenuStrip.Size = new System.Drawing.Size(186, 76);
+            this.SongContextMenuStrip.Size = new System.Drawing.Size(227, 76);
             // 
             // PlaylistContextMenuStrip
             // 
@@ -980,7 +979,7 @@ namespace IPAplicatie
             this.PlaylistContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deletePlaylistStripMenuItem});
             this.PlaylistContextMenuStrip.Name = "PlaylistContextMenuStrip";
-            this.PlaylistContextMenuStrip.Size = new System.Drawing.Size(174, 28);
+            this.PlaylistContextMenuStrip.Size = new System.Drawing.Size(173, 28);
             // 
             // timerThumbnail
             // 
@@ -992,8 +991,8 @@ namespace IPAplicatie
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             this.ClientSize = new System.Drawing.Size(1011, 617);
-            this.Controls.Add(this.panelEqualizer);
             this.Controls.Add(this.panelAcasa);
+            this.Controls.Add(this.panelEqualizer);
             this.Controls.Add(this.panelPlaylistsList);
             this.Controls.Add(this.panelSearch);
             this.Controls.Add(this.panelYoutube);
@@ -1028,8 +1027,6 @@ namespace IPAplicatie
             this.panelYoutube.PerformLayout();
             this.panelAcasa.ResumeLayout(false);
             this.panelAcasa.PerformLayout();
-            this.panelAcasaPlaylisturi.ResumeLayout(false);
-            this.panelAcasaPlaylisturi.PerformLayout();
             this.panelPlaylist.ResumeLayout(false);
             this.panelPlaylist.PerformLayout();
             this.panelEqualizer.ResumeLayout(false);

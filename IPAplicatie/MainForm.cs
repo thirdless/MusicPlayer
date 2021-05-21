@@ -16,9 +16,9 @@ namespace IPAplicatie
 
         ViewManager _viewManager; // Instanta a obiectului ViewManager ce va avea rolul de generare a layout-urilor
 
-        SQLManager _sqlManager; // Instanta a obiectului SQLManager ce se va ocupa cu comunicarea cu baza de date
+        SQLManager.SQLManager _sqlManager; // Instanta a obiectului SQLManager ce se va ocupa cu comunicarea cu baza de date
 
-        MusicPlayer _player; // Instanta a obiectului MusicPlayer ce se va ocupa cu redarea melodiei
+        MusicPlayer.MusicPlayer _player; // Instanta a obiectului MusicPlayer ce se va ocupa cu redarea melodiei
 
         private int _currentSongDuration; // Variabila "_currentSongDuration" contribuie la afisarea duratei 
 
@@ -43,9 +43,9 @@ namespace IPAplicatie
                 { "playlist", panelPlaylist }               // Afiseaza melodiile dintr-un playlist in momentul in care acesta este selectat
             };
 
-            _sqlManager = SQLManager.GetInstance();
+            _sqlManager = SQLManager.SQLManager.GetInstance();
 
-            _player = new MusicPlayer();
+            _player = new MusicPlayer.MusicPlayer();
 
             _viewManager = new ViewManager(this, panelPlaylistsListResult);
 
@@ -601,6 +601,11 @@ namespace IPAplicatie
                 pictureBoxSong.Image = Properties.Resources.music;
                 pictureBoxSong.SizeMode = PictureBoxSizeMode.CenterImage;
             }
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(this, "fisier help.chm");
         }
     }
 }

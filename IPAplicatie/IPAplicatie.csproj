@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E37940B1-A7AC-4CEE-9BC0-9744A4B53121}</ProjectGuid>
+    <ProjectGuid>{D3CCFBE2-140E-43D1-9892-CC235DC0421D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>IPAplicatie</RootNamespace>
     <AssemblyName>IPAplicatie</AssemblyName>
@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,14 +36,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSCore, Version=1.2.1.2, Culture=neutral, PublicKeyToken=5a08f2b6f4415dea, processorArchitecture=MSIL">
-      <HintPath>..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MusicPlayer">
+      <HintPath>..\MusicPlayer\bin\Debug\MusicPlayer.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLManager">
+      <HintPath>..\SQLManager\bin\Debug\SQLManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -69,21 +71,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GridItem.cs" />
-    <Compile Include="ItemFactory.cs" />
-    <Compile Include="LayoutItem.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListItem.cs" />
-    <Compile Include="MusicPlayer.cs" />
-    <Compile Include="ViewManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SQLManager.cs" />
+    <Compile Include="ViewManager.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,22 +108,31 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images\play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Images\skip-forward.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Images\skip-back.png" />
+    <None Include="Resources\Images\music.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Images\pause.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images\music.png" />
+    <None Include="Resources\Images\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\shuffle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\skip-back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\skip-forward.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Images\volume.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Layout\Layout.csproj">
+      <Project>{13b1fef0-1f28-4f82-b284-c97c3eab3908}</Project>
+      <Name>Layout</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

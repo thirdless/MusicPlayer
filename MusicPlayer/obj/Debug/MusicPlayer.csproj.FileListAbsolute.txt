@@ -1,0 +1,9 @@
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\bin\Debug\MusicPlayer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\bin\Debug\MusicPlayer.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\bin\Debug\CSCore.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\bin\Debug\CSCore.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\obj\Debug\MusicPlayer.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\obj\Debug\MusicPlayer.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\obj\Debug\MusicPlayer.csproj.CopyComplete
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\obj\Debug\MusicPlayer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\MusicPlayer\obj\Debug\MusicPlayer.pdb
