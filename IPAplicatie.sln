@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteManager", "SQLManager
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Layout", "Layout\Layout.csproj", "{13B1FEF0-1F28-4F82-B284-C97C3EAB3908}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AplicatieTestUnit", "AplicatieTestUnit\AplicatieTestUnit.csproj", "{26E04F1C-3267-412C-83DA-F11D64D4C9F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{13B1FEF0-1F28-4F82-B284-C97C3EAB3908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13B1FEF0-1F28-4F82-B284-C97C3EAB3908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13B1FEF0-1F28-4F82-B284-C97C3EAB3908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E04F1C-3267-412C-83DA-F11D64D4C9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E04F1C-3267-412C-83DA-F11D64D4C9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E04F1C-3267-412C-83DA-F11D64D4C9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E04F1C-3267-412C-83DA-F11D64D4C9F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
