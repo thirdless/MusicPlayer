@@ -10,3 +10,9 @@ C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.csprojAssemblyReference
 C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.csproj.CoreCompileInputs.cache
 C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.dll
 C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\bin\Debug\Layout.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\bin\Debug\Layout.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\obj\Debug\Layout.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\obj\Debug\Layout.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\obj\Debug\Layout.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\Layout\obj\Debug\Layout.pdb
