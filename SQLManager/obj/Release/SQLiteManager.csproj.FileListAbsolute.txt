@@ -1,0 +1,16 @@
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\SQLManager.dll.config
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\SQLManager.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\SQLManager.pdb
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\EntityFramework.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\System.Data.SQLite.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\EntityFramework.xml
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\third\Desktop\ProiectIP\SQLManager\bin\Release\System.Data.SQLite.xml
+C:\Users\third\Desktop\ProiectIP\SQLManager\obj\Release\SQLiteManager.csprojAssemblyReference.cache
+C:\Users\third\Desktop\ProiectIP\SQLManager\obj\Release\SQLiteManager.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\ProiectIP\SQLManager\obj\Release\SQLiteManager.csproj.CopyComplete
+C:\Users\third\Desktop\ProiectIP\SQLManager\obj\Release\SQLManager.dll
+C:\Users\third\Desktop\ProiectIP\SQLManager\obj\Release\SQLManager.pdb

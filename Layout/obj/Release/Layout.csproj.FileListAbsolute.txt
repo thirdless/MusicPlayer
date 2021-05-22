@@ -1,0 +1,6 @@
+C:\Users\third\Desktop\ProiectIP\Layout\bin\Release\Layout.dll
+C:\Users\third\Desktop\ProiectIP\Layout\bin\Release\Layout.pdb
+C:\Users\third\Desktop\ProiectIP\Layout\obj\Release\Layout.csprojAssemblyReference.cache
+C:\Users\third\Desktop\ProiectIP\Layout\obj\Release\Layout.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\ProiectIP\Layout\obj\Release\Layout.dll
+C:\Users\third\Desktop\ProiectIP\Layout\obj\Release\Layout.pdb

@@ -1,0 +1,9 @@
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Release\MusicPlayer.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Release\MusicPlayer.pdb
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Release\CSCore.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Release\CSCore.xml
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Release\MediaPlayer.csprojAssemblyReference.cache
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Release\MediaPlayer.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Release\MediaPlayer.csproj.CopyComplete
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Release\MusicPlayer.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Release\MusicPlayer.pdb
