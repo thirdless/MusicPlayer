@@ -7,3 +7,21 @@ F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\De
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.dll
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.pdb
+C:\Users\third\Desktop\IPProiect\MusicPlayer\bin\Debug\MusicPlayer.dll
+C:\Users\third\Desktop\IPProiect\MusicPlayer\bin\Debug\MusicPlayer.pdb
+C:\Users\third\Desktop\IPProiect\MusicPlayer\bin\Debug\CSCore.dll
+C:\Users\third\Desktop\IPProiect\MusicPlayer\bin\Debug\CSCore.xml
+C:\Users\third\Desktop\IPProiect\MusicPlayer\obj\Debug\MediaPlayer.csprojAssemblyReference.cache
+C:\Users\third\Desktop\IPProiect\MusicPlayer\obj\Debug\MediaPlayer.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\IPProiect\MusicPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
+C:\Users\third\Desktop\IPProiect\MusicPlayer\obj\Debug\MusicPlayer.dll
+C:\Users\third\Desktop\IPProiect\MusicPlayer\obj\Debug\MusicPlayer.pdb
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Debug\MusicPlayer.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Debug\MusicPlayer.pdb
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Debug\CSCore.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\bin\Debug\CSCore.xml
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csprojAssemblyReference.cache
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.dll
+C:\Users\third\Desktop\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.pdb

@@ -203,7 +203,6 @@ namespace MediaPlayer
                 return;
             }
 
-
             process.OutputDataReceived += (object send, DataReceivedEventArgs ev) =>
             Console.WriteLine("output>>" + ev.Data);
             process.BeginOutputReadLine();
@@ -272,7 +271,7 @@ namespace MediaPlayer
                 string[] time = line.Split(':');
 
                 for (int i = time.Length - 1; i >= 0; --i)
-                    duration += (time.Length - i) * 60 + Convert.ToInt32(time[i]);
+                    duration += (int)Math.Pow(60, time.Length - i - 1) * Convert.ToInt32(time[i]);
 
                 return duration;
             }
@@ -293,7 +292,7 @@ namespace MediaPlayer
             ExecCommand("cmd.exe", " /c del /Q \"Samples\\*\"");
             ExecCommand("youtube-dl.exe", "-f best " + ParseLink(link) + " -x --audio-format \"wav\" -o \"Samples\\audio.wav\"");
 
-            DownloadThumbnail(ParseLink(link));
+            DownloadThumbnail(ParseLink(link), "https://i.ytimg.com/vi/%s/mqdefault.jpg");
 
             try
             {
@@ -302,34 +301,35 @@ namespace MediaPlayer
             catch
             {
                 MessageBox.Show("Redarea melodiei nu s-a facut cu succes. Incearca din nou");
-                return;
             }
         }
 
         // Metoda de obtinere a thumbnail-ului
-        private void DownloadThumbnail(string vid_id)
+        public bool DownloadThumbnail(string vid_id, string url)
         {
-            string path = "Samples/audio.jpg";
+            string path = "Samples/audio.jpg",
+                id;
+
             try
             {
-                string id = vid_id.Split('=')[1];
-
-                if (File.Exists(@path))
-                    File.Delete(@path);
-
-                WebClient client = new WebClient();
-                client.DownloadFileAsync(new Uri("https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"), @path);
+                id = vid_id.Split('=')[1];
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Eroare la descarcarea thumbnailului.\n" + ex.Message);
-                return;
+                return false;
             }
+
+            if (File.Exists(@path))
+                File.Delete(@path);
+
+            WebClient client = new WebClient();
+            client.DownloadFileAsync(new Uri(url.Replace("%s", id)), @path);
+            return true;
         }
 
         // Este utila in cazul in care utilizatorul introduce o melodie dintr-un mix/playlist de pe youtube
         // Pentru a evita acest lucru vom parsa link-ul in asa fel incat sa nu accesam videoclipul din lista
-        private string ParseLink(string url)
+        public string ParseLink(string url)
         {
             string temp = url;
             if (temp.Contains("&list="))

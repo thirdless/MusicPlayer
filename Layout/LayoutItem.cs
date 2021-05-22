@@ -75,6 +75,11 @@ namespace Layout
             panel.Controls.Add(secondary);
         }
 
+        public Size GetPictureSize()
+        {
+            return thumbnail.Size;
+        }
+
         // Metoda de eliminare a elementelor din obiect
         public void Dispose()
         {

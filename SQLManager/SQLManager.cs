@@ -25,7 +25,7 @@ namespace SQLiteManager
     {
         private static SQLManager _instance = null;
 
-        private SQLiteConnection _sqlConnection;
+        private static SQLiteConnection _sqlConnection;
 
         private SQLManager()
         {

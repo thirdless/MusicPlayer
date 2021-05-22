@@ -14,3 +14,19 @@ F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\SQLManager\obj\Deb
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\SQLManager\obj\Debug\SQLiteManager.csproj.CopyComplete
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\SQLManager\obj\Debug\SQLManager.dll
 F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\SQLManager\obj\Debug\SQLManager.pdb
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\SQLManager.dll.config
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\SQLManager.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\SQLManager.pdb
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\EntityFramework.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\System.Data.SQLite.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\EntityFramework.xml
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\third\Desktop\IPProiect\SQLManager\bin\Debug\System.Data.SQLite.xml
+C:\Users\third\Desktop\IPProiect\SQLManager\obj\Debug\SQLiteManager.csprojAssemblyReference.cache
+C:\Users\third\Desktop\IPProiect\SQLManager\obj\Debug\SQLiteManager.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\IPProiect\SQLManager\obj\Debug\SQLiteManager.csproj.CopyComplete
+C:\Users\third\Desktop\IPProiect\SQLManager\obj\Debug\SQLManager.dll
+C:\Users\third\Desktop\IPProiect\SQLManager\obj\Debug\SQLManager.pdb

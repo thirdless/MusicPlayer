@@ -24,7 +24,7 @@ namespace IPAplicatie
 {
     public partial class MainForm : Form
     {
-        private readonly Dictionary<string, Panel> _views;
+        public readonly Dictionary<string, Panel> Views;
 
         public readonly static string EqualizerPath = "equalizer.data";
 
@@ -47,7 +47,7 @@ namespace IPAplicatie
             InitializeComponent();
 
             // Se stocheaza panourile principale
-            _views = new Dictionary<string, Panel>()
+            Views = new Dictionary<string, Panel>()
             {
                 { "acasa", panelAcasa },                    // Afiseaza melodiile si panourile recente
                 { "playlistsList", panelPlaylistsList },    // Afiseaza lista cu playlist-uri iar accesarea unui playlist va redirectiona utilizatorul pe panoul panelPlaylist
@@ -71,7 +71,7 @@ namespace IPAplicatie
 
             Thread.Sleep(500);
             ShowAcasa();
-            CheckEqualizer();
+            CheckEqualizer(EqualizerPath);
         }
 
         public TrackBar GetDurationSlider
@@ -113,10 +113,16 @@ namespace IPAplicatie
         }
 
         // Modifica si asigura ca singurul panou vizibil este cel pasat ca argument
-        private void SetView(Panel panel = null)
+        // Si returneaza daca panelul exista in dictionarul de paneluri
+        public bool SetView(Panel panel = null)
         {
-            foreach (KeyValuePair<string, Panel> item in _views)
+            bool ret = false;
+
+            foreach (KeyValuePair<string, Panel> item in Views)
             {
+                if (item.Value == panel)
+                    ret = true;
+
                 if (item.Value != panel)
                     item.Value.Visible = false;
                 else
@@ -125,12 +131,14 @@ namespace IPAplicatie
 
             if (panel != null && panel != panelPlaylistsList)
                 _viewManager.SetPanel = panel;
+
+            return ret;
         }
 
         // Se foloseste pentru a verificarea panoului vizibil
         public string CheckView()
         {
-            foreach (KeyValuePair<string, Panel> item in _views)
+            foreach (KeyValuePair<string, Panel> item in Views)
             {
                 if (item.Value.Visible)
                     return item.Key;
@@ -246,13 +254,13 @@ namespace IPAplicatie
         }
         private void pictureMediaPlay_Click(object sender, EventArgs e)
         {
-            if(_player.Play_Pause_Click() )
+            if (_player.Play_Pause_Click())
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.pause;
             else
                 pictureMediaPlay.Image = IPAplicatie.Properties.Resources.play;
         }
 
-        private string AddSongToDatabase(string link)
+        public string AddSongToDatabase(string link)
         {
             string songTitle = "";
 
@@ -260,7 +268,10 @@ namespace IPAplicatie
             {
                 songTitle = _player.GetName(link);
 
-                if(songTitle.IndexOf("-") != -1)
+                if (songTitle == "")
+                    throw new Exception("Link invalid, este necesar un link catre un videoclip YouTube");
+
+                if (songTitle.IndexOf("-") != -1)
                     songTitle = songTitle.Substring(0, songTitle.IndexOf("-")).Trim(' ') + " - " + songTitle.Substring(songTitle.IndexOf("-") + 1).Trim(' ');
 
                 if (!_sqlManager.CheckMelodie(link))
@@ -300,14 +311,14 @@ namespace IPAplicatie
                 {
                     //MessageBox.Show(currentOperation.IsAlive.ToString());
                     currentOperation.Abort();
-                }       
-                
+                }
+
                 currentOperation = new Thread(() => _player.DownloadProcedure(_sqlManager.GetSongURL(title), volumeValue));
                 currentOperation.Start();
                 timerThumbnail.Start();
             }
         }
-        
+
         // Se apeleaza in momentul in care se doreste adaugarea unei melodii de pe youtube in lista de melodii
         private void buttonYouTubeAdd_Click(object sender, EventArgs e)
         {
@@ -316,7 +327,14 @@ namespace IPAplicatie
 
             string temp = textBoxYoutubeURL.Text;
 
-            currentOperation = new Thread(() => AddSongToDatabase(temp));
+            try
+            {
+                currentOperation = new Thread(() => AddSongToDatabase(temp));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             currentOperation.Start();
 
@@ -328,7 +346,14 @@ namespace IPAplicatie
         {
             string temp = textBoxYoutubeURL.Text;
 
-            SetMedia(AddSongToDatabase(temp));
+            try
+            {
+                SetMedia(AddSongToDatabase(temp));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             textBoxYoutubeURL.Text = "";
         }
@@ -368,14 +393,26 @@ namespace IPAplicatie
             buttonOK.Top = 50;
             // Daca se apasa butonul OK se updateaza baza de date si se actualizeaza interfata
             buttonOK.Click += new EventHandler((object s, EventArgs ev) => {
-                if (nameBox.Text != "")
+                if (nameBox.Text.Length < 20)
                 {
-                    _sqlManager.AddPlaylist(nameBox.Text);
-                    SetView(panelPlaylistsList);
-                    _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
+                    if (nameBox.Text != "")
+                    {
+                        _sqlManager.AddPlaylist(nameBox.Text);
+                        SetView(panelPlaylistsList);
+                        _viewManager.CreatePlaylists(_sqlManager.GetPlaylists());
+                        popup.DialogResult = DialogResult.OK;
+                        popup.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Numele playlistului nu poate sa fie gol");
+                    }
                 }
-                popup.DialogResult =  DialogResult.OK;
-                popup.Close(); 
+                else
+                {
+                    MessageBox.Show("Numele playlistului este prea lung");
+                    nameBox.Text = "";
+                }
             });
             buttonCancel.Text = "Cancel";
             buttonCancel.Left = 220;
@@ -395,33 +432,43 @@ namespace IPAplicatie
         }
 
         // Configurarea slider-urilor cu valorile din fisierul equalizer.data
-        private void CheckEqualizer()
+        // si returneaza daca s-a citit corect din fisierul equalizer.data
+        public bool CheckEqualizer(string path)
         {
             try
             {
-                if (File.Exists(@EqualizerPath))
+                if (File.Exists(@path))
                 {
-                    string settings = File.ReadAllText(@EqualizerPath);
-                    string[] values = settings.Split(' ');
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        int value = Int32.Parse(values[i]);
-
-                        if (value < 0 || value > 40)
-                            throw new Exception("error");
-
-                        ((TrackBar)(panelEqualizer.Controls.Find("trackBarEq" + (i + 1), false)[0])).Value = value;
-                    }
+                    string settings = File.ReadAllText(@path);
+                    return ProcessEqualizer(settings);
                 }
+                else
+                    return false;
             }
             catch
             {
                 MessageBox.Show("Eroare la parsarea datelor de equalizer");
                 ClearEqualizer();
                 SaveEqualizer();
-                return;
-            } 
+                return false;
+            }
+        }
+
+        public bool ProcessEqualizer(string data)
+        {
+            string[] values = data.Split(' ');
+
+            for (int i = 0; i < 10; i++)
+            {
+                int value = Int32.Parse(values[i]);
+
+                if (value < 0 || value > 40)
+                    throw new Exception("error");
+
+                ((TrackBar)(panelEqualizer.Controls.Find("trackBarEq" + (i + 1), false)[0])).Value = value;
+            }
+
+            return true;
         }
 
         // Metoda pentru resetarea valorilor din panoul equalizer
