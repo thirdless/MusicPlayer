@@ -28,7 +28,7 @@ namespace Layout
             name.AutoSize = true;
 
             secondary.Left = (int)(width * 0.055);
-            secondary.Top = (int)(width * 0.82) + name.Height;
+            secondary.Top = (int)(width * 0.8) + name.Height;
             secondary.Font = new System.Drawing.Font(FontName, (float)(0.035 * height), System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
     }

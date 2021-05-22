@@ -4,3 +4,9 @@ F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\Layout\bin\Debug\La
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\Layout\bin\Debug\Layout.pdb
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\Layout\obj\Debug\Layout.dll
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\Layout\obj\Debug\Layout.pdb
+C:\Users\third\Desktop\IPProiect\Layout\bin\Debug\Layout.dll
+C:\Users\third\Desktop\IPProiect\Layout\bin\Debug\Layout.pdb
+C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.csprojAssemblyReference.cache
+C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.dll
+C:\Users\third\Desktop\IPProiect\Layout\obj\Debug\Layout.pdb

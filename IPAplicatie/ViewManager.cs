@@ -49,7 +49,7 @@ namespace IPAplicatie
             // In cazul in care ne dorim sa afisam melodiile dintr-un playlist vom afisa elemntele intr-un layout de tip lista
             if (check == "acasa" || check == "")
             {
-                height = 185;
+                height = 165;
                 width = _panel.Width / Layout.GridItem.NumberItems;
                 type = 1;
                 _panel.Height = (height * (playLists.Keys.Count / Layout.GridItem.NumberItems + 1));

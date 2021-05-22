@@ -26,3 +26,31 @@ F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\IPAplicatie\bin\Deb
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\IPAplicatie\bin\Debug\EntityFramework.SqlServer.xml
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\IPAplicatie\bin\Debug\Layout.dll
 F:\Facultate\An III\Sem II\IP\Proiect_IP\Proiect\IPAplicatie\IPAplicatie\bin\Debug\Layout.pdb
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\IPAplicatie.exe.config
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\IPAplicatie.exe
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\IPAplicatie.pdb
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\EntityFramework.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\Layout.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\MusicPlayer.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\SQLManager.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\System.Data.SQLite.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\CSCore.dll
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\Layout.pdb
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\EntityFramework.xml
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\MusicPlayer.pdb
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\SQLManager.pdb
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\SQLManager.dll.config
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\System.Data.SQLite.xml
+C:\Users\third\Desktop\IPProiect\IPAplicatie\bin\Debug\CSCore.xml
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csprojAssemblyReference.cache
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.MainForm.resources
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.Properties.Resources.resources
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csproj.GenerateResource.cache
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCompileInputs.cache
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.exe
+C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.pdb
