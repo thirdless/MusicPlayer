@@ -1,4 +1,18 @@
-﻿using System;
+﻿/**************************************************************************
+ *                                                                        *
+ *  File:        MainForm.cs                                              *
+ *  Description: Implements a way for the user to interact with the GUI   *
+ *                                                                        *
+ *  This program is free software; you can redistribute it and/or modify  *
+ *  it under the terms of the GNU General Public License as published by  *
+ *  the Free Software Foundation. This program is distributed in the      *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even   *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR   *
+ *  PURPOSE. See the GNU General Public License for more details.         *
+ *                                                                        *
+ **************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -16,9 +30,9 @@ namespace IPAplicatie
 
         ViewManager _viewManager; // Instanta a obiectului ViewManager ce va avea rolul de generare a layout-urilor
 
-        SQLManager.SQLManager _sqlManager; // Instanta a obiectului SQLManager ce se va ocupa cu comunicarea cu baza de date
+        SQLiteManager.SQLManager _sqlManager; // Instanta a obiectului SQLManager ce se va ocupa cu comunicarea cu baza de date
 
-        MusicPlayer.MusicPlayer _player; // Instanta a obiectului MusicPlayer ce se va ocupa cu redarea melodiei
+        MediaPlayer.MusicPlayer _player; // Instanta a obiectului MusicPlayer ce se va ocupa cu redarea melodiei
 
         private int _currentSongDuration; // Variabila "_currentSongDuration" contribuie la afisarea duratei 
 
@@ -43,9 +57,9 @@ namespace IPAplicatie
                 { "playlist", panelPlaylist }               // Afiseaza melodiile dintr-un playlist in momentul in care acesta este selectat
             };
 
-            _sqlManager = SQLManager.SQLManager.GetInstance();
+            _sqlManager = SQLiteManager.SQLManager.GetInstance();
 
-            _player = new MusicPlayer.MusicPlayer();
+            _player = new MediaPlayer.MusicPlayer();
 
             _viewManager = new ViewManager(this, panelPlaylistsListResult);
 

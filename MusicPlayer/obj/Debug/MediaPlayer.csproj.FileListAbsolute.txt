@@ -1,0 +1,9 @@
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\bin\Debug\MusicPlayer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\bin\Debug\MusicPlayer.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\bin\Debug\CSCore.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\bin\Debug\CSCore.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MediaPlayer.csproj.CopyComplete
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\MusicPlayer\obj\Debug\MusicPlayer.pdb

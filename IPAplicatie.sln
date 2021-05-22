@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPAplicatie", "IPAplicatie\IPAplicatie.csproj", "{D3CCFBE2-140E-43D1-9892-CC235DC0421D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayer", "MusicPlayer\MusicPlayer.csproj", "{9DDCC9FF-ACB5-4706-8469-EFC9837843C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPlayer", "MusicPlayer\MediaPlayer.csproj", "{9DDCC9FF-ACB5-4706-8469-EFC9837843C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLManager", "SQLManager\SQLManager.csproj", "{8725E276-A566-48A1-904A-07F19EB08873}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteManager", "SQLManager\SQLiteManager.csproj", "{8725E276-A566-48A1-904A-07F19EB08873}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Layout", "Layout\Layout.csproj", "{13B1FEF0-1F28-4F82-B284-C97C3EAB3908}"
 EndProject

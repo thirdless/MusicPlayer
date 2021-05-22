@@ -54,3 +54,31 @@ C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCo
 C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
 C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.exe
 C:\Users\third\Desktop\IPProiect\IPAplicatie\obj\Debug\IPAplicatie.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csprojAssemblyReference.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.MainForm.resources
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.Properties.Resources.resources
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.GenerateResource.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCompileInputs.cache
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.exe
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.exe.config
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.exe
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\IPAplicatie.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.SqlServer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\Layout.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\MusicPlayer.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\SQLManager.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.EF6.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.Linq.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\CSCore.dll
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\Layout.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\MusicPlayer.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\SQLManager.pdb
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\SQLManager.dll.config
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\EntityFramework.SqlServer.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\System.Data.SQLite.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\bin\Debug\CSCore.xml
+F:\Facultate\An III\Sem II\IP\Proiect_IP\ProiectGIT\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
