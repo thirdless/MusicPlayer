@@ -112,3 +112,4 @@ C:\Users\third\Desktop\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CoreCo
 C:\Users\third\Desktop\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.csproj.CopyComplete
 C:\Users\third\Desktop\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.exe
 C:\Users\third\Desktop\ProiectIP\IPAplicatie\obj\Debug\IPAplicatie.pdb
+C:\Users\third\Desktop\ProiectIP\IPAplicatie\bin\Debug\fisier help.chm
